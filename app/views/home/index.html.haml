@@ -25,7 +25,7 @@
     
         - @items.each do |item|
           %div{:style => 'border-bottom: 1px solid #ddd; padding: 7px 0; margin: 7px 0;'}
-            #{link_to "#{[item.user.first_name, item.user.last_name].join(' ')}"} added #{link_to item.name, item.url, :target => '_blank'}
+            #{link_to "#{item.user.full_name}", people_path(item.user)} added #{link_to item.name, item.url, :target => '_blank'}
             %br
             = item.description
         

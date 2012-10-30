@@ -6,4 +6,6 @@ Fnnny::Application.routes.draw do
   
   resources :items
   
+  match '/people/:id' => 'people#show', :as => :people, :via => :get
+  
 end
