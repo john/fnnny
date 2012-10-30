@@ -1,0 +1,15 @@
+Use this README file to introduce your application and point to useful places in the API for learning more.
+Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+
+Bookmarklet:
+- click 'Funny' button in browser bar
+- opens pop-up with editable page name, description, and tag area
+- pop-up posts info to fuhnny, thanks user, and disappears
+
+
+Pinterest bookmarklet code:
+javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());
+
+
+javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://127.0.0.1:3000/assets/fuhnnymarklet.js?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)+'&r='+Math.random()*99999999);document.body.appendChild(e)%7D)());

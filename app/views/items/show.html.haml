@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @item.user_id
+%p
+  %b Name:
+  = @item.name
+%p
+  %b Description:
+  = @item.description
+%p
+  %b Url:
+  = @item.url
+%p
+  %b Location:
+  = @item.location
+%p
+  %b Latitude:
+  = @item.latitude
+%p
+  %b Longitude:
+  = @item.longitude
+
+= link_to 'Edit', edit_item_path(@item)
+\|
+= link_to 'Back', items_path

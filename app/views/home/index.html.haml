@@ -1,0 +1,31 @@
+:css
+  td { vertical-align: top; }
+  th { text-align: left; }
+
+%p{:style => 'margin-top: 20px;'}
+  - if user_signed_in?
+  
+    - if @item.present?
+      %h3
+        Instructions
+      %p
+        %ol#instructions
+          %li
+            Install bookmarklet by dragging this link to the bookmark bar of your browser:
+            %div{:style => "padding: 10px 0 20px 0;"}
+              #{link_to 'Funny', "javascript:void(window.open('http://#{configatron.app_url}/items/new?u='+encodeURIComponent(location.href)+'&t='+encodeURIComponent(document.title)+'&r='+Math.random()*99999999));"}
+          %li Surf that web.
+          %li Use bookmarklet to save funny stuff.
+          %li Come back here when you want to see other people's funny stuff.
+    
+      - else
+    
+        %h4{:style => 'margin-top: 30px;'}
+          Today's Fnnny:
+    
+        - @items.each do |item|
+          %div{:style => 'border-bottom: 1px solid #ddd; padding: 7px 0; margin: 7px 0;'}
+            #{link_to "#{[item.user.first_name, item.user.last_name].join(' ')}"} added #{link_to item.name, item.url, :target => '_blank'}
+            %br
+            = item.description
+        

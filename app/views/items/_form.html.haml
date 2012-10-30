@@ -1,0 +1,42 @@
+= form_for @item do |f|
+  - if @item.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@item.errors.count, "error")} prohibited this item from being saved:"
+      %ul
+        - @item.errors.full_messages.each do |msg|
+          %li= msg
+
+  -# .field
+  -#   = f.label :user_id
+  -#   = f.number_field :user_id
+  
+  = f.hidden_field :user_id
+  .field
+    = f.label :name
+    = f.text_field :name
+    
+    
+  - if @bookmarklet_view
+    - @style = 'height: 150px;'
+    = hidden_field_tag :bookmarklet, true
+    = f.hidden_field :url
+  - else
+    .field
+      = f.label :url
+      = f.text_field :url
+      
+  .field
+    = f.label :description
+    = f.text_area :description, :style => @style
+    
+  -# .field
+  -#   = f.label :location
+  -#   = f.text_field :location
+  -# .field
+  -#   = f.label :latitude
+  -#   = f.text_field :latitude
+  -# .field
+  -#   = f.label :longitude
+  -#   = f.text_field :longitude
+  .actions
+    = f.submit 'Save'
