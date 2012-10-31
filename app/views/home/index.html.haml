@@ -28,4 +28,13 @@
             #{link_to "#{item.user.full_name}", people_path(item.user)} added #{link_to item.name, item.url, :target => '_blank'}
             %br
             = item.description
+            
+  - else
+    %h2{:style => 'color: #555'} Fnnny: a scalpel with which to dissect and destroy humor
+    
+    %p
+      #{configatron.app_name.capitalize} helps you discover and share things that you find funny.
+      
+    %p
+      Signup button here
         

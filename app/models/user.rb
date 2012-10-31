@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :full_name, use: :slugged
   
+  acts_as_follower
+  acts_as_followable
+  
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]
       new(session["devise.user_attributes"], without_protection: true) do |user|
