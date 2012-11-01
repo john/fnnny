@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20121031174953) do
   add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
 
   create_table "items", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",     :null => false
     t.string   "name"
     t.text     "description"
     t.string   "url"
@@ -52,10 +52,10 @@ ActiveRecord::Schema.define(:version => 20121031174953) do
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
+    t.integer  "taggable_id",                  :null => false
+    t.string   "taggable_type",                :null => false
+    t.integer  "tagger_id",                    :null => false
+    t.string   "tagger_type",                  :null => false
     t.string   "context",       :limit => 128
     t.datetime "created_at"
   end
@@ -64,7 +64,8 @@ ActiveRecord::Schema.define(:version => 20121031174953) do
   add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
-    t.string "name"
+    t.string  "name",                          :null => false
+    t.boolean "completable", :default => true, :null => false
   end
 
   create_table "users", :force => true do |t|

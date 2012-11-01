@@ -8,5 +8,6 @@ Fnnny::Application.routes.draw do
   resources :tags, :id => /[^\/]+/
   
   match '/people/:id' => 'people#show', :as => :people, :via => :get
+  match '/fnnnymarklet' => 'home#fnnnymarklet', :as => :fnnnymarklet, :via => :get
   
 end

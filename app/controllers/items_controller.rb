@@ -34,7 +34,9 @@ class ItemsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html do
+        render :layout => 'popup' if @bookmarklet_view
+      end
       format.json { render json: @item }
     end
   end

@@ -98,16 +98,16 @@
     = csrf_meta_tags
   %body
     
-    -# for facebook sharing
-    #fb-root
-    :javascript
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+    -# -# for facebook sharing
+    -# #fb-root
+    -# :javascript
+    -#   (function(d, s, id) {
+    -#     var js, fjs = d.getElementsByTagName(s)[0];
+    -#     if (d.getElementById(id)) return;
+    -#     js = d.createElement(s); js.id = id;
+    -#     js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+    -#     fjs.parentNode.insertBefore(js, fjs);
+    -#   }(document, 'script', 'facebook-jssdk'));
     
     -# from: http://www.w3resource.com/twitter-bootstrap/navbar-tutorial.php
     .navbar.navbar-fixed-top.navbar-inverse
@@ -171,13 +171,13 @@
         = yield
     
     
-    -# for google+ sharing
-    :javascript
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
+    -# -# for google+ sharing
+    -# :javascript
+    -#   (function() {
+    -#     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    -#     po.src = 'https://apis.google.com/js/plusone.js';
+    -#     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    -#   })();
     
     
     %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"}

@@ -44,8 +44,9 @@
     
   - if devise_mapping.omniauthable?
     - resource_class.omniauth_providers.each do |provider|
-      %div{:style => 'margin-bottom: 10px;'}
-        =link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
+      - if provider.to_s.downcase == 'facebook'
+        %div{:style => 'margin-bottom: 10px;'}
+          =link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
       
       
   .email_signup

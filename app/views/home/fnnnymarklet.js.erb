@@ -1,0 +1,150 @@
+var styl = document.createElement("style");
+styl.setAttribute("type", "text/css");
+
+var stylTxt0 = document.createTextNode("#fnnny { font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; color: white; font-weight: 600; font-size: 15px;}");
+var stylTxt1 = document.createTextNode("#fnnny table { border: 1px solid #222; vertical-align: top; }");
+var stylTxt2 = document.createTextNode("#fnnny td { vertical-align: top; }");
+var stylTxt3 = document.createTextNode("#fnnny .lbl { text-align: right; padding: 6px 4px 10px 25px;}");
+var stylTxt4 = document.createTextNode("#fnnny .cntnt { text-align: left; padding: 6px 29px 10px 10px;}");
+styl.appendChild(stylTxt0);
+styl.appendChild(stylTxt1);
+styl.appendChild(stylTxt2);
+styl.appendChild(stylTxt3);
+styl.appendChild(stylTxt4);
+document.body.appendChild(styl);
+
+var mainDiv = document.createElement("div");
+mainDiv.setAttribute("id", "fnnny")
+mainDiv.setAttribute("style", "background-color:#121212; color: white; position:fixed; z-index:9999999; top:0;left:0; padding: 20px; width:100%;opacity:0.94; filter:alpha(opacity=94); text-align: center; border-bottom: 2px solid black");
+//var hed = document.createTextNode("This is <%= configatron.app_name.capitalize %>");
+
+<% if signed_in? -%>
+
+  var form = document.createElement("form");
+  form.setAttribute("action", "<%= url_for(items_url) %>");
+  form.setAttribute("method", "post");
+  form.setAttribute("target", "_blank");
+  mainDiv.appendChild(form);
+
+  var hdnMrk = document.createElement("input");
+  hdnMrk.setAttribute("name", "bookmarklet");
+  hdnMrk.setAttribute("type", "hidden");
+  hdnMrk.setAttribute("value", "true");
+  form.appendChild(hdnMrk);
+
+  var hdnAt = document.createElement("input");
+  hdnAt.setAttribute("name", "authenticity_token");
+  hdnAt.setAttribute("type", "hidden");
+  hdnAt.setAttribute("value", "<%#= form_authenticity_token %>");
+  form.appendChild(hdnAt);
+
+  var hdnUid = document.createElement("input");
+  hdnUid.setAttribute("name", "item[user_id]");
+  hdnUid.setAttribute("id", "item_user_id");
+  hdnUid.setAttribute("type", "hidden");
+  hdnUid.setAttribute("value", "<%= current_user.id %>");
+  form.appendChild(hdnUid);
+
+  var hdnUrl = document.createElement("input");
+  hdnUrl.setAttribute("name", "item[url]");
+  hdnUrl.setAttribute("id", "item_url");
+  hdnUrl.setAttribute("type", "hidden");
+  hdnUrl.setAttribute("value", "<%= params[:u] %>");
+  form.appendChild(hdnUrl);
+
+  var tble = document.createElement("table");
+  tble.setAttribute("style", "margin-left: auto; margin-right: auto;");
+
+  var r1 = document.createElement("tr");
+  var r1d1 = document.createElement("td");
+  r1d1.setAttribute("class", "lbl");
+  r1d1.setAttribute("style", "padding-top:20px");
+  var nmeLabel = document.createTextNode("Name: ");
+  r1d1.appendChild(nmeLabel);
+  r1.appendChild(r1d1);
+  var r1d2 = document.createElement("td");
+  r1d2.setAttribute("class", "cntnt");
+  r1d2.setAttribute("style", "padding-top:20px");
+  var nme = document.createElement("input");
+  nme.setAttribute("name", "item[name]");
+  nme.setAttribute("id", "item_name");
+  nme.setAttribute("type", "text");
+  nme.setAttribute("value", "<%= params[:t] %>");
+  nme.setAttribute("style", "width: 500px;");
+  r1d2.appendChild(nme);
+  r1.appendChild(r1d2);
+  tble.appendChild(r1);
+  
+  var r2 = document.createElement("tr");
+  var r2d1 = document.createElement("td");
+  r2d1.setAttribute("class", "lbl");
+  r2d1.setAttribute("style", "color:white;");
+  var descLabel = document.createTextNode("Description: ");
+  r2d1.appendChild(descLabel);
+  r2.appendChild(r2d1);
+  var r2d2 = document.createElement("td");
+  r2d2.setAttribute("class", "cntnt");
+  var desc = document.createElement("textarea");
+  desc.setAttribute("name", "item[description]");
+  desc.setAttribute("id", "item_description");
+  desc.setAttribute("style", "width: 500px;");
+  r2d2.appendChild(desc);
+  r2.appendChild(r2d2);
+  tble.appendChild(r2);
+  
+  var r3 = document.createElement("tr");
+  var r3d1 = document.createElement("td");
+  r3d1.setAttribute("class", "lbl");
+  r3d1.setAttribute("style", "color:white;");
+  var tagLabel = document.createTextNode("Tags: ");
+  r3d1.appendChild(tagLabel);
+  r3.appendChild(r3d1);
+  var r3d2 = document.createElement("td");
+  r3d2.setAttribute("class", "cntnt");
+  var nme = document.createElement("input");
+  nme.setAttribute("name", "item[tag_list]");
+  nme.setAttribute("id", "item_tag_list");
+  nme.setAttribute("type", "text");
+  nme.setAttribute("style", "width: 500px;");
+  r3d2.appendChild(nme);
+  r3.appendChild(r3d2);
+  tble.appendChild(r3);
+  
+  var r4 = document.createElement("tr");
+  var r4d1 = document.createElement("td");
+  r4.appendChild(r4d1);
+  var r4d2 = document.createElement("td");
+  r4d2.setAttribute("class", "cntnt");
+  var btn = document.createElement("input");
+  btn.setAttribute("type", "submit");
+  btn.setAttribute("style", "width: 110px; height: 40px; font-size: 15px; font-weight: bold;");
+  btn.setAttribute("value", "<%= configatron.app_name.capitalize %>!");
+  r4d2.appendChild(btn);
+  r4.appendChild(r4d2);
+  tble.appendChild(r4);
+
+  form.appendChild(tble);
+
+<% else -%>
+  
+  
+  var signinDiv = document.createElement("div");
+  signinDiv.setAttribute("id", "sign_in")
+  signinDiv.setAttribute("style", "background-color:#121212; color: white; position:fixed; z-index:9999999; top:0;left:0; padding: 20px; width:100%;opacity:0.87; filter:alpha(opacity=87); text-align: center; ");
+  
+  var sgn1 = document.createTextNode("Please");
+  var sgn2 = document.createElement("a");
+  sgn2.setAttribute("href", "<%= url_for new_user_session_url %>")
+  sgn2.setAttribute("target", "_blank")
+  sgn2.appendChild(document.createTextNode(" sign in to <%= configatron.app_name.capitalize %> "));
+  var sgn3 = document.createTextNode("to save stuff.");
+  
+  signinDiv.appendChild(sgn1);
+  signinDiv.appendChild(sgn2);
+  signinDiv.appendChild(sgn3);
+  
+  //var hed = document.createTextNode("This is <%= configatron.app_name.capitalize %>");
+  mainDiv.appendChild(signinDiv);
+  
+<% end -%>
+document.body.appendChild(mainDiv);
