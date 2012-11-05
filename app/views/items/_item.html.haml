@@ -15,7 +15,7 @@
   %div
     %small.muted
     
-      = render :partial => "items/like", :locals => {:item => item}
+      = render :partial => "items/like_or_unlike", :locals => {:item => item}
       
       <a href="#{item_url(item)}"><div class="fb-comments-count" data-href="#{item_url(item)}" style="display:inline;">0</div> comments</a>  &#183;
       

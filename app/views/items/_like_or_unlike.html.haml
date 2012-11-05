@@ -1,0 +1,11 @@
+- encoded_id = Base64.urlsafe_encode64(item.id.to_s)
+
+%span{:id => "like_#{item.id}_wrap"}
+  - if current_user.voted_for?(item)
+    #{link_to 'Unlike', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'} &#183;
+  
+  - else
+    #{link_to 'Like', like_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'} &#183;
+    
+:javascript
+  $("#like_#{item.id}_link").on('ajax:success', function(evt, data, status, xhr) { $('#like_#{item.id}_wrap').html( xhr.responseText ) });

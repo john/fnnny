@@ -1,4 +1,4 @@
-%span#follow
+%span{:id => "follow_#{@user.id}"}
   - if current_user.id == @user.id
     %a.btn.btn-small.btn-success.btn-follow
       %i.icon-user.icon-white
@@ -16,4 +16,4 @@
         follow
         
 :javascript
-  $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) { $('#follow').html(xhr.responseText); });
+  $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) { $('#follow_#{@user.id}').html(xhr.responseText); });

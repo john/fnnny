@@ -4,16 +4,19 @@ class ItemsController < ApplicationController
   
   
   def like
-    @item = Item.find(params[:id])
-    current_user.vote_exclusively_for(@item)
-    render :partial => "people/like"
+    if signed_in?
+      @item = Item.find(Base64.urlsafe_decode64(params[:id]))
+      current_user.vote_exclusively_for(@item)
+      render :partial => "items/like_or_unlike", :locals => {:item => @item}
+    end
   end
   
   def unlike
-    
-    @item = Item.find(params[:id])
-    current_user.unvote_for(voteable)
-    render :partial => "people/like"
+    if signed_in?
+      @item = Item.find(Base64.urlsafe_decode64(params[:id]))
+      current_user.unvote_for(@item)
+      render :partial => "items/like_or_unlike", :locals => {:item => @item}
+    end
   end
   
   
