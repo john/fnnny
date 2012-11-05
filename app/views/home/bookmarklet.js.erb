@@ -16,7 +16,17 @@ document.body.appendChild(styl);
 var mainDiv = document.createElement("div");
 mainDiv.setAttribute("id", "fnnny")
 mainDiv.setAttribute("style", "background-color:#121212; color: white; position:fixed; z-index:9999999; top:0;left:0; padding: 20px; width:100%;opacity:0.94; filter:alpha(opacity=94); text-align: center; border-bottom: 2px solid black");
-//var hed = document.createTextNode("This is <%= configatron.app_name.capitalize %>");
+
+var cancel = document.createElement("div");
+cancel.setAttribute("style", "float:right; margin: -15px 45px 0 0;");
+var cancelLnk = document.createElement("a");
+cancelLnk.setAttribute("style", "color: white;")
+cancelLnk.setAttribute("href", "<%= url_for(root_url) %>");
+cancelLnk.setAttribute("onclick", "document.getElementById('fnnny').style.display='none'; return false;");
+var cancelTxt = document.createTextNode("Cancel");
+cancelLnk.appendChild(cancelTxt);
+cancel.appendChild(cancelLnk);
+mainDiv.appendChild(cancel);
 
 <% if signed_in? -%>
 
@@ -24,6 +34,7 @@ mainDiv.setAttribute("style", "background-color:#121212; color: white; position:
   form.setAttribute("action", "<%= url_for(items_url) %>");
   form.setAttribute("method", "post");
   form.setAttribute("target", "_blank");
+  form.setAttribute("onsubmit", "document.getElementById('fnnny').style.display='none'; return true;");
   mainDiv.appendChild(form);
 
   var hdnMrk = document.createElement("input");
@@ -31,12 +42,6 @@ mainDiv.setAttribute("style", "background-color:#121212; color: white; position:
   hdnMrk.setAttribute("type", "hidden");
   hdnMrk.setAttribute("value", "true");
   form.appendChild(hdnMrk);
-
-  var hdnAt = document.createElement("input");
-  hdnAt.setAttribute("name", "authenticity_token");
-  hdnAt.setAttribute("type", "hidden");
-  hdnAt.setAttribute("value", "<%#= form_authenticity_token %>");
-  form.appendChild(hdnAt);
 
   var hdnUid = document.createElement("input");
   hdnUid.setAttribute("name", "item[user_id]");
@@ -102,8 +107,8 @@ mainDiv.setAttribute("style", "background-color:#121212; color: white; position:
   var r3d2 = document.createElement("td");
   r3d2.setAttribute("class", "cntnt");
   var nme = document.createElement("input");
-  nme.setAttribute("name", "item[tag_list]");
-  nme.setAttribute("id", "item_tag_list");
+  nme.setAttribute("name", "tag_list");
+  nme.setAttribute("id", "tag_list");
   nme.setAttribute("type", "text");
   nme.setAttribute("style", "width: 500px;");
   r3d2.appendChild(nme);
@@ -119,6 +124,7 @@ mainDiv.setAttribute("style", "background-color:#121212; color: white; position:
   btn.setAttribute("type", "submit");
   btn.setAttribute("style", "width: 110px; height: 40px; font-size: 15px; font-weight: bold;");
   btn.setAttribute("value", "<%= configatron.app_name.capitalize %>!");
+  
   r4d2.appendChild(btn);
   r4.appendChild(r4d2);
   tble.appendChild(r4);
@@ -129,13 +135,11 @@ mainDiv.setAttribute("style", "background-color:#121212; color: white; position:
   
   
   var signinDiv = document.createElement("div");
-  signinDiv.setAttribute("id", "sign_in")
-  signinDiv.setAttribute("style", "background-color:#121212; color: white; position:fixed; z-index:9999999; top:0;left:0; padding: 20px; width:100%;opacity:0.87; filter:alpha(opacity=87); text-align: center; ");
-  
+  signinDiv.setAttribute("id", "sign_in");
   var sgn1 = document.createTextNode("Please");
   var sgn2 = document.createElement("a");
-  sgn2.setAttribute("href", "<%= url_for new_user_session_url %>")
-  sgn2.setAttribute("target", "_blank")
+  sgn2.setAttribute("href", "<%= url_for new_user_session_url %>");
+  sgn2.setAttribute("target", "_blank");
   sgn2.appendChild(document.createTextNode(" sign in to <%= configatron.app_name.capitalize %> "));
   var sgn3 = document.createTextNode("to save stuff.");
   

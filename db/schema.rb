@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031174953) do
+ActiveRecord::Schema.define(:version => 20121101232604) do
+
+  create_table "appetizers", :force => true do |t|
+    t.string   "name"
+    t.string   "title"
+    t.string   "recipe"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20121031174953) do
   create_table "items", :force => true do |t|
     t.integer  "user_id",     :null => false
     t.string   "name"
+    t.string   "slug"
     t.text     "description"
     t.string   "url"
     t.string   "location"
@@ -49,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20121031174953) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "items", ["slug"], :name => "index_items_on_slug", :unique => true
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

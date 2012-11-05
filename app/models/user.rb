@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  # include ActiveModel::ForbiddenAttributesProtection
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -10,11 +11,12 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
   has_many :authentications, :dependent => :delete_all
-  has_many :items
+  has_many :items, :order => 'created_at DESC'
   
   extend FriendlyId
   friendly_id :full_name, use: :slugged
   
+  acts_as_tagger
   acts_as_follower
   acts_as_followable
   
@@ -73,6 +75,20 @@ class User < ActiveRecord::Base
   
   def full_name
     [first_name, last_name].join(' ')
+  end
+  
+  def display_name
+    full_name.blank? ? email : full_name
+  end
+  
+  def display_first_name
+    if first_name.present?
+      first_name
+    elsif last_name.present?
+      last_name
+    else
+      email
+    end
   end
   
 end

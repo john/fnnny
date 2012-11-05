@@ -2,6 +2,23 @@ class PeopleController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @title = "#{@user.display_name} | #{configatron.app_name}"
+  end
+  
+  def follow
+    if signed_in?
+      @user = User.find(params[:id])
+      current_user.follow(@user)
+      render :partial => "people/follow"
+    end
+  end
+  
+  def unfollow
+    if signed_in?
+      @user = User.find(params[:id])
+      current_user.stop_following(@user)
+      render :partial => "people/follow"
+    end
   end
   
 end

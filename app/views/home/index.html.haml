@@ -1,43 +1,28 @@
-:css
-  td { vertical-align: top; }
-  th { text-align: left; }
+- if user_signed_in?
 
-%p{:style => 'margin-top: 20px;'}
-  - if user_signed_in?
+  - if @items.blank?
+    = render :partial => "home/getting_started"
     
-    - if @items.blank?
-      %h2
-        How to be #{configatron.app_name.capitalize}
-      %h3
-        Getting started
-      %p
-        %ol#instructions
-          %li
-            Install bookmarklet by dragging this link to the bookmark bar of your browser:
-            %div{:style => "padding: 10px 0 20px 0;"}
-              #{link_to configatron.app_name.capitalize, "javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://#{configatron.app_url}/fnnnymarklet.js?u='+encodeURIComponent(location.href)+'&t='+encodeURIComponent(document.title)+'&r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"}
-          %li Surf that web.
-          %li Use bookmarklet to save funny stuff.
-          %li Come back here when you want to see other people's funny stuff.
     
-    - else
-  
-      %h4{:style => 'margin-top: 30px;'}
-        Today's #{configatron.app_name.capitalize}:
-  
-      - @items.each do |item|
-        %div{:style => 'border-bottom: 1px solid #ddd; padding: 7px 0; margin: 7px 0;'}
-          #{link_to "#{item.user.full_name}", people_path(item.user)} added #{link_to item.name, item.url, :target => '_blank'}
-          %br
-          = item.description
-            
+    
   - else
-    %h2 Real #{configatron.app_name.capitalize}
-    -# %h2 How to be #{configatron.app_name.capitalize}
-    %h3{:style => 'color: #555'} #{configatron.app_name.capitalize} helps you discover and share funny stuff.
-    
-    %p
-      = link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
+    -# .page-header
+    -#   %h1
+    -#     #{configatron.app_name} today:
+        
+    - @items.each do |item|
+      = render :partial => "items/item", :locals => {:item => item}
       
-    %p
-      or #{link_to 'log in', new_session_path(User.new) }
+      
+      
+- else
+  .page-header
+    %h2
+      #{configatron.app_name.capitalize} helps you discover and share funny stuff.
+  
+  = link_to "Sign in with Facebook", omniauth_authorize_path(User, 'facebook'), :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
+  
+  -# = link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px; margin: 25px 0; font-size: 18px;'
+    
+  -# %p
+  -#   or #{link_to 'log in', new_session_path(User.new) }

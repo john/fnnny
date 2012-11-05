@@ -2,11 +2,12 @@ class HomeController < ApplicationController
 
   def index
     @title = configatron.app_name
-    @items = Item.all
+    @items = Item.find(:all, :order => 'created_at DESC')
   end
   
-  def fnnnymarklet
+  def bookmarklet
     respond_to do |format|
+      format.html
       format.js
     end
   end

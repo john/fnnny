@@ -1,8 +1,12 @@
 class Item < ActiveRecord::Base
-  attr_accessible :description, :latitude, :location, :longitude, :name, :url, :user_id, :tag_list
+  include ActiveModel::ForbiddenAttributesProtection
+  attr_accessible :description, :latitude, :location, :longitude, :name, :url, :user_id
   
-  belongs_to :user
+  extend FriendlyId
+  friendly_id :name, use: :slugged
   
   acts_as_taggable
+  
+  belongs_to :user
   
 end

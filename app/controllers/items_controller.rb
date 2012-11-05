@@ -1,4 +1,7 @@
 class ItemsController < ApplicationController
+  
+  protect_from_forgery :except => :create 
+  
   # GET /items
   # GET /items.json
   def index
@@ -49,13 +52,14 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(params[:item])
+    @item = Item.new(item_params)
+    @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
 
     respond_to do |format|
       if @item.save
         format.html do
           if params[:bookmarklet] == 'true'
-            render :text => 'Saved that funny thing. Thanks!'
+            render :partial => "items/thanks_bye"
           else
             redirect_to @item, notice: 'Item was successfully created.'
           end
@@ -74,7 +78,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
 
     respond_to do |format|
-      if @item.update_attributes(params[:item])
+      if @item.update_attributes(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { head :no_content }
       else
@@ -95,4 +99,13 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+
+    # Use this method to whitelist the permissible parameters. Example:
+    # params.require(:person).permit(:name, :age)
+    # Also, you can specialize this method with per-user checking of permissible attributes.
+    def item_params
+      params.require(:item).permit(:description, :latitude, :location, :longitude, :name, :url, :user_id, :tag_list)
+    end
 end

@@ -23,6 +23,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'rails', '3.2.8'
 gem 'rspec-rails'
+gem 'strong_parameters' 
 # gem 'sqlite3'
 gem 'valid_email' #http://my.rails-royce.org/2010/07/21/email-validation-in-ruby-on-rails-without-regexp/
 gem 'whenever', :require => false

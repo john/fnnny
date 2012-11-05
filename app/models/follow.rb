@@ -1,5 +1,6 @@
 class Follow < ActiveRecord::Base
-
+  include ActiveModel::ForbiddenAttributesProtection
+  
   extend ActsAsFollower::FollowerLib
   extend ActsAsFollower::FollowScopes
 

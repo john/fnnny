@@ -1,1 +1,28 @@
-Person is: #{@user.full_name}
+.page-header
+  %h1
+    = @user.display_name
+    - if signed_in?
+      = render :partial => "people/follow"
+      
+- if @user.items.blank?
+  
+  - if current_user.id == @user.id
+    %div{:style => 'margin: 15px 0;'}
+      Nothing posted, yet.
+      
+  - else
+    %div{:style => 'margin: 15px 0;'}
+      Nothing posted. Follow these instructions:
+      
+    %ol#instructions
+      %li
+        Install bookmarklet by dragging this link to the bookmark bar of your browser:
+        %div{:style => "padding: 10px 0 20px 0;"}
+          #{link_to configatron.app_name.capitalize, "javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://#{configatron.app_url}/fnnnymarklet.js?u='+encodeURIComponent(location.href)+'&t='+encodeURIComponent(document.title)+'&r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"}
+      %li Surf that web.
+      %li Use bookmarklet to save funny stuff.
+      %li Come back here when you want to see other people's funny stuff.
+  
+- else
+  - @user.items.each do |item|
+    = render :partial => "items/item", :locals => {:item => item}

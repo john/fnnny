@@ -1,0 +1,19 @@
+%span#follow
+  - if current_user.id == @user.id
+    %a.btn.btn-small.btn-success.btn-follow
+      %i.icon-user.icon-white
+      this is you
+    
+  - else
+    - if current_user.following?(@user)
+      %a.btn.btn-small.btn-info.btn-follow{:href => "#{url_for( unfollow_path(@user) )}", :'data-remote' => true, :'data-type' => 'html'}
+        %i.icon-user.icon-white
+        following
+      
+    - else
+      %a.btn.btn-small.btn-success.btn-follow{:href => "#{url_for( follow_path(@user) )}", :'data-remote' => true, :'data-type' => 'html'}
+        %i.icon-user.icon-white
+        follow
+        
+:javascript
+  $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) { $('#follow').html(xhr.responseText); });

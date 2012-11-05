@@ -1,6 +1,6 @@
 Fnnny::Application.configure do
   
-  configatron.app_url = 'localhost:3000'
+  configatron.app_url = 'local.fnnny.com:3000'
   
   # Settings specified here will take precedence over those in config/application.rb
 

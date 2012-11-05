@@ -7,3 +7,60 @@
   border: 1px solid #999
   padding: 4px
   margin: 4px
+  
+// from: http://webdesigntutsplus.s3.amazonaws.com/tuts/312_bs/My-Bootstrap-Site-NAVBAR/css/style.css
+// Navbar Adjustments
+
+/* Top Padding for responsive navbar-top-fixed */
+html
+  height: 100%
+  
+body /* Add top padding for full-width layout */
+  padding-top: 60px
+  //padding-bottom: 40px
+  height: 100%
+
+#wrap
+  min-height: 100%
+  height: auto !important
+  height: 100%
+  margin: 0 auto -80px
+  
+#push #footer
+  height: 80px
+  
+#footer
+  background-color: #ddd
+  border: 1px solid #333
+  text-align: center
+
+.item
+  border-bottom: 1px solid #ddd
+  padding: 7px 0
+  margin: 7px 0
+  
+.added
+  color: #ddd
+  
+// added styles from .brand here. for some reason they weren't working together correctly
+.font-effect-neon
+  padding: 10px 0 10px 0
+  float: left
+  font-size: 36px
+  //font-size: 200px
+  font-family: 'Maiden Orange', cursive
+  margin-top: 10px
+  //margin-top: 120px
+  margin-bottom: -11px
+  //margin-bottom: 89px
+  
+.btn-follow
+  font-weight: normal
+  
+.added
+  a
+    color: #222
+  
+@media (max-width: 979px)
+  body /* Remove top padding when top navbar goes static */
+    padding-top: 0

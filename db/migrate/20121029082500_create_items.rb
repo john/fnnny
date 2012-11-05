@@ -3,6 +3,7 @@ class CreateItems < ActiveRecord::Migration
     create_table :items do |t|
       t.integer :user_id, :null => false
       t.string :name
+      t.string :slug
       t.text :description
       t.string :url
       t.string :location
@@ -12,5 +13,8 @@ class CreateItems < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :items, :slug, :unique => true
+    
   end
 end

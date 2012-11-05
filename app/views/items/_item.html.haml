@@ -1,0 +1,21 @@
+.item
+  .added
+    - if item.name.include?('Techmeme')
+      = image_tag 'flame1.png'
+    - elsif item.name.include?('Pando')
+      = image_tag 'flame2.png'
+    - elsif item.name.include?('Things')
+      = image_tag 'flame3.png'
+      
+    #{link_to item.user.full_name, people_path(item.user)} added #{time_ago_in_words(item.created_at)} ago
+  .title
+    <b>#{link_to item.name.html_safe, item.url, :target => '_blank'}</b>
+  %div
+    = item.description
+  %div
+    %small.muted
+      #{link_to 'Like'} &#183;
+      
+      <a href="#{item_url(item)}"><div class="fb-comments-count" data-href="#{item_url(item)}" style="display:inline;">0</div> comments</a>  &#183;
+      
+      #{link_to 'Share'}
