@@ -2,6 +2,21 @@ class ItemsController < ApplicationController
   
   protect_from_forgery :except => :create 
   
+  
+  def like
+    @item = Item.find(params[:id])
+    current_user.vote_exclusively_for(@item)
+    render :partial => "people/like"
+  end
+  
+  def unlike
+    
+    @item = Item.find(params[:id])
+    current_user.unvote_for(voteable)
+    render :partial => "people/like"
+  end
+  
+  
   # GET /items
   # GET /items.json
   def index

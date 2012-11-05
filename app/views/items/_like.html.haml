@@ -1,0 +1,11 @@
+%span{:id => "like_#{item.id}_wrap"}
+
+- if current_user.voted_for?(item)
+  #{link_to 'Unlike', unlike_item_path(item), :id => "unlike_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'} &#183;
+  :javascript
+    $("#unlike_#{item.id}_link").on('ajax:success', function(evt, data, status, xhr) { $"#like_#{item.id}_wrap").html(xhr.responseText); });
+  
+- else
+  #{link_to 'Like', like_item_path(item), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'} &#183;
+  :javascript
+    $("#like_#{item.id}_link").on('ajax:success', function(evt, data, status, xhr) { $"#like_#{item.id}_wrap").html(xhr.responseText); });

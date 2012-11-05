@@ -1,11 +1,11 @@
 .item
   .added
-    - if item.name.include?('Techmeme')
-      = image_tag 'flame1.png'
-    - elsif item.name.include?('Pando')
-      = image_tag 'flame2.png'
-    - elsif item.name.include?('Things')
-      = image_tag 'flame3.png'
+    -# - if item.name.include?('Techmeme')
+    -#   = image_tag 'flame1.png'
+    -# - elsif item.name.include?('Pando')
+    -#   = image_tag 'flame2.png'
+    -# - elsif item.name.include?('Things')
+    -#   = image_tag 'flame3.png'
       
     #{link_to item.user.full_name, people_path(item.user)} added #{time_ago_in_words(item.created_at)} ago
   .title
@@ -14,8 +14,10 @@
     = item.description
   %div
     %small.muted
-      #{link_to 'Like'} &#183;
+    
+      = render :partial => "items/like", :locals => {:item => item}
       
       <a href="#{item_url(item)}"><div class="fb-comments-count" data-href="#{item_url(item)}" style="display:inline;">0</div> comments</a>  &#183;
       
       #{link_to 'Share'}
+      

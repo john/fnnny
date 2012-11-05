@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   acts_as_tagger
   acts_as_follower
   acts_as_followable
+  acts_as_voter
+  has_karma(:items, :as => :user, :weight => 0.5)
   
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]

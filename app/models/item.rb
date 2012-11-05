@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
   friendly_id :name, use: :slugged
   
   acts_as_taggable
+  acts_as_voteable
   
   belongs_to :user
   
