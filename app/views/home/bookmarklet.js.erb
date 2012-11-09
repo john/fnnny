@@ -15,7 +15,7 @@ document.body.appendChild(styl);
 
 var mainDiv = document.createElement("div");
 mainDiv.setAttribute("id", "fnnny")
-mainDiv.setAttribute("style", "background-color:#121212; color: white; position:fixed; z-index:9999999; top:0;left:0; padding: 20px; width:100%;opacity:0.94; filter:alpha(opacity=94); text-align: center; border-bottom: 2px solid black");
+mainDiv.setAttribute("style", "background-color:#121212; color: white; position:fixed; z-index:9999999; top:0;left:0; padding: 20px; width:100%;opacity:0.90; filter:alpha(opacity=90); text-align: center; border-bottom: 2px solid black");
 
 var cancel = document.createElement("div");
 cancel.setAttribute("style", "float:right; margin: -15px 45px 0 0;");
@@ -36,6 +36,9 @@ mainDiv.appendChild(cancel);
   form.setAttribute("target", "_blank");
   form.setAttribute("onsubmit", "document.getElementById('fnnny').style.display='none'; return true;");
   mainDiv.appendChild(form);
+
+
+<%# ------------------ HIDDEN INPUTS ----------------%>
 
   var hdnMrk = document.createElement("input");
   hdnMrk.setAttribute("name", "bookmarklet");
@@ -60,6 +63,9 @@ mainDiv.appendChild(cancel);
   var tble = document.createElement("table");
   tble.setAttribute("style", "margin-left: auto; margin-right: auto;");
 
+
+<%# ------------------ NAME ROW ----------------%>
+
   var r1 = document.createElement("tr");
   var r1d1 = document.createElement("td");
   r1d1.setAttribute("class", "lbl");
@@ -80,6 +86,9 @@ mainDiv.appendChild(cancel);
   r1.appendChild(r1d2);
   tble.appendChild(r1);
   
+  
+<%# ------------------ DESCRIPTION ROW ----------------%>
+  
   var r2 = document.createElement("tr");
   var r2d1 = document.createElement("td");
   r2d1.setAttribute("class", "lbl");
@@ -97,6 +106,9 @@ mainDiv.appendChild(cancel);
   r2.appendChild(r2d2);
   tble.appendChild(r2);
   
+  
+<%# ------------------ TAGS ROW ----------------%>
+    
   var r3 = document.createElement("tr");
   var r3d1 = document.createElement("td");
   r3d1.setAttribute("class", "lbl");
@@ -115,19 +127,60 @@ mainDiv.appendChild(cancel);
   r3.appendChild(r3d2);
   tble.appendChild(r3);
   
+  
+<%# ------------------ IMAGES ROW ----------------%>
+  
+  
   var r4 = document.createElement("tr");
   var r4d1 = document.createElement("td");
+  r4d1.setAttribute("class", "lbl");
+  r4d1.setAttribute("style", "color:white;");
+  var imgLabel = document.createTextNode("Pick image: ");
+  r4d1.appendChild(imgLabel);
   r4.appendChild(r4d1);
   var r4d2 = document.createElement("td");
-  r4d2.setAttribute("class", "cntnt");
+  
+  var imgs = document.getElementsByTagName("img");
+  var len = imgs.length;
+  var image_count = 1;
+  for (var i=0; i<len; ++i) {
+    src_image = imgs[i];
+    if( src_image.clientWidth > 50 ) {
+      image_count++;
+      var target_image = document.createElement("img");
+      target_image.setAttribute("src", src_image.src);
+      
+      if( image_count == 6 ) {
+        var br = document.createElement("br");
+        br.setAttribute("style", "clear:both;");
+        r4d2.appendChild( br );
+      }
+      
+      target_image.setAttribute("style", "float: left; width: 75px;");
+      r4d2.appendChild(target_image);
+      if( image_count > 9)
+        break;
+    }
+  }
+  
+  r4.appendChild(r4d2);
+  tble.appendChild(r4);
+  
+<%# ------------------ SUBMIT ROW ----------------%>
+  
+  var r5 = document.createElement("tr");
+  var r5d1 = document.createElement("td");
+  r5.appendChild(r5d1);
+  var r5d2 = document.createElement("td");
+  r5d2.setAttribute("class", "cntnt");
   var btn = document.createElement("input");
   btn.setAttribute("type", "submit");
   btn.setAttribute("style", "width: 110px; height: 40px; font-size: 15px; font-weight: bold;");
   btn.setAttribute("value", "<%= configatron.app_name.capitalize %>!");
   
-  r4d2.appendChild(btn);
-  r4.appendChild(r4d2);
-  tble.appendChild(r4);
+  r5d2.appendChild(btn);
+  r5.appendChild(r5d2);
+  tble.appendChild(r5);
 
   form.appendChild(tble);
 
