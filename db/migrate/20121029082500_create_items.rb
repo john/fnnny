@@ -6,10 +6,11 @@ class CreateItems < ActiveRecord::Migration
       t.string :slug
       t.text :description
       t.string :url
-      t.sring :sm_img_url
-      t.string :md_img_url
-      t.string :lg_img_url
-      t.string :sq_img_url
+      t.string :original_img_url
+      t.string :small_img_url
+      t.string :medium_img_url
+      t.string :large_img_url
+      t.string :square_img_url
       t.string :location
       t.float :latitude
       t.float :longitude

@@ -125,6 +125,6 @@ class ItemsController < ApplicationController
     # params.require(:person).permit(:name, :age)
     # Also, you can specialize this method with per-user checking of permissible attributes.
     def item_params
-      params.require(:item).permit(:description, :latitude, :location, :longitude, :name, :url, :user_id, :tag_list)
+      params.require(:item).permit(:description, :latitude, :location, :longitude, :name, :url, :original_img_url, :small_img_url, :medium_img_url, :large_img_url, :square_img_url, :user_id, :tag_list)
     end
 end

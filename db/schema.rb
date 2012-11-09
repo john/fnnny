@@ -38,17 +38,22 @@ ActiveRecord::Schema.define(:version => 20121105090735) do
   add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
 
   create_table "items", :force => true do |t|
-    t.integer  "user_id",     :null => false
+    t.integer  "user_id",          :null => false
     t.string   "name"
     t.string   "slug"
     t.text     "description"
     t.string   "url"
+    t.string   "original_img_url"
+    t.string   "small_img_url"
+    t.string   "medium_img_url"
+    t.string   "large_img_url"
+    t.string   "square_img_url"
     t.string   "location"
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "geo_quality"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "items", ["slug"], :name => "index_items_on_slug", :unique => true

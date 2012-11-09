@@ -1,207 +1,223 @@
-var styl = document.createElement("style");
-styl.setAttribute("type", "text/css");
+javascript:(function(){
+  var styl = document.createElement("style");
+  styl.setAttribute("type", "text/css");
 
-var stylTxt0 = document.createTextNode("#fnnny { font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; color: white; font-weight: 600; font-size: 15px;}");
-var stylTxt1 = document.createTextNode("#fnnny table { border: 1px solid #222; vertical-align: top; }");
-var stylTxt2 = document.createTextNode("#fnnny td { vertical-align: top; }");
-var stylTxt3 = document.createTextNode("#fnnny .lbl { text-align: right; padding: 6px 4px 10px 25px;}");
-var stylTxt4 = document.createTextNode("#fnnny .cntnt { text-align: left; padding: 6px 29px 10px 10px;}");
-styl.appendChild(stylTxt0);
-styl.appendChild(stylTxt1);
-styl.appendChild(stylTxt2);
-styl.appendChild(stylTxt3);
-styl.appendChild(stylTxt4);
-document.body.appendChild(styl);
+  var stylTxt0 = document.createTextNode("#fnnny { font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; color: white; font-weight: 600; font-size: 15px;}");
+  var stylTxt1 = document.createTextNode("#fnnny table { border: 1px solid #222; vertical-align: top; }");
+  var stylTxt2 = document.createTextNode("#fnnny td { vertical-align: top; }");
+  var stylTxt3 = document.createTextNode("#fnnny .lbl { text-align: right; padding: 6px 4px 10px 25px;}");
+  var stylTxt4 = document.createTextNode("#fnnny .cntnt { text-align: left; padding: 6px 29px 10px 10px;}");
+  styl.appendChild(stylTxt0);
+  styl.appendChild(stylTxt1);
+  styl.appendChild(stylTxt2);
+  styl.appendChild(stylTxt3);
+  styl.appendChild(stylTxt4);
+  document.body.appendChild(styl);
 
-var mainDiv = document.createElement("div");
-mainDiv.setAttribute("id", "fnnny")
-mainDiv.setAttribute("style", "background-color:#121212; color: white; position:fixed; z-index:9999999; top:0;left:0; padding: 20px; width:100%;opacity:0.90; filter:alpha(opacity=90); text-align: center; border-bottom: 2px solid black");
+  var mainDiv = document.createElement("div");
+  mainDiv.setAttribute("id", "fnnny")
+  mainDiv.setAttribute("style", "background-color:#121212; color: white; position:fixed; z-index:9999999; top:0;left:0; padding: 20px; width:100%;opacity:0.90; filter:alpha(opacity=90); text-align: center; border-bottom: 2px solid black");
 
-var cancel = document.createElement("div");
-cancel.setAttribute("style", "float:right; margin: -15px 45px 0 0;");
-var cancelLnk = document.createElement("a");
-cancelLnk.setAttribute("style", "color: white;")
-cancelLnk.setAttribute("href", "<%= url_for(root_url) %>");
-cancelLnk.setAttribute("onclick", "document.getElementById('fnnny').style.display='none'; return false;");
-var cancelTxt = document.createTextNode("Cancel");
-cancelLnk.appendChild(cancelTxt);
-cancel.appendChild(cancelLnk);
-mainDiv.appendChild(cancel);
+  var cancel = document.createElement("div");
+  cancel.setAttribute("style", "float:right; margin: -15px 45px 0 0;");
+  var cancelLnk = document.createElement("a");
+  cancelLnk.setAttribute("style", "color: white;")
+  cancelLnk.setAttribute("href", "<%= url_for(root_url) %>");
+  cancelLnk.setAttribute("onclick", "document.getElementById('fnnny').style.display='none'; return false;");
+  var cancelTxt = document.createTextNode("Cancel");
+  cancelLnk.appendChild(cancelTxt);
+  cancel.appendChild(cancelLnk);
+  mainDiv.appendChild(cancel);
 
-<% if signed_in? -%>
+  <% if signed_in? -%>
 
-  var form = document.createElement("form");
-  form.setAttribute("action", "<%= url_for(items_url) %>");
-  form.setAttribute("method", "post");
-  form.setAttribute("target", "_blank");
-  form.setAttribute("onsubmit", "document.getElementById('fnnny').style.display='none'; return true;");
-  mainDiv.appendChild(form);
-
-
-<%# ------------------ HIDDEN INPUTS ----------------%>
-
-  var hdnMrk = document.createElement("input");
-  hdnMrk.setAttribute("name", "bookmarklet");
-  hdnMrk.setAttribute("type", "hidden");
-  hdnMrk.setAttribute("value", "true");
-  form.appendChild(hdnMrk);
-
-  var hdnUid = document.createElement("input");
-  hdnUid.setAttribute("name", "item[user_id]");
-  hdnUid.setAttribute("id", "item_user_id");
-  hdnUid.setAttribute("type", "hidden");
-  hdnUid.setAttribute("value", "<%= current_user.id %>");
-  form.appendChild(hdnUid);
-
-  var hdnUrl = document.createElement("input");
-  hdnUrl.setAttribute("name", "item[url]");
-  hdnUrl.setAttribute("id", "item_url");
-  hdnUrl.setAttribute("type", "hidden");
-  hdnUrl.setAttribute("value", "<%= params[:u] %>");
-  form.appendChild(hdnUrl);
-
-  var tble = document.createElement("table");
-  tble.setAttribute("style", "margin-left: auto; margin-right: auto;");
+    var form = document.createElement("form");
+    form.setAttribute("action", "<%= url_for(items_url) %>");
+    form.setAttribute("method", "post");
+    form.setAttribute("target", "_blank");
+    form.setAttribute("onsubmit", "document.getElementById('fnnny').style.display='none'; return true;");
+    mainDiv.appendChild(form);
 
 
-<%# ------------------ NAME ROW ----------------%>
+  <%# ------------------ HIDDEN INPUTS ----------------%>
 
-  var r1 = document.createElement("tr");
-  var r1d1 = document.createElement("td");
-  r1d1.setAttribute("class", "lbl");
-  r1d1.setAttribute("style", "padding-top:20px");
-  var nmeLabel = document.createTextNode("Name: ");
-  r1d1.appendChild(nmeLabel);
-  r1.appendChild(r1d1);
-  var r1d2 = document.createElement("td");
-  r1d2.setAttribute("class", "cntnt");
-  r1d2.setAttribute("style", "padding-top:20px");
-  var nme = document.createElement("input");
-  nme.setAttribute("name", "item[name]");
-  nme.setAttribute("id", "item_name");
-  nme.setAttribute("type", "text");
-  nme.setAttribute("value", "<%= params[:t] %>");
-  nme.setAttribute("style", "width: 500px;");
-  r1d2.appendChild(nme);
-  r1.appendChild(r1d2);
-  tble.appendChild(r1);
+    var hdnMrk = document.createElement("input");
+    hdnMrk.setAttribute("name", "bookmarklet");
+    hdnMrk.setAttribute("type", "hidden");
+    hdnMrk.setAttribute("value", "true");
+    form.appendChild(hdnMrk);
+
+    var hdnUid = document.createElement("input");
+    hdnUid.setAttribute("name", "item[user_id]");
+    hdnUid.setAttribute("id", "item_user_id");
+    hdnUid.setAttribute("type", "hidden");
+    hdnUid.setAttribute("value", "<%= current_user.id %>");
+    form.appendChild(hdnUid);
+
+    var hdnUrl = document.createElement("input");
+    hdnUrl.setAttribute("name", "item[url]");
+    hdnUrl.setAttribute("id", "item_url");
+    hdnUrl.setAttribute("type", "hidden");
+    hdnUrl.setAttribute("value", "<%= params[:u] %>");
+    form.appendChild(hdnUrl);
+
+    var tble = document.createElement("table");
+    tble.setAttribute("style", "margin-left: auto; margin-right: auto;");
+
+
+  <%# ------------------ NAME ROW ----------------%>
+
+    var r1 = document.createElement("tr");
+    var r1d1 = document.createElement("td");
+    r1d1.setAttribute("class", "lbl");
+    r1d1.setAttribute("style", "padding-top:20px");
+    var nmeLabel = document.createTextNode("Name: ");
+    r1d1.appendChild(nmeLabel);
+    r1.appendChild(r1d1);
+    var r1d2 = document.createElement("td");
+    r1d2.setAttribute("class", "cntnt");
+    r1d2.setAttribute("style", "padding-top:20px");
+    var nme = document.createElement("input");
+    nme.setAttribute("name", "item[name]");
+    nme.setAttribute("id", "item_name");
+    nme.setAttribute("type", "text");
+    nme.setAttribute("value", "<%= params[:t] %>");
+    nme.setAttribute("style", "width: 500px;");
+    r1d2.appendChild(nme);
+    r1.appendChild(r1d2);
+    tble.appendChild(r1);
   
   
-<%# ------------------ DESCRIPTION ROW ----------------%>
+  <%# ------------------ DESCRIPTION ROW ----------------%>
   
-  var r2 = document.createElement("tr");
-  var r2d1 = document.createElement("td");
-  r2d1.setAttribute("class", "lbl");
-  r2d1.setAttribute("style", "color:white;");
-  var descLabel = document.createTextNode("Description: ");
-  r2d1.appendChild(descLabel);
-  r2.appendChild(r2d1);
-  var r2d2 = document.createElement("td");
-  r2d2.setAttribute("class", "cntnt");
-  var desc = document.createElement("textarea");
-  desc.setAttribute("name", "item[description]");
-  desc.setAttribute("id", "item_description");
-  desc.setAttribute("style", "width: 500px;");
-  r2d2.appendChild(desc);
-  r2.appendChild(r2d2);
-  tble.appendChild(r2);
+    var r2 = document.createElement("tr");
+    var r2d1 = document.createElement("td");
+    r2d1.setAttribute("class", "lbl");
+    r2d1.setAttribute("style", "color:white;");
+    var descLabel = document.createTextNode("Description: ");
+    r2d1.appendChild(descLabel);
+    r2.appendChild(r2d1);
+    var r2d2 = document.createElement("td");
+    r2d2.setAttribute("class", "cntnt");
+    var desc = document.createElement("textarea");
+    desc.setAttribute("name", "item[description]");
+    desc.setAttribute("id", "item_description");
+    desc.setAttribute("style", "width: 500px;");
+    r2d2.appendChild(desc);
+    r2.appendChild(r2d2);
+    tble.appendChild(r2);
   
   
-<%# ------------------ TAGS ROW ----------------%>
+  <%# ------------------ TAGS ROW ----------------%>
     
-  var r3 = document.createElement("tr");
-  var r3d1 = document.createElement("td");
-  r3d1.setAttribute("class", "lbl");
-  r3d1.setAttribute("style", "color:white;");
-  var tagLabel = document.createTextNode("Tags: ");
-  r3d1.appendChild(tagLabel);
-  r3.appendChild(r3d1);
-  var r3d2 = document.createElement("td");
-  r3d2.setAttribute("class", "cntnt");
-  var nme = document.createElement("input");
-  nme.setAttribute("name", "tag_list");
-  nme.setAttribute("id", "tag_list");
-  nme.setAttribute("type", "text");
-  nme.setAttribute("style", "width: 500px;");
-  r3d2.appendChild(nme);
-  r3.appendChild(r3d2);
-  tble.appendChild(r3);
+    var r3 = document.createElement("tr");
+    var r3d1 = document.createElement("td");
+    r3d1.setAttribute("class", "lbl");
+    r3d1.setAttribute("style", "color:white;");
+    var tagLabel = document.createTextNode("Tags: ");
+    r3d1.appendChild(tagLabel);
+    r3.appendChild(r3d1);
+    var r3d2 = document.createElement("td");
+    r3d2.setAttribute("class", "cntnt");
+    var nme = document.createElement("input");
+    nme.setAttribute("name", "tag_list");
+    nme.setAttribute("id", "tag_list");
+    nme.setAttribute("type", "text");
+    nme.setAttribute("style", "width: 500px;");
+    r3d2.appendChild(nme);
+    r3.appendChild(r3d2);
+    tble.appendChild(r3);
   
   
-<%# ------------------ IMAGES ROW ----------------%>
+  <%# ------------------ IMAGES ROW ----------------%>
   
   
-  var r4 = document.createElement("tr");
-  var r4d1 = document.createElement("td");
-  r4d1.setAttribute("class", "lbl");
-  r4d1.setAttribute("style", "color:white;");
-  var imgLabel = document.createTextNode("Pick image: ");
-  r4d1.appendChild(imgLabel);
-  r4.appendChild(r4d1);
-  var r4d2 = document.createElement("td");
+    var r4 = document.createElement("tr");
+    var r4d1 = document.createElement("td");
+    r4d1.setAttribute("class", "lbl");
+    r4d1.setAttribute("style", "color:white;");
+    var imgLabel = document.createTextNode("Pick image: ");
+    r4d1.appendChild(imgLabel);
+    r4.appendChild(r4d1);
+    var r4d2 = document.createElement("td");
   
-  var imgs = document.getElementsByTagName("img");
-  var len = imgs.length;
-  var image_count = 1;
-  for (var i=0; i<len; ++i) {
-    src_image = imgs[i];
-    if( src_image.clientWidth > 50 ) {
-      image_count++;
-      var target_image = document.createElement("img");
-      target_image.setAttribute("src", src_image.src);
+    var imgs = document.getElementsByTagName("img");
+    var len = imgs.length;
+    var image_count = 1;
+    for (var i=0; i<len; ++i) {
+      src_image = imgs[i];
+      if( src_image.clientWidth > 50 ) {
+        image_count++;
+        
+        var d = document.createElement("div");
+        d.setAttribute("style", "float: left;");
+        
+        var target_image = document.createElement("img");
+        target_image.setAttribute("src", src_image.src);
+        target_image.setAttribute("style", "width: 75px;");
+        
+        var inp = document.createElement("input");
+        inp.setAttribute("type", "radio");
+        inp.setAttribute("name", "item[original_img_url]");
+        inp.setAttribute("id", "item_original_img_url");
+        inp.setAttribute("value", src_image.src);
+        
+        d.appendChild(target_image);
+        d.appendChild( document.createElement("br") );
+        d.appendChild(inp);
+        r4d2.appendChild(d);
       
-      if( image_count == 6 ) {
-        var br = document.createElement("br");
-        br.setAttribute("style", "clear:both;");
-        r4d2.appendChild( br );
+        if( image_count == 6 ) {
+          var br = document.createElement("br");
+          br.setAttribute("style", "clear:both;");
+          r4d2.appendChild( br );
+        }
+      
+        if( image_count > 10)
+          break;
       }
-      
-      target_image.setAttribute("style", "float: left; width: 75px;");
-      r4d2.appendChild(target_image);
-      if( image_count > 9)
-        break;
     }
-  }
   
-  r4.appendChild(r4d2);
-  tble.appendChild(r4);
+    r4.appendChild(r4d2);
+    tble.appendChild(r4);
   
-<%# ------------------ SUBMIT ROW ----------------%>
+  <%# ------------------ SUBMIT ROW ----------------%>
   
-  var r5 = document.createElement("tr");
-  var r5d1 = document.createElement("td");
-  r5.appendChild(r5d1);
-  var r5d2 = document.createElement("td");
-  r5d2.setAttribute("class", "cntnt");
-  var btn = document.createElement("input");
-  btn.setAttribute("type", "submit");
-  btn.setAttribute("style", "width: 110px; height: 40px; font-size: 15px; font-weight: bold;");
-  btn.setAttribute("value", "<%= configatron.app_name.capitalize %>!");
+    var r5 = document.createElement("tr");
+    var r5d1 = document.createElement("td");
+    r5.appendChild(r5d1);
+    var r5d2 = document.createElement("td");
+    r5d2.setAttribute("class", "cntnt");
+    var btn = document.createElement("input");
+    btn.setAttribute("type", "submit");
+    btn.setAttribute("style", "width: 110px; height: 40px; font-size: 15px; font-weight: bold;");
+    btn.setAttribute("value", "<%= configatron.app_name.capitalize %>!");
   
-  r5d2.appendChild(btn);
-  r5.appendChild(r5d2);
-  tble.appendChild(r5);
+    r5d2.appendChild(btn);
+    r5.appendChild(r5d2);
+    tble.appendChild(r5);
 
-  form.appendChild(tble);
+    form.appendChild(tble);
 
-<% else -%>
+  <% else -%>
   
   
-  var signinDiv = document.createElement("div");
-  signinDiv.setAttribute("id", "sign_in");
-  var sgn1 = document.createTextNode("Please");
-  var sgn2 = document.createElement("a");
-  sgn2.setAttribute("href", "<%= url_for new_user_session_url %>");
-  sgn2.setAttribute("target", "_blank");
-  sgn2.appendChild(document.createTextNode(" sign in to <%= configatron.app_name.capitalize %> "));
-  var sgn3 = document.createTextNode("to save stuff.");
+    var signinDiv = document.createElement("div");
+    signinDiv.setAttribute("id", "sign_in");
+    var sgn1 = document.createTextNode("Please");
+    var sgn2 = document.createElement("a");
+    sgn2.setAttribute("href", "<%= url_for new_user_session_url %>");
+    sgn2.setAttribute("target", "_blank");
+    sgn2.appendChild(document.createTextNode(" sign in to <%= configatron.app_name.capitalize %> "));
+    var sgn3 = document.createTextNode("to save stuff.");
   
-  signinDiv.appendChild(sgn1);
-  signinDiv.appendChild(sgn2);
-  signinDiv.appendChild(sgn3);
+    signinDiv.appendChild(sgn1);
+    signinDiv.appendChild(sgn2);
+    signinDiv.appendChild(sgn3);
   
-  //var hed = document.createTextNode("This is <%= configatron.app_name.capitalize %>");
-  mainDiv.appendChild(signinDiv);
+    //var hed = document.createTextNode("This is <%= configatron.app_name.capitalize %>");
+    mainDiv.appendChild(signinDiv);
   
-<% end -%>
-document.body.appendChild(mainDiv);
+  <% end -%>
+  document.body.appendChild(mainDiv);
+})();
