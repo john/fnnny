@@ -12,12 +12,5 @@
     <b>#{link_to item.name.html_safe, item.url, :target => '_blank'}</b>
   %div
     = item.description
-  %div
-    %small.muted
     
-      = render :partial => "items/like_or_unlike", :locals => {:item => item}
-      
-      <a href="#{item_url(item)}"><div class="fb-comments-count" data-href="#{item_url(item)}" style="display:inline;">0</div> comments</a>  &#183;
-      
-      #{link_to 'Share'}
-      
+  = render :partial => "items/links", :locals => {:item => item}

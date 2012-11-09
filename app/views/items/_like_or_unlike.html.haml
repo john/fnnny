@@ -1,11 +1,37 @@
 - encoded_id = Base64.urlsafe_encode64(item.id.to_s)
 
 %span{:id => "like_#{item.id}_wrap"}
-  - if current_user.voted_for?(item)
-    #{link_to 'Unlike', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'} &#183;
+
+  - if @suggest_facebook
+    #{link_to 'post to facebook too?', '#', :onclick => "pushToFB('#{URI.encode(item_url(item))}', '#{item.name}');"}
+    (#{link_to 'undo', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'})
   
   - else
-    #{link_to 'Like', like_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'} &#183;
+    - if current_user.voted_for?(item)
+      #{link_to 'unlike', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+  
+    - else
+      #{link_to 'like', like_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+    
     
 :javascript
-  $("#like_#{item.id}_link").on('ajax:success', function(evt, data, status, xhr) { $('#like_#{item.id}_wrap').html( xhr.responseText ) });
+  $("#like_#{item.id}_link").on(
+    'ajax:success',
+    function(evt, data, status, xhr) {
+      $('#like_#{item.id}_wrap').html( xhr.responseText )
+      
+      // // only do this if it's a 'like', not an unlikes
+      // // add a div below the item...
+      // var msg = document.createElement('div');
+      // var lnk = document.createElement('a');
+      // lnk.setAttribute("onclick", "pushToFB();")
+      // 
+      // 
+      // var txt = document.createTextNode('post to facebook too?');
+      // lnk.appendChild(txt);
+      // msg.appendChild(lnk);
+      // 
+      // appendTo = $("#like_#{item.id}_link").closest( $('.item') )
+      // appendTo.get(0).appendChild(msg)
+    }
+  );

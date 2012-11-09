@@ -4,6 +4,8 @@
   = link_to @item.name.html_safe, @item.url, :target => '_blank'
 %div
   = @item.description
+  
+= render :partial => "items/links", :locals => {:item => @item}
 
 %h5{:style => 'margin: 25px 0 15px 0;'}
   Comments

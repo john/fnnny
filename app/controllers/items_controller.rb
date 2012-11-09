@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
     if signed_in?
       @item = Item.find(Base64.urlsafe_decode64(params[:id]))
       current_user.vote_exclusively_for(@item)
+      @suggest_facebook = true
       render :partial => "items/like_or_unlike", :locals => {:item => @item}
     end
   end
