@@ -146,7 +146,7 @@ javascript:(function(){
     var image_count = 1;
     for (var i=0; i<len; ++i) {
       src_image = imgs[i];
-      if( src_image.clientWidth > 50 ) {
+      if( src_image.clientWidth > 50 && src_image.src.indexOf('doubleclick') < 1 ) {
         image_count++;
         
         var d = document.createElement("div");
