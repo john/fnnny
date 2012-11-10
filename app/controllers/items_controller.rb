@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   
+  before_filter :authenticate_user!
+  
   protect_from_forgery :except => :create 
   
   
@@ -76,6 +78,9 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+        
+        Cloudinary::Uploader.upload(@item.original_img_url, :public_id => @item.id, :eager => {:width => 320, :format => 'png'})
+        
         format.html do
           if params[:bookmarklet] == 'true'
             render :partial => "items/thanks_bye"
@@ -114,7 +119,7 @@ class ItemsController < ApplicationController
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to items_url }
+      format.html { redirect_to root_path, :notice => "Gone forever." }
       format.json { head :no_content }
     end
   end

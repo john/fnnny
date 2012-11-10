@@ -1,0 +1,7 @@
+%h2
+  Fnnny stuff tagged &ldquo;#{params[:id]}&rdquo;
+
+%ul
+  - @items.each do |item|
+    %li
+      #{link_to item.display_name, item.url, :target => '_blank'} &nbsp;|&nbsp; #{link_to 'comments', item_path(item)}

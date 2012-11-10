@@ -10,4 +10,18 @@ class Item < ActiveRecord::Base
   
   belongs_to :user
   
+  before_destroy :delete_from_cloudinary
+  
+  def delete_from_cloudinary
+    Cloudinary::Uploader.destroy( self.id )
+  end
+  
+  def display_name
+    if name.present?
+      name
+    else
+      url.gsub('http://', '').gsub('www.', '').gsub(/\/*$/, '')
+    end
+  end
+  
 end

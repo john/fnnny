@@ -1,10 +1,13 @@
 class ActsAsTaggableOnMigration < ActiveRecord::Migration
   def self.up
+    
     create_table :tags do |t|
       t.string :name, :null => false
+      t.string :slug
       t.boolean :completable, :null => false, :default => true
     end
-
+    add_index :tags, :slug, :unique => true
+    
     create_table :taggings do |t|
       t.references :tag
 
@@ -19,9 +22,9 @@ class ActsAsTaggableOnMigration < ActiveRecord::Migration
 
       t.datetime :created_at
     end
-
     add_index :taggings, :tag_id
     add_index :taggings, [:taggable_id, :taggable_type, :context]
+    
   end
 
   def self.down

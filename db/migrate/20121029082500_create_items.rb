@@ -2,8 +2,8 @@ class CreateItems < ActiveRecord::Migration
   def change
     create_table :items do |t|
       t.integer :user_id, :null => false
-      t.string :name
-      t.string :slug
+      t.string :name, :null => false
+      t.string :slug, :null => false
       t.text :description
       t.string :url
       t.string :original_img_url

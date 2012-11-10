@@ -3,11 +3,7 @@
 @import 'bootstrap'
 @import 'bootstrap-responsive'
 
-#instructions a
-  border: 1px solid #999
-  padding: 4px
-  margin: 4px
-  
+
 // from: http://webdesigntutsplus.s3.amazonaws.com/tuts/312_bs/My-Bootstrap-Site-NAVBAR/css/style.css
 // Navbar Adjustments
 
@@ -20,6 +16,29 @@ body /* Add top padding for full-width layout */
   //padding-bottom: 40px
   height: 100%
 
+@media (max-width: 979px)
+  body /* Remove top padding when top navbar goes static */
+    padding-top: 0
+    
+/* general layout styles */
+
+/* logo. added styles from .brand here. for some reason they weren't working together correctly */
+.font-effect-neon
+  padding: 10px 0 10px 0
+  float: left
+  font-size: 36px
+  //font-size: 200px
+  font-family: 'Maiden Orange', cursive
+  margin-top: 10px
+  //margin-top: 120px
+  margin-bottom: -11px
+  //margin-bottom: 89px
+  
+#instructions a
+  border: 1px solid #999
+  padding: 4px
+  margin: 4px
+  
 #wrap
   min-height: 100%
   height: auto !important
@@ -34,25 +53,99 @@ body /* Add top padding for full-width layout */
   border: 1px solid #333
   text-align: center
 
+
+/* item styles */
 .item
+  min-height: 80px
   border-bottom: 1px solid #ddd
   padding: 7px 0
   margin: 7px 0
   
-.added
-  color: #ddd
+  .close
+    float: right
   
-// added styles from .brand here. for some reason they weren't working together correctly
-.font-effect-neon
-  padding: 10px 0 10px 0
-  float: left
-  font-size: 36px
-  //font-size: 200px
-  font-family: 'Maiden Orange', cursive
-  margin-top: 10px
-  //margin-top: 120px
-  margin-bottom: -11px
-  //margin-bottom: 89px
+  .pic
+    float: left
+    padding-right: 10px
+    width: 75px
+    
+  .title
+    font-weight: bold
+    
+/* tags (http://cssglobe.com/pure-css3-post-tags/) */
+.tags
+  //margin: 0
+  //padding: 0
+  //position: absolute
+  //right: 24px
+  //bottom: -12px
+  list-style: none
+  li
+    float: left
+    height: 18px
+    line-height: 18px
+    position: relative
+    font-size: 12px
+  a
+    float: left
+    height: 18px
+    line-height: 18px
+    position: relative
+    font-size: 12px
+    margin-left: 20px
+    padding: 0 8px 0 10px
+    //background: #0089e0
+    background: #aaa
+    color: #fff
+    text-decoration: none
+    -moz-border-radius-bottomright: 4px
+    -webkit-border-bottom-right-radius: 4px	
+    border-bottom-right-radius: 4px
+    -moz-border-radius-topright: 4px
+    -webkit-border-top-right-radius: 4px
+    border-top-right-radius: 4px
+  a:before
+    content: ""
+    float: left
+    position: absolute
+    top: 0
+    left: -9px
+    width: 0
+    height: 0
+    border-color: transparent #aaa transparent transparent
+    border-style: solid
+    border-width: 9px 9px 9px 0
+    
+  a:after
+    content: ""
+    position: absolute
+    top: 7px
+    left: 0
+    float: left
+    width: 4px
+    height: 4px
+    -moz-border-radius: 2px
+    -webkit-border-radius: 2px
+    border-radius: 2px
+    background: #fff
+    //-moz-box-shadow: -1px -1px 2px #004977
+    //    -webkit-box-shadow: -1px -1px 2px #004977
+    //    box-shadow: -1px -1px 2px #004977
+    -moz-box-shadow: -1px -1px 2px #333
+    -webkit-box-shadow: -1px -1px 2px #333
+    box-shadow: -1px -1px 2px #333
+    
+  a:hover
+    background: #555
+  a:hover:before
+    border-color: transparent #555 transparent transparent
+    
+.dim
+  opacity: 0.50
+  filter: alpha(opacity=50)
+  
+//.shrink_20_pct
+//  width: 80%
   
 .btn-follow
   font-weight: normal
@@ -61,6 +154,4 @@ body /* Add top padding for full-width layout */
   a
     color: #222
   
-@media (max-width: 979px)
-  body /* Remove top padding when top navbar goes static */
-    padding-top: 0
+

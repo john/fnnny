@@ -1,0 +1,9 @@
+development:
+  cloud_name: "fnnny"
+  api_key: "862633324752229"
+  api_secret: "0FBAzq4uy_1Bp4G-LYWuqd4bH_8"
+
+production:
+  cloud_name: "fnnny"
+  api_key: "862633324752229"
+  api_secret: "0FBAzq4uy_1Bp4G-LYWuqd4bH_8"

@@ -1,7 +1,7 @@
 %p#notice= notice
 
 %h4
-  = link_to @item.name.html_safe, @item.url, :target => '_blank'
+  = link_to @item.display_name.html_safe, @item.url, :target => '_blank'
 %div
   = @item.description
   

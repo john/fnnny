@@ -1,16 +1,27 @@
 .item
-  .added
-    -# - if item.name.include?('Techmeme')
-    -#   = image_tag 'flame1.png'
-    -# - elsif item.name.include?('Pando')
-    -#   = image_tag 'flame2.png'
-    -# - elsif item.name.include?('Things')
-    -#   = image_tag 'flame3.png'
+
+  - if current_user.id == item.user_id
+    .close
+      = link_to '&times;'.html_safe, item_url(item), :class => 'close', :confirm => "For real? That's permanente.", :method => :delete
+
+  .pic
+    - if item.original_img_url.present?
+      = link_to cl_image_tag("#{item.id}.png", :width => 75, :height => 75, :crop => :thumb, :gravity => :face), item.url, :target => '_blank'
       
+  .muted
     #{link_to item.user.full_name, people_path(item.user)} added #{time_ago_in_words(item.created_at)} ago
-  .title
-    <b>#{link_to item.name.html_safe, item.url, :target => '_blank'}</b>
-  %div
-    = item.description
     
-  = render :partial => "items/links", :locals => {:item => item}
+  .title
+    =link_to item.name.html_safe, item.url, :target => '_blank'
+  
+  - if item.description.present?
+    .desc
+      = item.description
+    
+  %div
+    %small.muted
+      = render :partial => "items/links", :locals => {:item => item}
+      
+    %ul.tags
+      - item.tags.each do |t|
+        %li= link_to t.name, tag_path(t)

@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20121105090735) do
 
   create_table "items", :force => true do |t|
     t.integer  "user_id",          :null => false
-    t.string   "name"
-    t.string   "slug"
+    t.string   "name",             :null => false
+    t.string   "slug",             :null => false
     t.text     "description"
     t.string   "url"
     t.string   "original_img_url"
@@ -73,8 +73,11 @@ ActiveRecord::Schema.define(:version => 20121105090735) do
 
   create_table "tags", :force => true do |t|
     t.string  "name",                          :null => false
+    t.string  "slug"
     t.boolean "completable", :default => true, :null => false
   end
+
+  add_index "tags", ["slug"], :name => "index_tags_on_slug", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
