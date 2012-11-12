@@ -8,10 +8,6 @@
   
   - if current_user.id == @user.id
     %div{:style => 'margin: 15px 0;'}
-      Nothing posted, yet.
-      
-  - else
-    %div{:style => 'margin: 15px 0;'}
       Nothing posted. Follow these instructions:
       
     %ol#instructions
@@ -22,7 +18,11 @@
       %li Surf that web.
       %li Use bookmarklet to save funny stuff.
       %li Come back here when you want to see other people's funny stuff.
-  
+      
+  - else
+    %div{:style => 'margin: 15px 0;'}
+      Nothing posted, yet.
+      
 - else
   - @user.items.each do |item|
     = render :partial => "items/item", :locals => {:item => item}
