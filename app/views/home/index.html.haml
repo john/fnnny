@@ -8,13 +8,13 @@
       = render :partial => "items/item", :locals => {:item => item}
       
 - else
-  .page-header
-    
-    %h2
-      #{configatron.app_name.capitalize} helps you discover and share funny stuff.
+  .hero-unit
+    %h1
+      #{configatron.app_name.capitalize}
     %p
-      Delight &amp; amuse.
-  = link_to "Sign in with Facebook", omniauth_authorize_path(User, 'facebook'), :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
+      Discover and share delightful and amusing things.
+    %p
+      = link_to "Sign in with Facebook", omniauth_authorize_path(User, 'facebook'), :class => 'btn btn-primary btn-large'
   
   -# = link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px; margin: 25px 0; font-size: 18px;'
     

@@ -33,4 +33,8 @@ class OmniauthCallbacksController < ApplicationController
   alias_method :twitter, :create
   alias_method :facebook, :create
   
+  def failure
+    redirect_to root_path, :alert => "Sorry, that didn't work." and return
+  end
+  
 end
