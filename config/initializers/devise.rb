@@ -208,7 +208,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   
   # https://dev.twitter.com/apps/3541101/show
-  config.omniauth :twitter, '5UiCHb5AdDGwdliq03LlFg', 'X5r4EyD2ROFJ350kwAJmtUFZRnNCnic48V4P5tnI'
+  # config.omniauth :twitter, '5UiCHb5AdDGwdliq03LlFg', 'X5r4EyD2ROFJ350kwAJmtUFZRnNCnic48V4P5tnI'
   
   # https://developers.facebook.com/apps/295556897221526/summary
   config.omniauth :facebook, '295556897221526', 'cf5bf2b82e173a033bd437a22bdf2767', :scope => 'email'
