@@ -78,6 +78,9 @@
                     %li= link_to 'View profile', people_path(current_user)
                     %li= link_to 'Edit profile', edit_user_registration_path
                     %li= link_to "Log Out", destroy_user_session_path, method: :delete
+                    
+                    - if signed_in? && current_user.admin?
+                      %li= link_to "Admin", admin_path, :style => 'color:red;'
                   
               - else
                 %li

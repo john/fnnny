@@ -76,6 +76,17 @@ class User < ActiveRecord::Base
     end
   end
   
+  #Returning the email address of the model if an email should be sent for this object (Message or Notification).
+  #If no mail has to be sent, return nil.
+  def mailboxer_email(object)
+    #Check if an email should be sent for that object
+    #if true
+    # return "define_email@on_your.model"
+    return email
+    #if false
+    #return nil
+  end
+  
   def full_name
     [first_name, last_name].join(' ')
   end
@@ -93,6 +104,20 @@ class User < ActiveRecord::Base
       last_name
     else
       email
+    end
+  end
+  
+  def admin?
+    
+    
+    logger.debug "EMAIL---------------> #{email}"
+    
+    
+    if email.present?
+      true
+    #   ['john@fnnny.com', 'john@entelo.com'].include?(email.downcase)
+    else
+      false
     end
   end
   
