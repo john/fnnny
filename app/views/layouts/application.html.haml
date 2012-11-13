@@ -72,8 +72,6 @@
                 %li.dropdown
                   %a{:href => "#", :class => "dropdown-toggle", :'data-toggle' => "dropdown"}
                     = current_user.display_name
-                    -# = current_user.email
-                    -# #{current_user.first_name} #{current_user.last_name}
                     %b.caret
                 
                   %ul.dropdown-menu
@@ -84,13 +82,23 @@
               - else
                 %li
                   = link_to "Sign Up", omniauth_authorize_path(User, 'facebook')
-                  -# = link_to "Sign Up", new_user_registration_path
                 %li
                   = link_to "Log In", omniauth_authorize_path(User, 'facebook')
-                  -# = link_to "Log In", new_user_session_path
-              
-    
+                  
       .container
+      
+        -# eventually this should probably be in the header. and it should definitely be fixed.
+        - if has_messages = false
+          .alert.fade.in
+            %a.close{:"data-dismiss" => "alert"} &times;
+            <strong>Warning!</strong> Best check yo self, you're not looking too good.
+          
+          :javascript
+            $('.alert').bind('closed', function () {
+              alert('phu');
+              // post back to app to mark message as read.
+            })
+            
         = yield
         
         #push

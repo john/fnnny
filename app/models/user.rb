@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   acts_as_tagger
   acts_as_follower
   acts_as_followable
+  acts_as_messageable
   acts_as_voter
   has_karma(:items, :as => :user, :weight => 0.5)
   
@@ -82,6 +83,8 @@ class User < ActiveRecord::Base
   def display_name
     full_name.blank? ? email : full_name
   end
+  
+  # for 
   
   def display_first_name
     if first_name.present?
