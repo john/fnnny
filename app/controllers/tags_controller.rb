@@ -6,8 +6,8 @@ class TagsController < ApplicationController
   end
   
   def show
-    # @tag = ActsAsTaggableOn::Tag.find(params[:id])
-    @items = Item.tagged_with(params[:id]) #.by_date.paginate(:page => params[:page], :per_page => 20)
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    @items = Item.tagged_with(@tag.name) #.by_date.paginate(:page => params[:page], :per_page => 20)
     
     @title = "#{params[:id]} | #{configatron.app_name}"
   end
