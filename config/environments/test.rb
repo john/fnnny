@@ -1,4 +1,4 @@
-Fnnny:Application.configure do
+Fnnny::Application.configure do
   
   
   # for devise:

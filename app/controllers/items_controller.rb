@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:index, :show]
   
   protect_from_forgery :except => :create 
   

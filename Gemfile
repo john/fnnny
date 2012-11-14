@@ -55,6 +55,15 @@ group :development do
   # gem 'chunky_png'
 end
 
+group :test do
+  gem 'factory_girl_rails' #, :require => false
+  gem 'database_cleaner'
+  
+  # https://github.com/jimweirich/rake/issues/51 (read bottom)
+  gem 'shoulda-matchers'
+  gem 'turn', :require => false # Pretty printed test output
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

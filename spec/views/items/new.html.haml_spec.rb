@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe "items/new" do
   before(:each) do
-    assign(:item, stub_model(Item).as_new_record)
+    @current_user = FactoryGirl.create(:user)
+    @controller.stub!(:current_user).and_return(@current_user)
+    @item = assign(:item, FactoryGirl.create(:item))
   end
 
   it "renders new item form" do

@@ -3,8 +3,8 @@ require 'spec_helper'
 describe "items/index" do
   before(:each) do
     assign(:items, [
-      stub_model(Item),
-      stub_model(Item)
+      FactoryGirl.create(:item),
+      FactoryGirl.create(:item)
     ])
   end
 
