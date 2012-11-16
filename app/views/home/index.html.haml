@@ -1,12 +1,28 @@
 - if user_signed_in?
-
+  
+  %i
+    Need to show your own activity on here somewhere, I think
+    
   - if @items.blank?
     = render :partial => "home/getting_started"
     
   - else
-    - @items.each do |item|
-      = render :partial => "items/item", :locals => {:item => item}
-      
+    .row
+      .span8
+        - @items.each do |item|
+          = render :partial => "items/item", :locals => {:item => item}
+      .span4
+        %h3 Recent activity
+        
+        :css
+          .recent { list-style-type: none; margin: 0; padding: 0; }
+          .recent li { border-bottom: 1px solid #ddd; padding: 10px 0; margin: 0; }
+        %ul.recent
+          %li John commented on an item
+          %li Nancy added an item
+          %li Phil liked an item
+          %li Keira followed Nancy
+          %li Homer shared an item
 - else
   .hero-unit.well
     %h1
