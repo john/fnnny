@@ -18,11 +18,13 @@
           .recent { list-style-type: none; margin: 0; padding: 0; }
           .recent li { border-bottom: 1px solid #ddd; padding: 10px 0; margin: 0; }
         %ul.recent
-          %li John commented on an item
-          %li Nancy added an item
-          %li Phil liked an item
-          %li Keira followed Nancy
-          %li Homer shared an item
+          - @activities.each do |activity|
+            %li
+              %small.muted
+                #{time_ago_in_words(activity.created_at)} ago
+              %div= render_activity(activity)
+              - if activity.trackable_type == 'Item'
+                %div= link_to activity.trackable.name, item_path(activity.trackable)
 - else
   .hero-unit.well
     %h1

@@ -3,3 +3,14 @@
 
 en:
   hello: "Hello world"
+
+  activity:
+    item:
+      create: 'Item created:'
+      update: 'Item edited:'
+      destroy: 'Item removed:'
+      
+    comment:
+      create: 'Comment created on:'
+      update: 'Comment edited on:'
+      destroy: 'Comment removed from:'
