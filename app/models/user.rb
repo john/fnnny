@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  
   # include ActiveModel::ForbiddenAttributesProtection
   
   # Include default devise modules. Others available are:
@@ -11,7 +12,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
   has_many :authentications, :dependent => :delete_all
-  has_many :items, :order => 'created_at DESC'
+  has_many :items, :dependent => :delete_all, :order => 'created_at DESC'
+  has_many :comments, :dependent => :delete_all
   
   extend FriendlyId
   friendly_id :full_name, use: :slugged

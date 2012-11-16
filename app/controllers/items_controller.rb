@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     @item = Item.find(params[:id])
-
+    @title = @item.name
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
@@ -52,7 +52,14 @@ class ItemsController < ApplicationController
     
     if params[:u] && params[:t]
       @item.url = params[:u] if params[:u]
-      @item.name = params[:t] if params[:t]
+      if params[:t]
+        if params[:t].include?('|')
+          title = params[:t].split('|')[0].strip
+        else
+          title = params[:t]
+        end
+        @item.name = title
+      end
       @item.user_id = current_user.id
       @bookmarklet_view = true
     end
@@ -73,26 +80,33 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(item_params)
-    @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
-
-    respond_to do |format|
-      if @item.save
+    if signed_in?
+      @item = Item.new(item_params)
+      @item.name = @item.name.split('|')[0].strip if @item.name.include?('|')
+      
+      respond_to do |format|
+        if @item.save
         
-        Cloudinary::Uploader.upload(@item.original_img_url, :public_id => @item.id, :eager => {:width => 320, :format => 'png'})
-        
-        format.html do
-          if params[:bookmarklet] == 'true'
-            render :partial => "items/thanks_bye"
-          else
-            redirect_to @item, notice: 'Item was successfully created.'
+          @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
+          if @item.original_img_url.present?
+            Cloudinary::Uploader.upload(@item.original_img_url, :public_id => @item.id, :eager => {:width => 320, :format => 'png'})
           end
+        
+          format.html do
+            if params[:bookmarklet] == 'true'
+              render :partial => "items/thanks_bye"
+            else
+              redirect_to @item, notice: 'Item was successfully created.'
+            end
+          end
+          format.json { render json: @item, status: :created, location: @item }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @item.errors, status: :unprocessable_entity }
         end
-        format.json { render json: @item, status: :created, location: @item }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
       end
+    else
+      redirect_to root_path, :alert => 'Please sign in.'
     end
   end
 

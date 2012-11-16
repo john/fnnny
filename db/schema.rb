@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113203427) do
+ActiveRecord::Schema.define(:version => 20121114184735) do
+
+  create_table "activities", :force => true do |t|
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "key"
+    t.text     "parameters"
+    t.integer  "recipient_id"
+    t.string   "recipient_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -22,6 +35,22 @@ ActiveRecord::Schema.define(:version => 20121113203427) do
     t.datetime "expires_at"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id",                         :null => false
+    t.string   "fb_id",                           :null => false
+    t.string   "from_id",                         :null => false
+    t.string   "object_id",                       :null => false
+    t.string   "post_id",                         :null => false
+    t.text     "message",                         :null => false
+    t.string   "fb_create_time",                  :null => false
+    t.integer  "like_count",       :default => 0, :null => false
+    t.integer  "user_likes",       :default => 0, :null => false
+    t.integer  "commentable_id",                  :null => false
+    t.string   "commentable_type",                :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "conversations", :force => true do |t|
@@ -124,22 +153,25 @@ ActiveRecord::Schema.define(:version => 20121113203427) do
     t.text     "description"
     t.string   "twitter"
     t.string   "url"
+    t.string   "original_profile_image_url"
+    t.string   "medium_profile_image_url"
+    t.string   "small_profile_image_url"
     t.string   "location"
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "geo_quality"
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                      :default => "", :null => false
+    t.string   "encrypted_password",         :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",              :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

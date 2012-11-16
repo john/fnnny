@@ -14,6 +14,19 @@
     %meta{ :name => "description", :content => "" }
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
     %meta{ :property => "fb:app_id", :content => "295556897221526" }
+    
+    %meta{ :property => "og:site_name", :content => "Fnnny.com" }
+    %meta{ :property => "og:url", :content => request.url }
+    
+    - if @item
+      %meta{ :property => "og:type", :content => "article"}
+      %meta{ :property => "og:image", :content => "http://res.cloudinary.com/fnnny/image/upload/c_thumb,g_face,h_75,w_75/#{@item.id}.png" }
+    
+    - if @description
+      %meta{ :property => "og:description", :content => @description }
+      
+    - if @title
+      %meta{ :property => "og:title", :content => @title }
 
     -# RSS
     -# ==========================================================================
@@ -40,19 +53,18 @@
     
     :javascript
     
-      // fb comments code
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=295556897221526";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+      // // fb comments code
+      // (function(d, s, id) {
+      //   var js, fjs = d.getElementsByTagName(s)[0];
+      //   if (d.getElementById(id)) return;
+      //   js = d.createElement(s); js.id = id;
+      //   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=295556897221526";
+      //   fjs.parentNode.insertBefore(js, fjs);
+      // }(document, 'script', 'facebook-jssdk'));
       
       
       FB.init({
-        appId:'295556897221526', cookie:true,
-        status:true, xfbml:true
+        appId:'295556897221526', cookie:true, status:true, xfbml:true
       });
       
       // fb share code (https://developers.facebook.com/docs/reference/javascript/FB.ui/)
