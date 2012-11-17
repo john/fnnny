@@ -1,11 +1,17 @@
-%p#notice= notice
+-# 
+-# .pic
+-#   - if @item.original_img_url.present?
+-#     = link_to cl_image_tag("#{@item.id}.png", :width => 75, :height => 75, :crop => :thumb, :gravity => :face), @item.url, :target => '_blank'
+-# 
+-# 
+-# %h4
+-#   = link_to @item.display_name.html_safe, @item.url, :target => '_blank'
+-# %div
+-#   = @item.description
+-#   
+-# = render :partial => "items/links", :locals => {:item => @item}
 
-%h4
-  = link_to @item.display_name.html_safe, @item.url, :target => '_blank'
-%div
-  = @item.description
-  
-= render :partial => "items/links", :locals => {:item => @item}
+= render :partial => "items/item", :locals => {:item => @item}
 
 %h5{:style => 'margin: 25px 0 15px 0;'}
   Comments
