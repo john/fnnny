@@ -49,23 +49,23 @@
   %body
     
     #fb-root
-    <script src="http://connect.facebook.net/en_US/all.js"></script>
+    // <script src="http://connect.facebook.net/en_US/all.js"></script>
     
     :javascript
     
-      // // fb comments code
-      // (function(d, s, id) {
-      //   var js, fjs = d.getElementsByTagName(s)[0];
-      //   if (d.getElementById(id)) return;
-      //   js = d.createElement(s); js.id = id;
-      //   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=295556897221526";
-      //   fjs.parentNode.insertBefore(js, fjs);
-      // }(document, 'script', 'facebook-jssdk'));
+      // fb comments code
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=295556897221526";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
       
       
-      FB.init({
-        appId:'295556897221526', cookie:true, status:true, xfbml:true
-      });
+      // FB.init({
+      //   appId:'295556897221526', cookie:true, status:true, xfbml:true
+      // });
       
       // fb share code (https://developers.facebook.com/docs/reference/javascript/FB.ui/)
       function pushToFB(lnk, cap) {
@@ -90,6 +90,7 @@
                     %li= link_to 'View profile', people_path(current_user)
                     %li= link_to 'Edit profile', edit_user_registration_path
                     %li= link_to "Log Out", destroy_user_session_path, method: :delete
+                    %li= link_to 'Get bookmarklet', bookmarklet_path
                     
                     - if signed_in? && current_user.admin?
                       %li= link_to "Admin", admin_path, :style => 'color:red;'
@@ -116,9 +117,9 @@
             
         = yield
         
-        #push
-    #footer
-      = link_to 'get bookmarklet', bookmarklet_path
+    -#     #push
+    -# #footer
+    -#   = link_to 'get bookmarklet', bookmarklet_path
     
     = javascript_include_tag 'application'
     
