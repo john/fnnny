@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   
   attr_accessible :user_id, :fb_create_time, :fb_id, :from_id, :like_count, :message, :user_likes, :object_id, :post_id, :commentable_id, :commentable_type
   
-  tracked :owner => proc { |controller, model| controller.current_user }
+  tracked :only => [:create], :owner => proc { |controller, model| controller.current_user if controller.present? }
   
   belongs_to :commentable, :polymorphic => true
   

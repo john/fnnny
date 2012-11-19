@@ -7,7 +7,7 @@ class Item < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  tracked :owner => proc { |controller, model| controller.current_user if controller.present? }
+  tracked :only => [:create], :owner => proc { |controller, model| controller.current_user if controller.present? }
   acts_as_taggable
   acts_as_voteable
   
@@ -27,6 +27,15 @@ class Item < ActiveRecord::Base
       name
     else
       url.gsub('http://', '').gsub('www.', '').gsub(/\/*$/, '')
+    end
+  end
+  
+  
+  def belongs_to(user)
+    if self.user_id == user.id
+      true
+    else
+      redirect_to root_path, :alert => 'Not fnnny.'
     end
   end
   

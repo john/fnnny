@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include PublicActivity::Model
   
   # include ActiveModel::ForbiddenAttributesProtection
   
@@ -10,6 +11,8 @@ class User < ActiveRecord::Base
          
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  
+  tracked :only => [:create], :owner => proc { |controller, model| controller.current_user if controller.present? }
   
   has_many :authentications, :dependent => :delete_all
   has_many :items, :dependent => :delete_all, :order => 'created_at DESC'

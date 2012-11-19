@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:show]
   
   protect_from_forgery :except => :create 
   
@@ -88,39 +88,36 @@ class ItemsController < ApplicationController
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
+    @item.belongs_to(current_user)
   end
 
   # POST /items
   # POST /items.json
   def create
-    if signed_in?
-      @item = Item.new(item_params)
-      @item.user_id = current_user.id
-      @item.name = @item.name.split('|')[0].strip if @item.name.include?('|')
-      @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
-      
-      if @item.original_image_url.present? #params[:bookmarklet] == 'true'
-        @item.remote_image_url = @item.original_image_url
-      end
-      
-      respond_to do |format|
-        if @item.save
-          
-          format.html do
-            if params[:bookmarklet] == 'true'
-              render :partial => "items/thanks_bye"
-            else
-              redirect_to @item, notice: 'Item was successfully created.'
-            end
+    @item = Item.new(item_params)
+    @item.user_id = current_user.id
+    @item.name = @item.name.split('|')[0].strip if @item.name.include?('|')
+    @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
+    
+    if @item.original_image_url.present? #params[:bookmarklet] == 'true'
+      @item.remote_image_url = @item.original_image_url
+    end
+    
+    respond_to do |format|
+      if @item.save
+        
+        format.html do
+          if params[:bookmarklet] == 'true'
+            render :partial => "items/thanks_bye"
+          else
+            redirect_to @item, notice: 'Item was successfully created.'
           end
-          format.json { render json: @item, status: :created, location: @item }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @item.errors, status: :unprocessable_entity }
         end
+        format.json { render json: @item, status: :created, location: @item }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
       end
-    else
-      redirect_to root_path, :alert => 'Please sign in.'
     end
   end
 
@@ -128,7 +125,8 @@ class ItemsController < ApplicationController
   # PUT /items/1.json
   def update
     @item = Item.find(params[:id])
-
+    @item.belongs_to(current_user)
+    
     respond_to do |format|
       if @item.update_attributes(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
@@ -143,16 +141,14 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    if current_user.admin?
-      @item = Item.find(params[:id])
-      @item.destroy
-
-      respond_to do |format|
-        format.html { redirect_to items_path, :notice => "Gone forever." }
-        format.json { head :no_content }
-      end
-    else
-      redirect_to root_path, :alert => 'Not fnnny.'
+    @item = Item.find(params[:id])
+    @item.belongs_to(current_user) unless current_user.admin?
+    
+    @item.destroy
+    
+    respond_to do |format|
+      format.html { redirect_to items_path, :notice => "Gone forever." }
+      format.json { head :no_content }
     end
   end
   
