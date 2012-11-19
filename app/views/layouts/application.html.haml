@@ -49,29 +49,8 @@
   %body
     
     #fb-root
-    // <script src="http://connect.facebook.net/en_US/all.js"></script>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
     
-    :javascript
-    
-      // fb comments code
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=295556897221526";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-      
-      
-      // FB.init({
-      //   appId:'295556897221526', cookie:true, status:true, xfbml:true
-      // });
-      
-      // fb share code (https://developers.facebook.com/docs/reference/javascript/FB.ui/)
-      function pushToFB(lnk, cap) {
-        FB.ui({ method: 'feed', caption: cap, link: lnk});
-      }
-      
     -# from: http://www.w3resource.com/twitter-bootstrap/navbar-tutorial.php
     #wrap
       .navbar.navbar-fixed-top.navbar-inverse
@@ -103,23 +82,20 @@
                   
       .container
       
-        -# eventually this should probably be in the header. and it should definitely be fixed.
-        - if has_messages = false
-          .alert.fade.in
-            %a.close{:"data-dismiss" => "alert"} &times;
-            <strong>Warning!</strong> Best check yo self, you're not looking too good.
-          
-          :javascript
-            $('.alert').bind('closed', function () {
-              alert('phu');
-              // post back to app to mark message as read.
-            })
-            
+        -# -# eventually this should probably be in the header. and it should definitely be fixed.
+        -# - if has_messages = false
+        -#   .alert.fade.in
+        -#     %a.close{:"data-dismiss" => "alert"} &times;
+        -#     <strong>Warning!</strong> Best check yo self, you're not looking too good.
+        -#   
+        -#   :javascript
+        -#     $('.alert').bind('closed', function () {
+        -#       alert('phu');
+        -#       // post back to app to mark message as read.
+        -#     })
+        
         = yield
         
-    -#     #push
-    -# #footer
-    -#   = link_to 'get bookmarklet', bookmarklet_path
     
     = javascript_include_tag 'application'
     

@@ -1,10 +1,11 @@
 class HomeController < ApplicationController
 
   def index
-    @title = "#{configatron.app_name}: To delight and amuse"
+    # @title = "#{configatron.app_name}: To delight and amuse"
+    @title = "#{configatron.app_name}. You will laugh now."
     
     if signed_in?
-      @activities = PublicActivity::Activity.order("created_at ASC").limit(10)
+      @activities = PublicActivity::Activity.order("created_at DESC").limit(10)
       
       if current_user.following_by_type_count('User') >= 3
         # get all items created by the people you're following

@@ -1,8 +1,5 @@
 - if user_signed_in?
   
-  %i
-    Need to show your own activity on here somewhere, I think
-    
   - if @items.blank?
     = render :partial => "home/getting_started"
     
@@ -11,8 +8,12 @@
       .span8
         - @items.each do |item|
           = render :partial => "items/item", :locals => {:item => item}
+          
       .span4
-        %h3 Recent activity
+        
+        = link_to 'Add something fnnny', new_item_path, :class => "btn btn-large", :style => "margin: 10px 0;"
+        
+        %h6{:style => "margin: 10px 0 0 0;"} Recent activity
         
         :css
           .recent { list-style-type: none; margin: 0; padding: 0; }

@@ -1,4 +1,4 @@
-= form_for @item do |f|
+= form_for @item, :html => {:multipart => true} do |f|
   - if @item.errors.any?
     #error_explanation
       %h2= "#{pluralize(@item.errors.count, "error")} prohibited this item from being saved:"
@@ -10,7 +10,8 @@
   -#   = f.label :user_id
   -#   = f.number_field :user_id
   
-  = f.hidden_field :user_id
+  -# = f.hidden_field :user_id
+  
   .field
     = f.label :name
     = f.text_field :name
@@ -21,6 +22,7 @@
     = hidden_field_tag :bookmarklet, true
     = f.hidden_field :url
   - else
+    - @style = 'height: 150px;'
     .field
       = f.label :url
       = f.text_field :url
@@ -30,7 +32,14 @@
     = f.text_area :description, :style => @style
     
   = f.label :tag_list, "Tags (comma separated)"
-  = f.text_field :tag_list
+  = text_field_tag :tag_list
+  
+  .field
+    = f.label :img
+    = f.hidden_field :image_cache
+    = f.file_field :image #, :accept => "/image/*", :capture => 'camera'
+    
+  <br />
     
   -# .field
   -#   = f.label :location

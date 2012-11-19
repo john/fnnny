@@ -1,3 +1,5 @@
+- show_description = false if local_assigns[:show_description].nil?
+
 .item
 
   - if current_user.id == item.user_id
@@ -5,20 +7,27 @@
       = link_to '&times;'.html_safe, item_url(item), :class => 'close', :confirm => "For real? That's permanente.", :method => :delete
 
   .pic
-    - if item.original_img_url.present?
-      = link_to cl_image_tag("#{item.id}.png", :width => 75, :height => 75, :crop => :thumb, :gravity => :face), item.url, :target => '_blank'
+    - if item.image.present?
+      - if request.path.include?('/items/')
+        = link_to cl_image_tag(item.image, :width => 320, :height => 240), item.url, :target => '_blank'
+      - else
+        = link_to cl_image_tag(item.image, :width => 75, :height => 75, :crop => :thumb, :gravity => :face), item.url, :target => '_blank'
       
-  .muted
+  .name.muted
     #{link_to item.user.full_name, people_path(item.user)} added #{time_ago_in_words(item.created_at)} ago
     
   .title
     =link_to item.name.html_safe, item.url, :target => '_blank'
   
   - if item.description.present?
-    .desc
-      = item.description
-    
-  %div
+    .item_description
+      - if show_description || item.description.length < 140
+        = item.description
+      - else
+        = truncate(item.description, :length => 140, :separator => ' ')
+        %small.dim
+          = link_to '(more)', item_path(item)
+  .links
     %small.muted
       = render :partial => "items/links", :locals => {:item => item}
       

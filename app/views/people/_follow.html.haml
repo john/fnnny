@@ -14,6 +14,7 @@
       %a.btn.btn-small.btn-success.btn-follow{:href => "#{url_for( follow_path(@user) )}", :'data-remote' => true, :'data-type' => 'html'}
         %i.icon-user.icon-white
         follow
+        -# or use the eye? .icon-eye-open
         
 :javascript
   $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) { $('#follow_#{@user.id}').html(xhr.responseText); });

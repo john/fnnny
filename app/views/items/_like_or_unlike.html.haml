@@ -2,24 +2,39 @@
 
 %span{:id => "like_#{item.id}_wrap"}
   
-  - if current_user.voted_for?(item)
-    #{link_to 'unlike', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
-
-  - else
-    #{link_to 'like', like_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
-    
-  - if item.votes_for > 0
-    &#183;
+  
+  -# - if current_user.voted_for?(item)
+  -#   #{link_to 'unlike', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+  -# 
+  -# - else
+  -#   #{link_to 'like', like_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+  -# 
+  -# 
+  -# 
+  -# - if item.votes_for > 0
+  
+  %a{:href => url_for(like_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
     %i.icon-thumbs-up.dim
     = item.votes_for
   
+  #{"-"}
+  
+  %a{:href => url_for(unlike_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+    %i.icon-thumbs-down.dim
+    = item.votes_against
+    
+  - tally = item.plusminus
+  - if tally != 0
+    #{"="}
+    = tally
+  
   - if @suggest_facebook
-    #{link_to 'post to facebook too?', '#', :onclick => "pushToFB('#{URI.encode(item_url(item))}', '#{item.name}');"}
+    #{link_to 'post to facebook too?', '#', :onclick => "Fnnny.pushToFB('#{URI.encode(item_url(item))}', '#{item.name}');"}
     (#{link_to 'undo', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'})
   
     
 :javascript
-  $("#like_#{item.id}_link").on(
+  $(".like_#{item.id}_link").on(
     'ajax:success',
     function(evt, data, status, xhr) { $('#like_#{item.id}_wrap').html( xhr.responseText ) }
   );

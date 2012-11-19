@@ -67,14 +67,22 @@ body /* Add top padding for full-width layout */
   .pic
     float: left
     padding-right: 10px
-    width: 75px
+    //width: 75px
     
+  .name
+    a
+      font-weight: bold
+      color: rgb(51, 51, 51)
   .title
     font-weight: bold
-    
+    a
+      color: rgb(25, 85, 141)
+  .links
+    a
+      color: rgb(83, 141, 194)
 /* tags (http://cssglobe.com/pure-css3-post-tags/) */
 .tags
-  //margin: 0
+  //margin: 0 0 0 -20px
   //padding: 0
   //position: absolute
   //right: 24px
@@ -96,7 +104,7 @@ body /* Add top padding for full-width layout */
     padding: 0 8px 0 10px
     //background: #0089e0
     background: #aaa
-    color: #fff
+    color: white
     text-decoration: none
     -moz-border-radius-bottomright: 4px
     -webkit-border-bottom-right-radius: 4px	
@@ -154,4 +162,6 @@ body /* Add top padding for full-width layout */
   a
     color: #222
   
-
+// for jquery.truncate.js
+.element-hidden
+  display: none

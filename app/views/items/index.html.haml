@@ -1,4 +1,8 @@
-%h1 Listing items
+:css
+  tr { border-bottom: 1px solid #ddd; }
+  td { padding: 10px }
+
+%h1 Items
 
 %table
   %tr
@@ -9,22 +13,25 @@
     -# %th Location
     -# %th Latitude
     -# -# %th Longitude
-    -# %th
+    %th
     -# %th
     -# %th
 
   - @items.each do |item|
     %tr
       %td= link_to "#{[item.user.first_name, item.user.last_name].join(' ')}"
-      %td= item.name
+      %td{:style => 'width: 250px;'}= item.name
       %td= item.description
       %td= item.url
       -# %td= item.location
       -# %td= item.latitude
       -# %td= item.longitude
-      -# %td= link_to 'Show', item
-      -# %td= link_to 'Edit', edit_item_path(item)
-      -# %td= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }
+      %td
+        = link_to 'Show', item
+        &#183;
+        = link_to 'Edit', edit_item_path(item)
+        &#183;
+        = link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

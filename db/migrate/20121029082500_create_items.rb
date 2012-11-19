@@ -1,16 +1,13 @@
 class CreateItems < ActiveRecord::Migration
   def change
     create_table :items do |t|
-      t.integer :user_id, :null => false
+      t.integer :user_id, :null => false, :default => ''
       t.string :name, :null => false
       t.string :slug, :null => false
       t.text :description
       t.string :url
-      t.string :original_img_url
-      t.string :small_img_url
-      t.string :medium_img_url
-      t.string :large_img_url
-      t.string :square_img_url
+      t.string :image
+      t.string :original_image_url
       t.string :location
       t.float :latitude
       t.float :longitude

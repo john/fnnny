@@ -2,12 +2,12 @@ class Item < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   include PublicActivity::Model
   
-  attr_accessible :description, :latitude, :location, :longitude, :name, :url, :original_img_url, :small_img_url, :medium_img_url, :large_img_url, :square_img_url, :user_id
+  attr_accessible :description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id
   
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  tracked :owner => proc { |controller, model| controller.current_user }
+  tracked :owner => proc { |controller, model| controller.current_user if controller.present? }
   acts_as_taggable
   acts_as_voteable
   
@@ -15,6 +15,8 @@ class Item < ActiveRecord::Base
   has_many :comments, :as => :commentable
   
   before_destroy :delete_from_cloudinary
+  
+  mount_uploader :image, ImageUploader
   
   def delete_from_cloudinary
     Cloudinary::Uploader.destroy( self.id )
@@ -27,5 +29,10 @@ class Item < ActiveRecord::Base
       url.gsub('http://', '').gsub('www.', '').gsub(/\/*$/, '')
     end
   end
+  
+  # def image_slug
+  #   # "#{self.to_param.split('-')[0..3].join('-')}_#{self.created_at.to_i}"
+  #   self.to_param.split('-')[0..3].join('-')
+  # end
   
 end

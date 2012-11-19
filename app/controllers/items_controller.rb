@@ -14,10 +14,19 @@ class ItemsController < ApplicationController
     end
   end
   
-  def unlike
+  def clear_vote
     if signed_in?
       @item = Item.find(Base64.urlsafe_decode64(params[:id]))
       current_user.unvote_for(@item)
+      render :partial => "items/like_or_unlike", :locals => {:item => @item}
+    end
+  end
+  
+  def unlike
+    if signed_in?
+      @item = Item.find(Base64.urlsafe_decode64(params[:id]))
+      current_user.vote_exclusively_against(@item)
+      @suggest_facebook = true
       render :partial => "items/like_or_unlike", :locals => {:item => @item}
     end
   end
@@ -26,11 +35,15 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    if current_user.admin?
+      @items = Item.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @items }
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @items }
+      end
+    else
+      redirect_to root_path, :alert => 'Not fnnny.'
     end
   end
 
@@ -82,16 +95,17 @@ class ItemsController < ApplicationController
   def create
     if signed_in?
       @item = Item.new(item_params)
+      @item.user_id = current_user.id
       @item.name = @item.name.split('|')[0].strip if @item.name.include?('|')
+      @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
+      
+      if @item.original_image_url.present? #params[:bookmarklet] == 'true'
+        @item.remote_image_url = @item.original_image_url
+      end
       
       respond_to do |format|
         if @item.save
-        
-          @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
-          if @item.original_img_url.present?
-            Cloudinary::Uploader.upload(@item.original_img_url, :public_id => @item.id, :eager => {:width => 320, :format => 'png'})
-          end
-        
+          
           format.html do
             if params[:bookmarklet] == 'true'
               render :partial => "items/thanks_bye"
@@ -129,12 +143,16 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item = Item.find(params[:id])
-    @item.destroy
+    if current_user.admin?
+      @item = Item.find(params[:id])
+      @item.destroy
 
-    respond_to do |format|
-      format.html { redirect_to root_path, :notice => "Gone forever." }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to items_path, :notice => "Gone forever." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to root_path, :alert => 'Not fnnny.'
     end
   end
   
@@ -144,6 +162,6 @@ class ItemsController < ApplicationController
     # params.require(:person).permit(:name, :age)
     # Also, you can specialize this method with per-user checking of permissible attributes.
     def item_params
-      params.require(:item).permit(:description, :latitude, :location, :longitude, :name, :url, :original_img_url, :small_img_url, :medium_img_url, :large_img_url, :square_img_url, :user_id, :tag_list)
+      params.require(:item).permit(:description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id, :tag_list)
     end
 end

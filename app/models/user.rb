@@ -110,14 +110,8 @@ class User < ActiveRecord::Base
   end
   
   def admin?
-    
-    
-    logger.debug "EMAIL---------------> #{email}"
-    
-    
     if email.present?
-      true
-    #   ['john@fnnny.com', 'john@entelo.com'].include?(email.downcase)
+      ['john@fnnny.com', 'john@entelo.com'].include?(email.downcase)
     else
       false
     end
