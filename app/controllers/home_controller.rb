@@ -3,14 +3,21 @@ class HomeController < ApplicationController
   def index
     # @title = "#{configatron.app_name}: To delight and amuse"
     @title = "#{configatron.app_name}. You will laugh now."
+    # @title = "#{configatron.app_name}. Laugh you donkey laugh"
+    # @title = "#{configatron.app_name}. Quora for Idiots."
+    # @title = "#{configatron.app_name}. Mo fnnny mo better."
+    # @title = "#{configatron.app_name}. For donkies."
+    
     
     if signed_in?
       @activities = PublicActivity::Activity.order("created_at DESC").limit(10)
       
-      if current_user.following_by_type_count('User') >= 3
+      if current_user.following_by_type_count('User') > 0
         # get all items created by the people you're following
         # adapted from: http://stackoverflow.com/questions/7920082/get-posts-of-followed-users-with-acts-as-follower
-        @items = User.find(current_user.id).following_users.includes(:items).collect{|u| u.items}.flatten
+        # @items = current_user.following_users.includes(:items).collect{|u| u.items}.flatten
+        
+        @items = Item.find_by_sql("SELECT i.* FROM items i WHERE i.user_id IN (SELECT followable_id FROM follows WHERE followable_type = 'User' AND follower_type = 'User' AND follower_id = #{current_user.id}) ORDER BY created_at DESC LIMIT 25")
         
       else
         # add a dismissible banner pushing users to follow people to see scoped results.
@@ -18,7 +25,6 @@ class HomeController < ApplicationController
         
       end
     end
-    
   end
   
   def bookmarklet

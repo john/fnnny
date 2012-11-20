@@ -14,13 +14,15 @@
   -# - if item.votes_for > 0
   
   %a{:href => url_for(like_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
-    %i.icon-thumbs-up.dim
+    -# %i.icon-thumbs-up.dim
+    %i.icon-arrow-up.dim
     = item.votes_for
   
   #{"-"}
   
   %a{:href => url_for(unlike_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
-    %i.icon-thumbs-down.dim
+    -# %i.icon-thumbs-down.dim
+    %i.icon-arrow-down.dim
     = item.votes_against
     
   - tally = item.plusminus

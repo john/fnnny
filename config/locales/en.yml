@@ -6,11 +6,16 @@ en:
 
   activity:
     item:
-      create: 'Item created:'
+      create: 'New item'
       update: 'Item edited:'
       destroy: 'Item removed:'
       
     comment:
-      create: 'Comment created on:'
+      create: 'New comment'
+      update: 'Comment edited on:'
+      destroy: 'Comment removed from:'
+      
+    user:
+      create: 'New member'
       update: 'Comment edited on:'
       destroy: 'Comment removed from:'

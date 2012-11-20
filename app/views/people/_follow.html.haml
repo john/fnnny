@@ -1,20 +1,26 @@
-%span{:id => "follow_#{@user.id}"}
-  - if current_user.id == @user.id
-    %a.btn.btn-small.btn-success.btn-follow
-      %i.icon-user.icon-white
+- size = 'btn-small' if local_assigns[:size].nil?
+- user = @user if local_assigns[:user].nil?
+
+%span{:id => "follow_#{user.id}"}
+  - if current_user.id == user.id
+    %a.btn.btn-success.btn-follow{:class => size}
+      - if size == 'btn-small'
+        %i.icon-user.icon-white
       this is you
     
   - else
-    - if current_user.following?(@user)
-      %a.btn.btn-small.btn-info.btn-follow{:href => "#{url_for( unfollow_path(@user) )}", :'data-remote' => true, :'data-type' => 'html'}
-        %i.icon-user.icon-white
+    - if current_user.following?(user)
+      %a.btn.btn-info.btn-follow{:href => "#{url_for( unfollow_path(user) )}", :'data-remote' => true, :'data-type' => 'html', :class => size}
+        - if size == 'btn-small'
+          %i.icon-user.icon-white
         following
       
     - else
-      %a.btn.btn-small.btn-success.btn-follow{:href => "#{url_for( follow_path(@user) )}", :'data-remote' => true, :'data-type' => 'html'}
-        %i.icon-user.icon-white
+      %a.btn.btn-success.btn-follow{:href => "#{url_for( follow_path(user) )}", :'data-remote' => true, :'data-type' => 'html', :class => size}
+        - if size == 'btn-small'
+          %i.icon-user.icon-white
         follow
         -# or use the eye? .icon-eye-open
         
 :javascript
-  $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) { $('#follow_#{@user.id}').html(xhr.responseText); });
+  $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) { $('#follow_#{user.id}').html(xhr.responseText); });

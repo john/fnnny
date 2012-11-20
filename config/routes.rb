@@ -16,7 +16,7 @@ Fnnny::Application.routes.draw do
   
   match '/admin' => 'admin#index', :as => :admin, :via => :get
   match '/bookmarklet' => 'home#bookmarklet', :as => :bookmarklet, :via => :get
-  match '/people/:id' => 'people#show', :as => :people, :via => :get
+  match '/people/:id' => 'people#show', :as => :person, :via => :get
   match '/people/:id/follow' => 'people#follow', :as => :follow, :via => :get
   match '/people/:id/unfollow' => 'people#unfollow', :as => :unfollow, :via => :get
   
