@@ -8,13 +8,13 @@
 
   .pic
     - if item.image.present?
-      - if request.path.include?('/items/')
-        = link_to cl_image_tag(item.image, :width => 320, :height => 240), item.url, :target => '_blank'
-      - else
+      -# - if request.path.include?('/items/')
+      -#   = link_to cl_image_tag(item.image, :width => 320, :height => 240), item.url, :target => '_blank'
+      -# - else
         = link_to cl_image_tag(item.image, :width => 75, :height => 75, :crop => :thumb, :gravity => :face), item.url, :target => '_blank'
       
   .name.muted
-    #{link_to item.user.full_name, people_path(item.user)} added #{time_ago_in_words(item.created_at)} ago
+    #{link_to item.user.full_name, person_path(item.user)} added #{time_ago_in_words(item.created_at)} ago
     
   .title
     =link_to item.name.html_safe, item.url, :target => '_blank'
