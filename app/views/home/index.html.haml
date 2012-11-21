@@ -4,23 +4,76 @@
     = render :partial => "home/getting_started"
     
   - else
+    :css
+      /* Landscape phones and down */
+      @media (max-width: 480px)  {
+          .left {
+              float: left !important;
+              width: 80px !important;
+          }
+          
+          .right {
+              float: right !important;
+              width: 270px !important;
+          }
+      }
+      
+      /* Landscape phone to portrait tablet */
+      @media (min-width: 480px) and (max-width: 580px) {
+        .left {
+            float: left !important;
+            width: 80px !important;
+        }
+        
+        .right {
+            float: right !important;
+            width: 350px !important;
+        }
+      }
+      
+      /* Landscape phone to portrait tablet */
+      @media (min-width: 580px) and (max-width: 680px) {
+        .left {
+            float: left !important;
+            width: 80px !important;
+        }
+        
+        .right {
+            float: right !important;
+            width: 450px !important;
+        }
+      }
+      
+      /* Landscape phone to portrait tablet */
+      @media (min-width: 680px) and (max-width: 767px) {
+        .left {
+            float: left !important;
+            width: 80px !important;
+        }
+        
+        .right {
+            float: right !important;
+            width: 550px !important;
+        }
+      }
+      
+      
     .row
       .span12
         = link_to 'Everything'
         &#183;
         = link_to 'People I follow'
+        
+        
     .row
-      .span8
+      .span7{:style => 'border-right: 0px dotted gray;'}
         - @items.each do |item|
           = render :partial => "items/item", :locals => {:item => item}
           
-      .span4
-        
-        = link_to 'Add something fnnny', new_item_path, :class => "btn btn-large btn-primary", :style => "margin: 10px 0;"
-        -# = link_to 'Mo funny, mo better', new_item_path, :class => "btn btn-large", :style => "margin: 10px 0;"
-        -# = link_to 'Feed the maw', new_item_path, :class => "btn btn-large", :style => "margin: 10px 0;"
-        
-        %h6{:style => "margin: 10px 0 0 0;"} Recent activity
+          
+          
+      .span4.offset1
+        %h4 Recent activity
         
         :css
           .recent { list-style-type: none; margin: 0; padding: 0; }
@@ -32,20 +85,34 @@
                 #{time_ago_in_words(activity.created_at)} ago
                 
               -# %div= render_activity(activity)
+              - if activity.trackable_type == 'Comment'
+                %div
+                  <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> commented on
+              
               - if activity.trackable_type == 'Item'
                 %div
                   <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> added
-                %div
-                  = link_to activity.trackable.name, item_path(activity.trackable)
+                %div= link_to activity.trackable.name, item_path(activity.trackable)
                 
               - if activity.trackable_type == 'User'
                 %div
                   <strong>#{link_to activity.trackable.display_name, person_path(activity.trackable), :class => 'gray'}</strong> signed up!
                   = render :partial => "people/follow", :locals => {:user => activity.trackable, :size => 'btn-mini'}
                   
-              - if activity.trackable_type == 'Comment'
+                  
+              - if activity.trackable_type == 'Vote'
                 %div
-                  <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> commented on
+                  <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> voted
+                  - if activity.trackable.vote
+                    up
+                    %i.icon-arrow-up.dim
+                  - else
+                    down
+                    %i.icon-arrow-down.dim
+                    
+                  %div= link_to activity.trackable.voteable.name, item_path(activity.trackable.voteable)
+                
+                
                 
                 
                 

@@ -57,30 +57,32 @@
         .navbar-inner
           .container
             = link_to configatron.app_name, root_path, :class => 'font-effect-neon'
-              
+            
             %ul.nav.pull-right
               - if user_signed_in?
                 %li.dropdown
                   %a{:href => "#", :class => "dropdown-toggle", :'data-toggle' => "dropdown"}
                     = current_user.display_name
                     %b.caret
-                
+              
                   %ul.dropdown-menu
                     %li= link_to 'View profile', person_path(current_user)
                     %li= link_to 'Edit profile', edit_user_registration_path
                     %li= link_to "Log Out", destroy_user_session_path, method: :delete
                     %li= link_to "Tags", tags_path, method: :delete
                     %li= link_to 'Get bookmarklet', bookmarklet_path
-                    
+                  
                     - if signed_in? && current_user.admin?
                       %li= link_to "Admin", admin_path, :style => 'color:red;'
-                  
+                
               - else
                 %li
                   = link_to "Sign Up", omniauth_authorize_path(User, 'facebook')
                 %li
                   = link_to "Log In", omniauth_authorize_path(User, 'facebook')
                   
+            .pull-right{:style => 'margin: 4px 7px 0 0;'}
+              = link_to 'Add something fnnny', new_item_path, :class => "btn btn-mini"
       .container
       
         -# -# eventually this should probably be in the header. and it should definitely be fixed.

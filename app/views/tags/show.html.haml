@@ -1,5 +1,6 @@
 %h2
-  Fnnny stuff tagged &ldquo;#{@tag.name}&rdquo;
+  -# Fnnny stuff tagged &ldquo;#{@tag.name}&rdquo;
+  Fnnny #{@tag.name}
 
 - @items.each do |item|
   = render :partial => "items/item", :locals => {:item => item}

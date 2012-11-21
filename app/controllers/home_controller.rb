@@ -6,7 +6,11 @@ class HomeController < ApplicationController
     # @title = "#{configatron.app_name}. Laugh you donkey laugh"
     # @title = "#{configatron.app_name}. Quora for Idiots."
     # @title = "#{configatron.app_name}. Mo fnnny mo better."
-    # @title = "#{configatron.app_name}. For donkies."
+    # @title = "#{configatron.app_name}. The best site on the Internet... for donkies."
+    # @title = "#{configatron.app_name}. Enterprise Humor Portal."
+    # @title = "#{configatron.app_name}. So three guy walk into a bar..."
+    
+    # El quatro oh quatro: the Intenet joke machine.
     
     
     if signed_in?
