@@ -2,6 +2,6 @@
   <a href="#{item_url(item)}">comments: <div class="fb-comments-count" data-href="#{item_url(item)}" style="display:inline;">0</div></a>  &#183;
 
 #{link_to 'fb', '#', :onclick => "Fnnny.pushToFB('#{URI.encode(item_url(item))}', '#{item.name}');"} &#183;
-#{link_to 'twt', "https://twitter.com/share?url=#{URI.encode(item_url(item))}&text=This%20is%20fnnny:%20", :target => '_blank'} &#183;
+#{link_to 'twt', "https://twitter.com/share?url=#{URI.encode(item_url(item))}&text=This%20is%20fnnny:%20", :target => '_blank'} &nbsp;&nbsp;
 
 = render :partial => "items/like_or_unlike", :locals => {:item => item}

@@ -15,20 +15,21 @@
   
   %a{:href => url_for(like_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
     -# %i.icon-thumbs-up.dim
-    %i.icon-arrow-up.dim
+    %i.icon-arrow-up.dim{:style => 'margin-right: -3px;'}
     = item.votes_for
   
-  #{"-"}
+  
+  -# #{"-"}
   
   %a{:href => url_for(unlike_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
     -# %i.icon-thumbs-down.dim
-    %i.icon-arrow-down.dim
+    %i.icon-arrow-down.dim{:style => 'margin-right: -3px;'}
     = item.votes_against
     
-  - tally = item.plusminus
-  - if tally != 0
-    #{"="}
-    = tally
+  -# - tally = item.plusminus
+  -# - if tally != 0
+  -#   #{"="}
+  -#   = tally
   
   - if @suggest_facebook
     #{link_to 'post to facebook too?', '#', :onclick => "Fnnny.pushToFB('#{URI.encode(item_url(item))}', '#{item.name}');"}

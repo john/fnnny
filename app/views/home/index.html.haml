@@ -9,16 +9,27 @@
       .span8
         
         %div{:style => 'margin-bottom: 30px;'}
-          = link_to 'Everything'
-          &#183;
-          = link_to 'People I follow'
+          Items from
+          
+          - if @show_all
+            <b>everyone</b>
+          - else
+            = link_to 'everyone', root_path(:show => 'all')
+          
+          
           |
-          Sort by:
-          = link_to 'Trending'
-          &#183;
-          = link_to 'Most recent'
-          &#183;
-          = link_to 'Most votes'
+          - if @show_followers
+            <b>People I follow</b>
+          - else
+            = link_to 'people I follow', root_path(:show => 'followers')
+            
+          -# |
+          -# Sort by:
+          -# = link_to 'Trending'
+          -# &#183;
+          -# = link_to 'Most recent'
+          -# &#183;
+          -# = link_to 'Most votes'
         
         %table.table{:style => 'width: 97%;'}
           - @items.each do |item|
