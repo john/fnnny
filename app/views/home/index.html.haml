@@ -31,12 +31,19 @@
           -# &#183;
           -# = link_to 'Most votes'
         
-        %table.table{:style => 'width: 97%;'}
+        %table.table{:style => 'width: 93%;'}
           - @items.each do |item|
             = render :partial => "items/item", :locals => {:item => item}
           
       .span4
-        %h4 Recent activity
+        %h4{:style => 'font-size: 1.2em'} Recent people
+        - @people.each do |person|
+          %div{:style => 'height: 35px;'}
+            = render :partial => "people/follow", :locals => {:user => person, :size => 'btn-mini', :styl => 'btn-standard'}
+            = link_to person.display_name, person_path(person)
+            
+      .span4
+        %h4{:style => 'font-size: 1.2em; margin-top: 25px;'} Recent activity
         
         %ul.recent
           - @activities.each do |activity|

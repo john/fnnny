@@ -5,13 +5,7 @@
       %ul
         - @item.errors.full_messages.each do |msg|
           %li= msg
-
-  -# .field
-  -#   = f.label :user_id
-  -#   = f.number_field :user_id
-  
-  -# = f.hidden_field :user_id
-  
+          
   .field
     = f.label :name
     = f.text_field :name
@@ -35,7 +29,7 @@
   = text_field_tag :tag_list
   
   .field
-    = f.label :img
+    = f.label :image
     = f.hidden_field :image_cache
     = f.file_field :image #, :accept => "/image/*", :capture => 'camera'
     

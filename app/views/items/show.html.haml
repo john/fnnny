@@ -1,4 +1,5 @@
-= render :partial => "items/item", :locals => {:item => @item, :show_description => true}
+%table.table{:style => 'width: 97%;'}
+  = render :partial => "items/item", :locals => {:item => @item, :show_description => true, :klass => 'standard'}
 
 %h5{:style => 'margin: 25px 0 15px 0;'}
   Comments

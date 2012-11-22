@@ -14,11 +14,10 @@ class HomeController < ApplicationController
     
     
     if signed_in?
-      following_count = current_user.following_by_type_count('User')
       
+      following_count = current_user.following_by_type_count('User')
       if following_count > 0
         @followers = true
-        
         if params[:show]
           # if there's a show param, respect it, if you can
           if params[:show] == 'followers'
@@ -32,18 +31,17 @@ class HomeController < ApplicationController
           if following_count > 1
             # if not, default to followers if you're following 3 or more people
             @show_followers = true
-            
           else
             # otherwise to all
             @show_all = true
           end
         end
-        
       else
         # if no followers, have to show all
         @show_all = true
-        
       end
+      
+      @people = User.order("created_at DESC").limit(5)
       
       
       # only get activities for you and your followers

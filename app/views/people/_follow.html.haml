@@ -1,4 +1,5 @@
 - size = 'btn-small' if local_assigns[:size].nil?
+- styl = 'bt'
 - user = @user if local_assigns[:user].nil?
 
 %span{:id => "follow_#{user.id}"}
@@ -10,13 +11,13 @@
     
   - else
     - if current_user.following?(user)
-      %a.btn.btn-info.btn-follow{:href => "#{url_for( unfollow_path(user) )}", :'data-remote' => true, :'data-type' => 'html', :class => size}
+      %a.btn.btn.btn-follow{:href => "#{url_for( unfollow_path(user) )}", :'data-remote' => true, :'data-type' => 'html', :class => size}
         - if size == 'btn-small'
           %i.icon-user.icon-white
         following
       
     - else
-      %a.btn.btn-success.btn-follow{:href => "#{url_for( follow_path(user) )}", :'data-remote' => true, :'data-type' => 'html', :class => size}
+      %a.btn.btn.btn-follow{:href => "#{url_for( follow_path(user) )}", :'data-remote' => true, :'data-type' => 'html', :class => size}
         - if size == 'btn-small'
           %i.icon-user.icon-white
         follow
