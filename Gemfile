@@ -4,7 +4,7 @@ gem 'acts_as_follower'
 gem 'acts-as-taggable-on'
 gem 'airbrake'
 gem 'backup'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass' # if it needs better modal, consider this: https://github.com/jschr/bootstrap-modal/
 # gem 'by_star'
 gem 'carrierwave'
 gem 'cloudinary'

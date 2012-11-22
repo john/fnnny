@@ -3,7 +3,6 @@
 @import 'bootstrap'
 @import 'bootstrap-responsive'
 
-
 // from: http://webdesigntutsplus.s3.amazonaws.com/tuts/312_bs/My-Bootstrap-Site-NAVBAR/css/style.css
 // Navbar Adjustments
 
@@ -44,37 +43,31 @@ body /* Add top padding for full-width layout */
   height: auto !important
   height: 100%
   margin: 0 auto -80px
-  
-//#push #footer
-//  height: 80px
-//  
-//#footer
-//  background-color: #ddd
-//  border: 1px solid #333
-//  text-align: center
-
 
 .gray
   color: rgb(51, 51, 51)
 
-/* item styles */
+.table
+  tr
+    td
+      //border-top: none
+      padding-top: 20px
+      padding-bottom: 20px
+      
+      
+.pic
+  width: 85px
+  
 .item
-  min-height: 80px
-  border-bottom: 1px solid #ddd
-  padding: 12px 0
-  margin: 12px 0
   
   .close
     float: right
-  
-  .pic
-    //float: left
-    //padding-right: 10px
     
   .name
     a
       font-weight: bold
       color: rgb(51, 51, 51)
+      
   .title
     font-weight: bold
     a
@@ -82,6 +75,8 @@ body /* Add top padding for full-width layout */
   .links
     a
       color: rgb(83, 141, 194)
+      
+      
 /* tags (http://cssglobe.com/pure-css3-post-tags/) */
 .tags
   margin: 4px 0 0 -15px
@@ -154,16 +149,27 @@ body /* Add top padding for full-width layout */
   opacity: 0.50
   filter: alpha(opacity=50)
   
-//.shrink_20_pct
-//  width: 80%
-  
 .btn-follow
   font-weight: normal
   
 .added
   a
     color: #222
+    
+.left
+  float: left !important
+  width: 80px !important
   
+.recent
+  list-style-type: none
+  margin: 0
+  padding: 0
+  li
+    border-bottom: 1px solid #ddd
+    padding: 10px 0
+    margin: 0
+    
+    
 // for jquery.truncate.js
 .element-hidden
   display: none

@@ -4,80 +4,29 @@
     = render :partial => "home/getting_started"
     
   - else
-    :css
-      /* Landscape phones and down */
-      @media (max-width: 480px)  {
-          .left {
-              float: left !important;
-              width: 80px !important;
-          }
-          
-          .right {
-              float: right !important;
-              width: 270px !important;
-          }
-      }
-      
-      /* Landscape phone to portrait tablet */
-      @media (min-width: 480px) and (max-width: 580px) {
-        .left {
-            float: left !important;
-            width: 80px !important;
-        }
-        
-        .right {
-            float: right !important;
-            width: 350px !important;
-        }
-      }
-      
-      /* Landscape phone to portrait tablet */
-      @media (min-width: 580px) and (max-width: 680px) {
-        .left {
-            float: left !important;
-            width: 80px !important;
-        }
-        
-        .right {
-            float: right !important;
-            width: 450px !important;
-        }
-      }
-      
-      /* Landscape phone to portrait tablet */
-      @media (min-width: 680px) and (max-width: 767px) {
-        .left {
-            float: left !important;
-            width: 80px !important;
-        }
-        
-        .right {
-            float: right !important;
-            width: 550px !important;
-        }
-      }
-      
-      
+    
     .row
-      .span12
-        = link_to 'Everything'
-        &#183;
-        = link_to 'People I follow'
+      .span8
         
+        %div{:style => 'margin-bottom: 30px;'}
+          = link_to 'Everything'
+          &#183;
+          = link_to 'People I follow'
+          |
+          Sort by:
+          = link_to 'Trending'
+          &#183;
+          = link_to 'Most recent'
+          &#183;
+          = link_to 'Most votes'
         
-    .row
-      .span7{:style => 'border-right: 0px dotted gray;'}
-        - @items.each do |item|
-          = render :partial => "items/item", :locals => {:item => item}
+        %table.table{:style => 'width: 97%;'}
+          - @items.each do |item|
+            = render :partial => "items/item", :locals => {:item => item}
           
-          
-          
-      .span4.offset1
+      .span4
         %h4 Recent activity
         
-        :css
-          .recent { list-style-type: none; margin: 0; padding: 0; }
-          .recent li { border-bottom: 1px solid #ddd; padding: 10px 0; margin: 0; }
         %ul.recent
           - @activities.each do |activity|
             %li
@@ -116,7 +65,6 @@
                 
                 
                 
-                
 - else
   .hero-unit.well
     %h1
@@ -129,8 +77,4 @@
       
     %p
       = link_to "Sign in with Facebook", omniauth_authorize_path(User, 'facebook'), :class => 'btn btn-primary btn-large'
-  
-  -# = link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px; margin: 25px 0; font-size: 18px;'
-    
-  -# %p
-  -#   or #{link_to 'log in', new_session_path(User.new) }
+      
