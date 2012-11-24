@@ -5,6 +5,31 @@ class ItemsController < ApplicationController
   protect_from_forgery :except => :create 
   
   
+  def since
+    if signed_in?
+      
+      @since_item = Item.find( params[:id] )
+      @items = Item.where("created_at > '#{@since_item.created_at}'").order('created_at DESC').limit(20)
+      
+      @out = ''
+      
+      if @items.blank?
+        @out += "<div style='padding: 20px; font-style: italic; font-weight: bold;'>No updates</div>"
+      else
+        @items.each do |item|
+          @out += '<li>'
+          @out += render_to_string :partial => "items/item_mobile", :locals => {:item => item}
+          @out += '</li>'
+        end
+      end
+      
+    end
+    render :text => @out
+  end
+  
+  def before
+  end
+  
   def like
     if signed_in?
       @item = Item.find(Base64.urlsafe_decode64(params[:id]))

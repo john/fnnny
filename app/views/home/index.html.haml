@@ -16,7 +16,6 @@
           - else
             = link_to 'everyone', root_path(:show => 'all')
           
-          
           |
           - if @show_followers
             <b>People I follow</b>
@@ -30,59 +29,62 @@
           -# = link_to 'Most recent'
           -# &#183;
           -# = link_to 'Most votes'
-        
-        %table.table{:style => 'width: 93%;'}
-          - @items.each do |item|
-            = render :partial => "items/item", :locals => {:item => item}
           
-      .span4
-        %h4{:style => 'font-size: 1.2em'} Recent people
-        - @people.each do |person|
-          %div{:style => 'height: 35px;'}
-            = render :partial => "people/follow", :locals => {:user => person, :size => 'btn-mini', :styl => 'btn-standard'}
-            = link_to person.display_name, person_path(person)
-            
-      .span4
-        %h4{:style => 'font-size: 1.2em; margin-top: 25px;'} Recent activity
-        
-        %ul.recent
-          - @activities.each do |activity|
-            %li
-              %small.muted
-                #{time_ago_in_words(activity.created_at)} ago
-                
-              -# %div= render_activity(activity)
-              - if activity.trackable_type == 'Comment'
-                %div
-                  <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> commented on
+        - if @mobile
+          %table.table
+            - @items.each do |item|
+              = render :partial => "items/item_mobile", :locals => {:item => item}
+        - else
+          %table.table{:style => 'width: 93%;'}
+            - @items.each do |item|
+              = render :partial => "items/item", :locals => {:item => item}
+          
+      - if @people
+        .span4
+          %h4{:style => 'font-size: 1.2em'} Recent people
+          - @people.each do |person|
+            %div{:style => 'height: 35px;'}
+              = render :partial => "people/follow", :locals => {:user => person, :size => 'btn-mini', :styl => 'btn-standard'}
+              = link_to person.display_name, person_path(person)
               
-              - if activity.trackable_type == 'Item'
-                %div
-                  <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> added
-                %div= link_to activity.trackable.name, item_path(activity.trackable)
-                
-              - if activity.trackable_type == 'User'
-                %div
-                  <strong>#{link_to activity.trackable.display_name, person_path(activity.trackable), :class => 'gray'}</strong> signed up!
-                  = render :partial => "people/follow", :locals => {:user => activity.trackable, :size => 'btn-mini'}
-                  
-                  
-              - if activity.trackable_type == 'Vote'
-                %div
-                  <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> voted
-                  - if activity.trackable.vote
-                    up
-                    %i.icon-arrow-up.dim
-                  - else
-                    down
-                    %i.icon-arrow-down.dim
+      - if @activities
+        .span4
+          %h4{:style => 'font-size: 1.2em; margin-top: 25px;'} Recent activity
+        
+          %ul.recent
+            - @activities.each do |activity|
+              - unless activity.trackable.blank?
+                %li
+                  %small.muted
+                    #{time_ago_in_words(activity.created_at)} ago
                     
-                  %div= link_to activity.trackable.voteable.name, item_path(activity.trackable.voteable)
-                
-                
-                
-                
-                
+                  - if activity.trackable_type == 'Comment'
+                    %div
+                      <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> commented on
+                      
+                  - if activity.trackable_type == 'Item'
+                    %div
+                      <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> added
+                    %div= link_to activity.trackable.name, item_path(activity.trackable)
+                    
+                  - if activity.trackable_type == 'User'
+                    %div
+                      <strong>#{link_to activity.trackable.display_name, person_path(activity.trackable), :class => 'gray'}</strong> signed up!
+                      = render :partial => "people/follow", :locals => {:user => activity.trackable, :size => 'btn-mini'}
+                      
+                  - if activity.trackable_type == 'Vote'
+                    %div
+                      <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> voted
+                      - if activity.trackable.vote
+                        up
+                        %i.icon-arrow-up.dim
+                      - else
+                        down
+                        %i.icon-arrow-down.dim
+                      
+                      %div= link_to activity.trackable.voteable.name, item_path(activity.trackable.voteable)
+                    
+                    
 - else
   .hero-unit.well
     %h1

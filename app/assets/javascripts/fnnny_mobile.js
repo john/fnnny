@@ -1,4 +1,5 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require humane
-//= require_tree .
+//= require fnnny_global
+//= require iscroll

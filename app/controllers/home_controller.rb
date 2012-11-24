@@ -2,16 +2,18 @@ class HomeController < ApplicationController
 
   def index
     # @title = "#{configatron.app_name}: To delight and amuse"
-    @title = "#{configatron.app_name}. You will laugh now."
+    # @title = "#{configatron.app_name}. You will laugh now."
     # @title = "#{configatron.app_name}. Laugh you donkey laugh"
     # @title = "#{configatron.app_name}. Quora for Idiots."
     # @title = "#{configatron.app_name}. Mo fnnny mo better."
     # @title = "#{configatron.app_name}. The best site on the Internet... for donkies."
-    # @title = "#{configatron.app_name}. Enterprise Humor Portal."
+    @title = "#{configatron.app_name}. Enterprise Humor Portal."
     # @title = "#{configatron.app_name}. So three guy walk into a bar..."
     
-    # El quatro oh quatro: the Intenet joke machine.
+    # El quatro oh quatro:
     
+    user_agent = UserAgent.parse( request.env["HTTP_USER_AGENT"] )
+    @mobile = true if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
     
     if signed_in?
       
@@ -41,11 +43,12 @@ class HomeController < ApplicationController
         @show_all = true
       end
       
-      @people = User.order("created_at DESC").limit(5)
-      
-      
-      # only get activities for you and your followers
-      @activities = PublicActivity::Activity.order("created_at DESC").limit(10)
+      unless @mobile
+        @people = User.order("created_at DESC").limit(5)
+        
+        # only get activities for you and your followers
+        @activities = PublicActivity::Activity.order("created_at DESC").limit(10)
+      end
       
       if @show_followers
         # get all items created by the people you're following
@@ -60,8 +63,12 @@ class HomeController < ApplicationController
         
       end
       
-      
     end
+    
+    if @mobile
+      render :template => '/home/index_mobile'
+    end
+    
   end
   
   def bookmarklet

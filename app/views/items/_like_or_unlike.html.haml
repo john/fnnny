@@ -32,7 +32,7 @@
   -#   = tally
   
   - if @suggest_facebook
-    #{link_to 'post to facebook too?', '#', :onclick => "Fnnny.pushToFB('#{URI.encode(item_url(item))}', '#{item.name}');"}
+    <br />#{link_to 'post to facebook too?', '#', :onclick => "Fnnny.pushToFB('#{URI.encode(item_url(item))}', '#{item.name}');"}
     (#{link_to 'undo', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'})
   
     

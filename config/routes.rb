@@ -7,6 +7,8 @@ Fnnny::Application.routes.draw do
   resources :comments
   # resources :conversations
   resources :items do
+    get :since, :on => :member
+    get :before, :on => :member
     get :like, :on => :member
     get :unlike, :on => :member
   end

@@ -27,8 +27,9 @@ gem 'omniauth-facebook'
 gem 'public_activity'
 gem 'rails', '3.2.9'
 gem 'rspec-rails'
-gem 'strong_parameters' 
+gem 'strong_parameters'
 gem 'thumbs_up'
+gem 'useragent'
 # gem 'valid_email' #http://my.rails-royce.org/2010/07/21/email-validation-in-ruby-on-rails-without-regexp/
 # gem 'whenever', :require => false
 gem 'will_paginate'
