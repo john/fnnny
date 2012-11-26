@@ -39,6 +39,15 @@ class Item < ActiveRecord::Base
     end
   end
   
+  def youtube?
+    url.present? && url.include?('youtube.com/watch')
+  end
+  
+  def embed_url
+    params_hash = Rack::Utils.parse_query URI( url ).query
+    "http://www.youtube.com/embed/#{params_hash['v']}"
+  end
+  
   # def image_slug
   #   # "#{self.to_param.split('-')[0..3].join('-')}_#{self.created_at.to_i}"
   #   self.to_param.split('-')[0..3].join('-')

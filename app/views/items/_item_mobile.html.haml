@@ -1,11 +1,14 @@
 - show_description = false if local_assigns[:show_description].nil?
 - klass = 'thumb' if local_assigns[:klass].nil?
 
-%div
-  - if item.image.present?
+.pic.mobile
+  - if item.youtube?
+    <iframe width="100%" src="#{item.embed_url}" frameborder="0" allowfullscreen></iframe>
+  
+  - elsif item.image.present?
     = link_to image_tag(item.image_url(:standard)), item.url, :target => '_blank'
     
-%div.item{:style => 'border: none; margin-top: 0; padding-top:0;'}
+.item{:style => 'border: none; margin-top: 0; padding-top:0;'}
   .name.muted
     #{link_to item.user.full_name, person_path(item.user)} added #{time_ago_in_words(item.created_at)} ago
   
@@ -24,7 +27,9 @@
     %small.muted
       = render :partial => "items/links", :locals => {:item => item}
     
-  %ul.tags
+  %ul.tags{:style => 'padding: 0; margin: 0;'}
     - item.tags.each do |t|
-      %li= link_to t.name, tag_path(t)
+      %li{:style => 'border: none; padding: 15px 0 0 0;'}= link_to t.name, tag_path(t)
+      
+  .clearfix
       
