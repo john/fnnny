@@ -1,0 +1,5 @@
+$('#theItems').prepend( "<%= escape_javascript @out.html_safe %>" );
+
+<% if @items.present? -%>
+last_item_id = <%= @items.last.id %>;
+<% end -%>

@@ -13,7 +13,7 @@ class HomeController < ApplicationController
     # El quatro oh quatro:
     
     user_agent = UserAgent.parse( request.env["HTTP_USER_AGENT"] )
-    @mobile = true if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
+    @mobile = true #if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
     
     if signed_in?
       

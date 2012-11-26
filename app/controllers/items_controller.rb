@@ -14,8 +14,17 @@ class ItemsController < ApplicationController
       @out = ''
       
       if @items.blank?
-        @out += "<div style='padding: 20px; font-style: italic; font-weight: bold;'>No updates</div>"
+        @out += "<div style='padding: 5px 20px; font-style: italic; background-color: #eee; border-bottom: 1px solid #ccc;' class='items_since'>"
+        @out += "<a class='btn' style='float: right;' href='#' onclick=\"$('.items_since').fadeOut();\">close</a>"
+        @out += "<small>#{Time.now.strftime("%l:%M%P")}</small>"
+        @out += "<div style='font-weight: bold;'>No updates</div>"
+        @out += '</div>'
       else
+        @since = @items.first.created_at
+        @out = '<script>'
+        @out = "alert('phu');"
+        @out = '</script>'
+        
         @items.each do |item|
           @out += '<li>'
           @out += render_to_string :partial => "items/item_mobile", :locals => {:item => item}
@@ -24,7 +33,7 @@ class ItemsController < ApplicationController
       end
       
     end
-    render :text => @out
+    # render :text => @out
   end
   
   def before

@@ -1,0 +1,11 @@
+.hero-unit.well
+  %h1
+    #{configatron.app_name.capitalize}
+  %p
+    -# A compendium of amusing things.
+    A compendium of funny things.
+    -# A compendium of delight and amusement.
+    -# Discover and share delightful and amusing things.
+    
+  %p
+    = link_to "Sign in with Facebook", omniauth_authorize_path(User, 'facebook'), :class => 'btn btn-primary btn-large'
