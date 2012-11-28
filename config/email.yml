@@ -1,0 +1,16 @@
+development:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: john@fnnny.com
+  :password: latte4me
+  :domain: fnnny.com
+  :enable_starttls_auto: true
+production:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: john@fnnny.com
+  :password: latte4me
+  :domain: fnnny.com
+  :enable_starttls_auto: true

@@ -17,11 +17,6 @@ var Fnnny = {
   
   
   pullDownAction: function() {
-    // $.get('/items/' + last_item_id + '/since', function(data) {
-    //   $('#theItems').prepend( data );
-    // });
-    
-    // $.get('/items/' + last_item_id + '/since');
     $.ajax({
       url: '/items/' + last_item_id + '/since',
       dataType: 'script'
@@ -31,8 +26,9 @@ var Fnnny = {
   },
   
   pullUpAction:  function() {
-    $.get('/items/' + last_item_id + '/since', function(data) {
-      $('#theItems').append( data );
+    $.ajax({
+      url: '/items/' + last_item_id + '/since',
+      dataType: 'script'
     });
 
     myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)

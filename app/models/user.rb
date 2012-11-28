@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :current_password, :notifications
   
   tracked :only => [:create], :owner => proc { |controller, model| controller.current_user if controller.present? }
   
@@ -81,8 +81,8 @@ class User < ActiveRecord::Base
     end
   end
   
-  #Returning the email address of the model if an email should be sent for this object (Message or Notification).
-  #If no mail has to be sent, return nil.
+  # Returning the email address of the model if an email should be sent for this object (Message or Notification).
+  # If no mail has to be sent, return nil.
   def mailboxer_email(object)
     #Check if an email should be sent for that object
     #if true

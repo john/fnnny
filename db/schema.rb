@@ -151,14 +151,13 @@ ActiveRecord::Schema.define(:version => 20121114184735) do
     t.string   "twitter"
     t.string   "url"
     t.string   "original_profile_image_url"
-    t.string   "medium_profile_image_url"
-    t.string   "small_profile_image_url"
+    t.string   "notifications",              :default => "yes"
     t.string   "location"
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "geo_quality"
-    t.string   "email",                      :default => "", :null => false
-    t.string   "encrypted_password",         :default => "", :null => false
+    t.string   "email",                      :default => "",    :null => false
+    t.string   "encrypted_password",         :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -167,8 +166,8 @@ ActiveRecord::Schema.define(:version => 20121114184735) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -9,12 +9,15 @@ class OmniauthCallbacksController < ApplicationController
     if authentication
       # Authentication found, sign the user in.
       sign_in_and_redirect authentication.user, :notice => "Signed in successfully."
-    else
       
+    else
       # Authentication not found, thus a new user.
       user = User.new
       user.from_omniauth(auth, request.remote_ip)
       user.save
+      
+      # TODO: async this soon.
+      UserMailer.welcome_email(user).deliver
       
       if user.persisted?
         # auth = Authentication.find_or_create_from_omniauth(user, omni_auth)

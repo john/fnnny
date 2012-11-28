@@ -11,6 +11,10 @@ class PeopleController < ApplicationController
     if signed_in?
       @user = User.find(params[:id])
       current_user.follow(@user)
+      
+      # TODO: async this
+      UserMailer.new_follow_email(current_user, @user).deliver
+      
       render :partial => "people/follow"
     end
   end

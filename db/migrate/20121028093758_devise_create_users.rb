@@ -9,8 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :twitter
       t.string :url
       t.string :original_profile_image_url
-      t.string :medium_profile_image_url
-      t.string :small_profile_image_url
+      t.string :notifications, :default => "yes"
       t.string :location
       t.float :latitude
       t.float :longitude

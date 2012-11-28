@@ -1,0 +1,8 @@
+Hey <%= @user.first_name %>,
+
+<a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank"><%= @follower.display_name %></a> loves you, or at least thinks you're funny. They're now following you on <%= configatron.app_name %>.
+
+You can <a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank">view their profile</a> or <a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank">follow them back</a>.
+
+Sincerely,
+<%= configatron.app_name %>

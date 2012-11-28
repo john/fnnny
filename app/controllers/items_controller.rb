@@ -21,9 +21,9 @@ class ItemsController < ApplicationController
         @out += '</div>'
       else
         @since = @items.first.created_at
-        @out = '<script>'
-        @out = "alert('phu');"
-        @out = '</script>'
+        # @out = '<script>'
+        # @out = "alert('phu');"
+        # @out = '</script>'
         
         @items.each do |item|
           @out += '<li>'
