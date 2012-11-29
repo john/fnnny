@@ -1,6 +1,20 @@
+# Add model: adds
+# User has_many :adds
+# User has_many :items, :through => :adds
+# :add gets comments, images, does it also get activity?
+# like repos, items for a specific user maybe should be addressed through them. also directly?
+# - /people/john/overhead-in-new-york
+# - /items/overheard-in-new-york
+
+# rails g model add user_id:integer item_id:integer slug:string :...
+
+# or maybe Item stays just as it is, and URL gets turned into its own model ('Link'?) 
+
 class Item < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   include PublicActivity::Model
+  
+  require 'addressable/uri'
   
   attr_accessible :description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id
   
@@ -44,7 +58,7 @@ class Item < ActiveRecord::Base
   end
   
   def embed_url
-    params_hash = Rack::Utils.parse_query URI( url ).query
+    params_hash = Rack::Utils.parse_query Addressable::URI( url ).query
     "http://www.youtube.com/embed/#{params_hash['v']}"
   end
   

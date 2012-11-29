@@ -13,6 +13,7 @@
     %title= (@title) ? @title : configatron.app_name
     %meta{ :name => "description", :content => "" }
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
+    %meta{ :name => "apple-mobile-web-app-capable", :content => "yes" }
 
     %meta{ :property => "fb:app_id", :content => "295556897221526" }
     %meta{ :property => "og:site_name", :content => "Fnnny.com" }
@@ -45,6 +46,15 @@
     -#   window.jQuery || document.write('<script src="/js/jquery-1.7.2.min.js"><\/script>')
     -# = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"
     
+    - if @mobile
+      :javascript
+        var addToHomeConfig = {
+          returningVisitor: true,
+          animationIn: 'bubble',
+          animationOut: 'drop',
+          expire: 0
+        };
+      = javascript_include_tag 'a2h'
     = csrf_meta_tags
     
   %body

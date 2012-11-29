@@ -2,13 +2,14 @@ class HomeController < ApplicationController
 
   def index
     # @title = "#{configatron.app_name}: To delight and amuse"
-    # @title = "#{configatron.app_name}. You will laugh now."
-    # @title = "#{configatron.app_name}. Laugh you donkey laugh"
-    # @title = "#{configatron.app_name}. Quora for Idiots."
-    # @title = "#{configatron.app_name}. Mo fnnny mo better."
+    # @title = "#{configatron.app_name}. You will laugh now"
+    # @title = "#{configatron.app_name}. Quora for Idiots"
+    # @title = "#{configatron.app_name}. Wholesome humor for your next corporate event"
+    # @title = "#{configatron.app_name}. Mo fnnny mo better"
     # @title = "#{configatron.app_name}. The best site on the Internet... for donkies."
     @title = "#{configatron.app_name}. Enterprise Humor Portal."
     # @title = "#{configatron.app_name}. So three guy walk into a bar..."
+    # @title = "Smells #{configatron.app_name} in here"
     
     # El quatro oh quatro:
     

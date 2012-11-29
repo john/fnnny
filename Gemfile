@@ -2,8 +2,9 @@ source 'https://rubygems.org'
 
 gem 'acts_as_follower'
 gem 'acts-as-taggable-on'
+gem 'addressable'
 gem 'airbrake'
-gem 'backup'
+gem 'backup', :require => false
 gem 'bootstrap-sass' # if it needs better modal, consider this: https://github.com/jschr/bootstrap-modal/
 # gem 'by_star'
 gem 'carrierwave'
@@ -26,7 +27,6 @@ gem 'omniauth-facebook'
 # gem 'omniauth-twitter'
 gem 'public_activity'
 gem 'rails', '3.2.9'
-gem 'rspec-rails'
 gem 'strong_parameters'
 gem 'thumbs_up'
 gem 'useragent'
@@ -48,6 +48,7 @@ end
 
 group :development do
   gem 'capistrano'
+  gem 'seed_dump'
   gem 'thin'
   # gem 'capistrano_colors'
   # gem 'colored'
@@ -60,7 +61,7 @@ end
 group :test do
   gem 'factory_girl_rails' #, :require => false
   gem 'database_cleaner'
-  
+  gem 'rspec-rails'
   # https://github.com/jimweirich/rake/issues/51 (read bottom)
   gem 'shoulda-matchers'
   gem 'turn', :require => false # Pretty printed test output

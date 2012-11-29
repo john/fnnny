@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  require 'addressable/uri'
   
   before_filter :authenticate_user!, :except => [:show]
   
@@ -128,10 +129,18 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
+    
+    # TODO:
+    # - find_or_create_by_url?
+    # - be sure to normalize URLs (including removing tracking code, if possible)
+    # - create association to found/created item
+    # - update code elsewhere to attach stuff to the join (comments, images, likes, etc.)
     @item = Item.new(item_params)
     @item.user_id = current_user.id
     @item.name = @item.name.split('|')[0].strip if @item.name.include?('|')
     @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
+    
+    @item.url = Addressable::URI.parse( @item.url ).normalize.to_s unless @item.url.blank?
     
     if @item.original_image_url.present? #params[:bookmarklet] == 'true'
       @item.remote_image_url = @item.original_image_url
