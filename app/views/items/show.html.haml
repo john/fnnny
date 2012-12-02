@@ -1,13 +1,10 @@
-%table.table{:style => 'width: 97%;'}
-  = render :partial => "items/item", :locals => {:item => @item, :show_description => true, :klass => 'standard'}
-
-%h5{:style => 'margin: 25px 0 15px 0;'}
-  Comments
+%ul#items
+  %li= render :partial => "items/item_mobile", :locals => {:item => @item}
   
 -# TODO: set data-width dynamically, based on window width. Can you use bootstrap?
 -# how to style: http://stackoverflow.com/questions/6416569/customize-css-for-facebook-social-plugins
 -# http://www.daddydesign.com/wordpress/how-to-customize-the-facebook-comments-social-plugin-on-a-static-fbml-tab/
-<div class="fb-comments" data-href="#{item_url(@item)}" data-num-posts="3" data-width="900"></div>
+<div class="fb-comments" data-href="#{item_url(@item)}" data-num-posts="3" data-width="320"></div>
 
 -# finally found something: // http://stackoverflow.com/questions/7181315/id-value-in-facebook-comments-create-callback
 :javascript

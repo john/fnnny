@@ -2,6 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  sign_in_with: 'sign in with'
+  sign_up: 'sign up'
+  log_in: 'log in'
+  ago: 'ago'
+  
+  description: "Fnnny is the place to discover and share the things you find amusing. It's like facebook, but with no redeeming social value."
+  
   hello: "Hello world"
 
   activity:

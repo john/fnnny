@@ -13,7 +13,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   
   version :standard do
     # process :resize_to_fill => [320, 240, :north]
-    process :resize_to_fit => [320, 240, :center]
+    
+    # leaves too many images that don't fill the width
+    # process :resize_to_fit => [320, 320, :center]
+    
+    process :resize_to_fit => [320, 320, :center]
   end
   
   version :thumbnail do

@@ -1,33 +1,47 @@
 - if user_signed_in?
   
   #wrapper
-    #scroller
-      #pullDown
-        %span.pullDownIcon
-        %span.pullDownLabel
-          Pull down to refresh...
-      %p
-        need to add everybody | followers filter links
-        
-      %ul#theItems
-        - @items.each do |item|
-          %li= render :partial => "items/item_mobile", :locals => {:item => item}
     
-      #pullUp
-        %span.pullUpIcon
-        %span.pullUpLabel
-          Pull up to refresh...
+    -# %div{:style => 'margin: 7px 0 7px 4px;'}
+    -#   Items from
+    -#   
+    -#   - if @show_all
+    -#     <b>everyone</b>
+    -#   - else
+    -#     = link_to 'everyone', root_path(:show => 'all')
+    -#     
+    -#   |
+    -#   - if @show_followers
+    -#     <b>People you follow</b>
+    -#   - else
+    -#     - if @followers
+    -#       = link_to 'people you follow', root_path(:show => 'followers')
+    -#     - else
+    -#       %a{:href => '#', :id => "peeps"}
+    -#         people you follow
+    -#         
+    -#       :javascript
+    -#         document.getElementById('peeps').onclick = function(ev) {
+    -#         ev.preventDefault();
+    -#         alert("You're not following anyone! Invite some friends, or find some funny people here and follow them.");
+    -#         };
+    -#   
+      
+    %ul#items
+      - @items.each do |item|
+        %li= render :partial => "items/item_mobile", :locals => {:item => item}
         
+    -# #shareModal.modal.hide.fade{:'aria-hidden' => "true"}
+    -#   .modal-body
+    -#     Share crap goes here--dialog box for message, checkboxes for fb and twitter (need auth options)
+    -#   .modal-footer
+    -#     %button.btn{ :'data-dismiss' => "modal", :'aria-hidden' => "true"} Close
+    -#     
+    
 - else
   = render :partial => '/home/sign_in'
 
 
 - if @items.present?
-  <script>
-  last_item_id = #{@items.first.id};
-  </script>
-  
-:javascript
-  var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
-  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-  document.addEventListener('DOMContentLoaded', function () { setTimeout(Fnnny.loaded, 200); }, false);
+  :javascript
+    last_item_id = #{@items.first.id};

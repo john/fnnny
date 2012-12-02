@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20121114184735) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "geo_quality"
+    t.integer  "comments_count",     :default => 0, :null => false
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end

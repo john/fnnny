@@ -35,7 +35,7 @@
   - resource_class.omniauth_providers.each do |provider|
     - if provider.to_s.downcase == 'facebook'
       %div{:style => 'margin-bottom: 10px;'}
-        = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
+        = link_to "#{t(:sign_in_with).humanize} #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
 
 
       -# 
@@ -55,7 +55,7 @@
       -#     - resource_class.omniauth_providers.each do |provider|
       -#       - if provider.to_s.downcase == 'facebook'
       -#         %div{:style => 'margin-bottom: 10px;'}
-      -#           =link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
+      -#           =link_to "#{t :sign_in_with }#{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), :class => 'btn btn-primary', :style => 'width: 200px; height: 25px; padding-top: 8px;'
       -#       
       -#       
       -#   .email_signup

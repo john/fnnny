@@ -1,41 +1,20 @@
 - encoded_id = Base64.urlsafe_encode64(item.id.to_s)
 
-%span{:id => "like_#{item.id}_wrap"}
-  
-  
-  -# - if current_user.voted_for?(item)
-  -#   #{link_to 'unlike', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
-  -# 
-  -# - else
-  -#   #{link_to 'like', like_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
-  -# 
-  -# 
-  -# 
-  -# - if item.votes_for > 0
-  
-  %a{:href => url_for(like_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
-    -# %i.icon-thumbs-up.dim
-    %i.icon-arrow-up.dim{:style => 'margin-right: -3px;'}
-    = item.votes_for
-  
-  
-  -# #{"-"}
-  
-  %a{:href => url_for(unlike_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
-    -# %i.icon-thumbs-down.dim
-    %i.icon-arrow-down.dim{:style => 'margin-right: -3px;'}
-    = item.votes_against
+.btn-group{:id => "like_#{item.id}_wrap", :style => 'margin-right: 6px;'}
+  .btn
+    - encoded_id = Base64.urlsafe_encode64(item.id.to_s)
     
-  -# - tally = item.plusminus
-  -# - if tally != 0
-  -#   #{"="}
-  -#   = tally
-  
-  - if @suggest_facebook
-    <br />#{link_to 'post to facebook too?', '#', :onclick => "Fnnny.pushToFB('#{Addressable::URI.encode(item_url(item))}', '#{item.name}');"}
-    (#{link_to 'undo', unlike_item_path(encoded_id), :id => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'})
-  
-    
+    %a{:href => url_for(like_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+      %i.icon-thumbs-up.dim
+      %small
+        = item.votes_for
+        
+  .btn
+    %a{:href => url_for(unlike_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+      %i.icon-thumbs-down.dim
+      %small
+        = item.votes_against
+        
 :javascript
   $(".like_#{item.id}_link").on(
     'ajax:success',

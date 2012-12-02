@@ -10,13 +10,13 @@
 
 # or maybe Item stays just as it is, and URL gets turned into its own model ('Link'?) 
 
+require "addressable/uri"
+
 class Item < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   include PublicActivity::Model
   
-  require 'addressable/uri'
-  
-  attr_accessible :description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id
+  attr_accessible :description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id, :tag_list, :comments_count
   
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -44,7 +44,6 @@ class Item < ActiveRecord::Base
     end
   end
   
-  
   def belongs_to(user)
     if self.user_id == user.id
       true
@@ -58,13 +57,8 @@ class Item < ActiveRecord::Base
   end
   
   def embed_url
-    params_hash = Rack::Utils.parse_query Addressable::URI( url ).query
+    params_hash = Rack::Utils.parse_query( Addressable::URI.parse( url ).query )
     "http://www.youtube.com/embed/#{params_hash['v']}"
   end
-  
-  # def image_slug
-  #   # "#{self.to_param.split('-')[0..3].join('-')}_#{self.created_at.to_i}"
-  #   self.to_param.split('-')[0..3].join('-')
-  # end
   
 end

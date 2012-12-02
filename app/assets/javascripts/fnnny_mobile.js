@@ -2,4 +2,3 @@
 //= require bootstrap
 //= require humane
 //= require fnnny_global
-//= require iscroll

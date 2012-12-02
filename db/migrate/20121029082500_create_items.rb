@@ -12,6 +12,7 @@ class CreateItems < ActiveRecord::Migration
       t.float :latitude
       t.float :longitude
       t.integer :geo_quality
+      t.integer :comments_count, :null => false, :default => 0
 
       t.timestamps
     end

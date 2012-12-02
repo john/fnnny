@@ -11,8 +11,10 @@ html
   height: 100%
   
 body /* Add top padding for full-width layout */
-  padding-top: 60px
+  //padding-top: 60px
   //padding-bottom: 40px
+  padding: 0
+  margin: 0
   height: 100%
 
 @media (max-width: 979px)
@@ -23,12 +25,12 @@ body /* Add top padding for full-width layout */
 
 /* logo. added styles from .brand here. for some reason they weren't working together correctly */
 .font-effect-neon
-  padding: 10px 0 10px 0
+  padding: 5px 0 10px 0
   float: left
-  font-size: 36px
+  font-size: 20px
   //font-size: 200px
   font-family: 'Maiden Orange', cursive
-  margin-top: 10px
+  margin-top: 5px
   //margin-top: 120px
   margin-bottom: -11px
   //margin-bottom: 89px
@@ -64,23 +66,28 @@ body /* Add top padding for full-width layout */
   width: 275px
   
 .item
-  
+  border: none
+  margin: 0
+  padding: 0
   .close
     float: right
     
   .name
     a
       font-weight: bold
-      color: rgb(51, 51, 51)
+      //color: rgb(51, 51, 51)
+      color: #777
       
   .title
     font-weight: bold
+    margin-bottom: 5px                                                                                                                                                                                                                                                                                                                                                                                      
     a
       color: rgb(25, 85, 141)
   .title.standard
     font-size: 1.5em
     line-height: 1.2em
-    
+  .item_description
+    margin-top: 5px
   .links
     a
       color: rgb(83, 141, 194)
@@ -88,73 +95,104 @@ body /* Add top padding for full-width layout */
       
 /* tags (http://cssglobe.com/pure-css3-post-tags/) */
 .tags
-  margin: 4px 0 0 -15px
-  //padding: 0
-  //position: absolute
-  //right: 24px
-  //bottom: -12px
   list-style: none
+  margin: 0
+  overflow: hidden
+  padding: 0
+  font-size: 12px
   li
-    padding: 0
-    border: none
+    //padding: 0
+    //border: none
     float: left
-    height: 18px
-    line-height: 18px
-    position: relative
-    font-size: 12px
+    //height: 18px
+    //line-height: 18px
+    //position: relative
+    //font-size: 12px
   a
-    float: left
-    height: 18px
-    line-height: 18px
+    background: #eee
+    border-radius: 3px 0 0 3px
+    color: #999
+    display: inline-block
+    height: 22px
+    line-height: 22px
+    padding: 0 20px 0 23px
     position: relative
-    font-size: 12px
-    margin-left: 20px
-    padding: 0 8px 0 10px
-    //background: #0089e0
-    background: #999
-    color: #fff
+    margin: 0 5px 0px 0
     text-decoration: none
-    -moz-border-radius-bottomright: 4px
-    -webkit-border-bottom-right-radius: 4px	
-    border-bottom-right-radius: 4px
-    -moz-border-radius-topright: 4px
-    -webkit-border-top-right-radius: 4px
-    border-top-right-radius: 4px
+    -webkit-transition: color 0.2s
+    //float: left
+    //height: 18px
+    //line-height: 18px
+    //position: relative
+    //font-size: 12px
+    //margin-left: 20px
+    //padding: 0 8px 0 10px
+    ////background: #0089e0
+    //background: #999
+    //color: #fff
+    //text-decoration: none
+    //-moz-border-radius-bottomright: 4px
+    //-webkit-border-bottom-right-radius: 4px 
+    //border-bottom-right-radius: 4px
+    //-moz-border-radius-topright: 4px
+    //-webkit-border-top-right-radius: 4px
+    //border-top-right-radius: 4px
   a:before
-    content: ""
-    float: left
+    //content: ""
+    //float: left
+    //position: absolute
+    //top: 0
+    //left: -9px
+    //width: 0
+    //height: 0
+    //border-color: transparent #999 transparent transparent
+    //border-style: solid
+    //border-width: 9px 9px 9px 0
+    background: #fff
+    border-radius: 10px
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.25)
+    content: ''
+    height: 6px
+    left: 10px
     position: absolute
-    top: 0
-    left: -9px
-    width: 0
-    height: 0
-    border-color: transparent #999 transparent transparent
-    border-style: solid
-    border-width: 9px 9px 9px 0
+    width: 6px
+    top: 8px
     
   a:after
-    content: ""
-    position: absolute
-    top: 7px
-    left: 0
-    float: left
-    width: 4px
-    height: 4px
-    -moz-border-radius: 2px
-    -webkit-border-radius: 2px
-    border-radius: 2px
+    //content: ""
+    //position: absolute
+    //top: 7px
+    //left: 0
+    //float: left
+    //width: 4px
+    //height: 4px
+    //-moz-border-radius: 2px
+    //-webkit-border-radius: 2px
+    //border-radius: 2px
+    //background: #fff
+    ////-moz-box-shadow: -1px -1px 2px #004977
+    ////    -webkit-box-shadow: -1px -1px 2px #004977
+    ////    box-shadow: -1px -1px 2px #004977
+    //-moz-box-shadow: -1px -1px 2px #333
+    //-webkit-box-shadow: -1px -1px 2px #333
+    //box-shadow: -1px -1px 2px #333
     background: #fff
-    //-moz-box-shadow: -1px -1px 2px #004977
-    //    -webkit-box-shadow: -1px -1px 2px #004977
-    //    box-shadow: -1px -1px 2px #004977
-    -moz-box-shadow: -1px -1px 2px #333
-    -webkit-box-shadow: -1px -1px 2px #333
-    box-shadow: -1px -1px 2px #333
+    border-bottom: 13px solid transparent
+    border-left: 10px solid #eee
+    border-top: 10px solid transparent
+    content: ''
+    position: absolute
+    right: 0
+    top: 0
     
   a:hover
-    background: #555
-  a:hover:before
-    border-color: transparent #555 transparent transparent
+    //background: #555
+    background-color: crimson
+    color: white
+  //a:hover:before
+  //  border-color: transparent #555 transparent transparent
+  a:hover:after
+    border-left-color: crimson
     
 .dim
   opacity: 0.50
@@ -179,107 +217,23 @@ body /* Add top padding for full-width layout */
     border-bottom: 1px solid #ddd
     padding: 10px 0
     margin: 0
-    
-    
-// for jquery.truncate.js
-.element-hidden
-  display: none
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-// for iscroll
 
 #wrapper
-  position: absolute
-  z-index: 1
-  top: 50px
-  bottom: 0px
-  left: -9999px
   width: 100%
-  overflow: auto
-
-#scroller
-  position: absolute
-  z-index: 1
-  /*	-webkit-touch-callout:none*/
-  -webkit-tap-highlight-color: rgba(0,0,0,0)
-  width: 100%
+  margin: 0
   padding: 0
-  ul
-    list-style: none
-    padding: 0
-    margin: 0
-    width: 100%
-    text-align: left
-    li
-      padding: 25px
-      border-bottom: 1px solid #ddd
+
+#items
+  list-style: none
+  padding: 0
+  margin: 0
+  width: 100%
+  text-align: left
+  li
+    padding: 30px 6px
+    border-bottom: 1px solid #ddd
 
 
-/** Pull down styles */
-
-#pullDown, #pullUp
-  background: #fff
-  height: 40px
-  line-height: 40px
-  padding: 5px 10px
-  border-bottom: 1px solid #ccc
-  font-weight: bold
-  font-size: 14px
-  color: #888
-  
-#pullDown .pullDownIcon, #pullUp .pullUpIcon
-  display: block
-  float: left
-  width: 40px
-  height: 40px
-  background: url(http://cubiq.org/dropbox/iscroll4/examples/pull-to-refresh/pull-icon@2x.png) 0 0 no-repeat
-  -webkit-background-size: 40px 80px
-  background-size: 40px 80px
-  -webkit-transition-property: -webkit-transform
-  -webkit-transition-duration: 250ms
-
-#pullDown .pullDownIcon
-  -webkit-transform: rotate(0deg) translateZ(0)
-
-#pullUp .pullUpIcon
-  -webkit-transform: rotate(-180deg) translateZ(0)
-
-
-#pullDown.flip .pullDownIcon
-  -webkit-transform: rotate(-180deg) translateZ(0)
-
-
-#pullUp.flip .pullUpIcon
-  -webkit-transform: rotate(0deg) translateZ(0)
-
-#pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon
-  background-position: 0 100%
-  -webkit-transform: rotate(0deg) translateZ(0)
-  -webkit-transition-duration: 0ms
-  -webkit-animation-name: loading
-  -webkit-animation-duration: 2s
-  -webkit-animation-iteration-count: infinite
-  -webkit-animation-timing-function: linear
-
-@-webkit-keyframes loading
-  from
-    -webkit-transform: rotate(0deg) translateZ(0)
-  to
-    -webkit-transform: rotate(360deg) translateZ(0)
-    
-    
 // FOR add2home
 
 // Main container

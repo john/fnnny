@@ -39,6 +39,7 @@
           
     <link href='http://fonts.googleapis.com/css?family=Maiden+Orange&text=fnnny&effect=neon' rel='stylesheet' type='text/css'>
     
+    -# <link rel="stylesheet" href="/jquery.scrollz.css">
     = stylesheet_link_tag "application", :media => "all"
     
     %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"}
@@ -54,6 +55,16 @@
           animationOut: 'drop',
           expire: 0
         };
+        
+        // When ready...
+        window.addEventListener("load",function() {
+          // Set a timeout...
+          setTimeout(function(){
+            // Hide the address bar!
+            window.scrollTo(0, 1);
+          }, 0);
+        });
+        
       = javascript_include_tag 'a2h'
     = csrf_meta_tags
     
@@ -63,27 +74,39 @@
     <script src="http://connect.facebook.net/en_US/all.js"></script>
     
     - if @mobile
+      - top_nav_class = 'navbar-static-top'
       = javascript_include_tag 'fnnny_mobile'
+    - else
+      - top_nav_class = 'navbar-fixed-top'
       
     -# from: http://www.w3resource.com/twitter-bootstrap/navbar-tutorial.php
     #wrap
-      .navbar.navbar-fixed-top.navbar-inverse
-        .navbar-inner
+      -# .navbar-fixed-top  <---- for top, stays put while content scrolls behind
+      -# .navbar-static-top <----for top, but scrolls away
+      .navbar.navbar-inverse{:class => top_nav_class}
+        .navbar-inner{:style => 'height: 30px; min-height: 30px;'}
           .container
-            = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon'
             
-            -# %a.btn.btn-navbar{:'data-toggle' => "collapse", :'data-target' => ".nav-collapse"}
-            -#   %span.icon-bar
-            -#   %span.icon-bar
-            -#   %span.icon-bar
+            -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
+            %a{:href => root_path}
+              -# %img{:src => "/assets/fnnny_16.png", :style => 'margin: 10px 0 0 8px;'}
+              -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
+              -# %i.icon-home.icon-white{:style => 'margin: 8px 0 0 8px;'}
+              %i.icon-fire.icon-white{:style => 'margin: 8px 0 0 8px;'}
+            
+            - if user_signed_in?
+              %ul.nav.pull-right
+                %li
+                  %a{:href => new_item_path, :style => 'margin-right: 5px; padding-right: 0;'}
+                    %i.icon-plus.icon-white
                     
+                -# %li
+                -#   %a{:href => "#", :style => 'margin-right: 5px; padding-right: 0;'}
+                -#     %i.icon-tags.icon-white
                     
-            -# .nav-collapse
-            %ul.nav.pull-right
-              - if user_signed_in?
                 %li.dropdown
                   %a{:href => "#", :class => "dropdown-toggle", :'data-toggle' => "dropdown"}
-                    = current_user.display_name
+                    %i.icon-user.icon-white
                     %b.caret
                     
                   %ul.dropdown-menu
@@ -95,18 +118,50 @@
                     
                     - if signed_in? && current_user.admin?
                       %li= link_to "Admin", admin_path, :style => 'color:red;'
-                      
-              - else
+
+              -# .pull-right{:style => 'margin: 4px 7px 0 0;'}
+              -#   = link_to 'Add fnnny', new_item_path, :class => "btn btn-small btn-success"
+            - else
+              
+              %ul.nav.pull-right
                 %li
-                  = link_to "Sign Up", omniauth_authorize_path(User, 'facebook')
-                %li
-                  = link_to "Log In", omniauth_authorize_path(User, 'facebook')
+                  = link_to t(:log_in).humanize, omniauth_authorize_path(User, 'facebook'), :style => 'margin-top: -5px;'
                 
-            - if user_signed_in?
-              .pull-right{:style => 'margin: 4px 7px 0 0;'}
-                = link_to 'Add fnnny', new_item_path, :class => "btn btn-mini"
+              .pull-right{:style => 'margin: -1px 7px 0 0;'}
+                = link_to t(:sign_up).humanize, omniauth_authorize_path(User, 'facebook'), :class => "btn btn-mini btn-success"
+              
+              
+          -#   - if user_signed_in?
+          -#     -# %ul.nav.pull-right
+          -#     -#   %li.dropdown
+          -#     -#     %a{:href => "#", :class => "dropdown-toggle", :'data-toggle' => "dropdown"}
+          -#     -#       %i.icon-user.icon-white
+          -#     -#       %b.caret
+          -#     -#       
+          -#     -#     %ul.dropdown-menu
+          -#     -#       %li= link_to 'View profile', person_path(current_user)
+          -#     -#       %li= link_to 'Edit profile', edit_user_registration_path
+          -#     -#       %li= link_to "Log Out", destroy_user_session_path, method: :delete
+          -#     -#       %li= link_to "Tags", tags_path, method: :delete
+          -#     -#       %li= link_to 'Get bookmarklet', bookmarklet_path
+          -#     -#       
+          -#     -#       - if signed_in? && current_user.admin?
+          -#     -#         %li= link_to "Admin", admin_path, :style => 'color:red;'
+          -#             
+          -#     -# .pull-right{:style => 'margin: 4px 7px 0 0;'}
+          -#     -#   = link_to 'Add fnnny', new_item_path, :class => "btn btn-small btn-success"
+          -#       
+          -#   - else
+          -#     
+          -#     %ul.nav.pull-right
+          -#       %li= link_to "Log In", omniauth_authorize_path(User, 'facebook')
+          -#     
+          -#     .pull-right{:style => 'margin: 4px 7px 0 0;'}
+          -#       = link_to "Sign Up", omniauth_authorize_path(User, 'facebook'), :class => "btn btn-small btn-success"
+          -#       
+                
       .container
-      
+        
         = yield
         
         -# -# eventually this should probably be in the header. and it should definitely be fixed.

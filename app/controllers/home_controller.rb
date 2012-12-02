@@ -4,10 +4,11 @@ class HomeController < ApplicationController
     # @title = "#{configatron.app_name}: To delight and amuse"
     # @title = "#{configatron.app_name}. You will laugh now"
     # @title = "#{configatron.app_name}. Quora for Idiots"
-    # @title = "#{configatron.app_name}. Wholesome humor for your next corporate event"
+    # @title = "#{configatron.app_name}. The perfect humor solution for your next corporate event"
     # @title = "#{configatron.app_name}. Mo fnnny mo better"
-    # @title = "#{configatron.app_name}. The best site on the Internet... for donkies."
-    @title = "#{configatron.app_name}. Enterprise Humor Portal."
+    @title = "#{configatron.app_name}. The best site on the Internet... for donkies."
+    # @title = "#{configatron.app_name}. Kinda like America's Home Videos, but dumber."
+    # @title = "#{configatron.app_name}. Enterprise Humor Portal."
     # @title = "#{configatron.app_name}. So three guy walk into a bar..."
     # @title = "Smells #{configatron.app_name} in here"
     
@@ -19,6 +20,7 @@ class HomeController < ApplicationController
     if signed_in?
       
       following_count = current_user.following_by_type_count('User')
+      
       if following_count > 0
         @followers = true
         if params[:show]

@@ -87,6 +87,9 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @title = @item.name
+    user_agent = UserAgent.parse( request.env["HTTP_USER_AGENT"] )
+    @mobile = true #if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
@@ -139,10 +142,9 @@ class ItemsController < ApplicationController
     @item.user_id = current_user.id
     @item.name = @item.name.split('|')[0].strip if @item.name.include?('|')
     @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
-    
     @item.url = Addressable::URI.parse( @item.url ).normalize.to_s unless @item.url.blank?
     
-    if @item.original_image_url.present? #params[:bookmarklet] == 'true'
+    if @item.original_image_url.present?
       @item.remote_image_url = @item.original_image_url
     end
     
