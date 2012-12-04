@@ -62,7 +62,7 @@ class HomeController < ApplicationController
         
       else
         # add a dismissible banner pushing users to follow people to see scoped results.
-        @items = Item.order('created_at DESC').limit(20) # where("user_id != ?", current_user.id).
+        @items = Item.order('created_at DESC').paginate( :page => params[:page], :per_page => Item::PER_PAGE ) # where("user_id != ?", current_user.id).
         
       end
       

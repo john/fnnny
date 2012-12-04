@@ -3,6 +3,10 @@ es:
   sign_up: ' inscribirse'
   log_in: 'acceder'
   ago: 'atrás'
+  share_on: 'compartir en'
+  or: 'o'
+  more_please: 'más, por favor.'
+  more_coming: 'más próximo...'
   
   description1: "Fnnny es el lugar para descubrir y compartir las cosas que encuentras divertido."
   description2: "Es como facebook, pero sin valor social."

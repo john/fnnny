@@ -6,8 +6,13 @@ en:
   sign_up: 'sign up'
   log_in: 'log in'
   ago: 'ago'
+  share_on: 'share on'
+  or: 'or'
+  more_please: 'more, please.'
+  more_coming: 'more coming...'
   
-  description: "Fnnny is the place to discover and share the things you find amusing. It's like facebook, but with no redeeming social value."
+  description1: "Fnnny is the place to discover and share the things you find amusing."
+  description2: "It's like facebook, but with no redeeming social value."
   
   hello: "Hello world"
 

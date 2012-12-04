@@ -2,6 +2,10 @@ class PeopleController < ApplicationController
   
   before_filter :authenticate_user!
   
+  def index
+    @title = "People | #{configatron.app_name}"
+  end
+  
   def show
     @user = User.find(params[:id])
     @title = "#{@user.display_name} | #{configatron.app_name}"

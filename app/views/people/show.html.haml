@@ -24,5 +24,7 @@
       Nothing posted, yet.
       
 - else
-  - @user.items.each do |item|
-    = render :partial => "items/item", :locals => {:item => item}
+  %ul#items
+    - @user.items.each do |item|
+      %li= render :partial => "items/item_mobile", :locals => {:item => item}
+      -# = render :partial => "items/item", :locals => {:item => item}

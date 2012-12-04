@@ -9,20 +9,20 @@
           %small= item.comments_count
     .btn
       -# %a{:href => "#shareModal", :'data-toggle' => 'modal'}
-      %a{:href => "#", :onclick => "$('#shareLinks').fadeToggle();"}
+      %a{:href => "#", :onclick => "$('#shareLinks_#{item.id}').fadeToggle();"}
         %i.icon-share.dim
         %small
           &nbsp;
           
           
-.btn-toolbar{:style => 'display:none;', :id => 'shareLinks'}
-  .btn-group
-    .btn
-      %a{:href => "#", :onclick => "Fnnny.pushToFB('#{URI.encode(item_url(item))}')"}
-        %i.icon-share.dim
-        %small Facebook
-        
-    .btn
-      %a{:href => "https://twitter.com/share?url=#{URI.encode(item_url(item))}&text=This%20is%20fnnny:%20", :target => '_blank'}
-        %i.icon-share.dim
-        %small Twitter
+%div{:style => 'display:none; padding-bottom: 8px;', :id => "shareLinks_#{item.id}"}
+  = t(:share_on).humanize
+  %a.btn.btn-info.btn-small{:style => 'color: white;', :href => "#", :onclick => "Fnnny.pushToFB('#{URI.encode(item_url(item))}')"}
+    %i.icon-share.icon-white
+    %small Facebook
+    
+  = t(:or)
+  
+  %a.btn.btn-info.btn-small{:style => 'color: white;', :href => "https://twitter.com/share?url=#{URI.encode(item_url(item))}&text=This%20is%20fnnny:%20", :target => '_blank'}
+    %i.icon-share.icon-white
+    %small Twitter

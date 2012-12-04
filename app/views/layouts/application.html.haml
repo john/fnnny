@@ -47,25 +47,39 @@
     -#   window.jQuery || document.write('<script src="/js/jquery-1.7.2.min.js"><\/script>')
     -# = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"
     
-    - if @mobile
-      :javascript
-        var addToHomeConfig = {
-          returningVisitor: true,
-          animationIn: 'bubble',
-          animationOut: 'drop',
-          expire: 0
-        };
-        
-        // When ready...
-        window.addEventListener("load",function() {
-          // Set a timeout...
-          setTimeout(function(){
-            // Hide the address bar!
-            window.scrollTo(0, 1);
-          }, 0);
-        });
-        
-      = javascript_include_tag 'a2h'
+    -# - if @mobile
+    :javascript
+      var addToHomeConfig = {
+        returningVisitor: true,
+        animationIn: 'bubble',
+        animationOut: 'drop',
+        expire: 0
+      };
+      
+      // When ready...
+      window.addEventListener("load",function() {
+        // Set a timeout...
+        setTimeout(function(){
+          // Hide the address bar!
+          window.scrollTo(0, 1);
+        }, 0);
+      });
+      
+      // Fix for broken iPhone dropdowns: https://github.com/twitter/bootstrap/issues/4550
+      !function ($) {
+        $(function(){
+          // Fix for dropdowns on mobile devices
+          $('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { 
+              e.stopPropagation(); 
+          });
+          $(document).on('click','.dropdown-menu a',function(){
+              document.location = $(this).attr('href');
+          });
+        })
+      }(window.jQuery)
+      
+      
+    = javascript_include_tag 'a2h'
     = csrf_meta_tags
     
   %body
@@ -73,17 +87,30 @@
     #fb-root
     <script src="http://connect.facebook.net/en_US/all.js"></script>
     
-    - if @mobile
-      - top_nav_class = 'navbar-static-top'
-      = javascript_include_tag 'fnnny_mobile'
-    - else
-      - top_nav_class = 'navbar-fixed-top'
+    -# - if @mobile
+    - top_nav_class = 'navbar-static-top'
+    = javascript_include_tag 'fnnny_mobile'
+    -# - else
+    -#   - top_nav_class = 'navbar-fixed-top'
       
     -# from: http://www.w3resource.com/twitter-bootstrap/navbar-tutorial.php
     #wrap
       -# .navbar-fixed-top  <---- for top, stays put while content scrolls behind
       -# .navbar-static-top <----for top, but scrolls away
       .navbar.navbar-inverse{:class => top_nav_class}
+        
+        :css
+          .navbar-text { margin-bottom: 0; line-height: 30px; }
+          .navbar .divider-vertical { height: 30px; margin: 0 9px; }
+          .navbar .nav > li > a {
+            float: none;
+            padding: 5px 15px 5px;
+            color: #777777;
+            text-decoration: none;
+            text-shadow: 0 1px 0 #ffffff;
+          }
+          .navbar .nav .dropdown-toggle .caret { margin-top: 8px; }
+          
         .navbar-inner{:style => 'height: 30px; min-height: 30px;'}
           .container
             
@@ -95,71 +122,56 @@
               %i.icon-fire.icon-white{:style => 'margin: 8px 0 0 8px;'}
             
             - if user_signed_in?
-              %ul.nav.pull-right
+              
+              %ul.nav.pull-right.top-nav
                 %li
-                  %a{:href => new_item_path, :style => 'margin-right: 5px; padding-right: 0;'}
+                  %a{:href => new_item_path, :rel => "tooltip", :title => "Add item"}
                     %i.icon-plus.icon-white
                     
-                -# %li
-                -#   %a{:href => "#", :style => 'margin-right: 5px; padding-right: 0;'}
-                -#     %i.icon-tags.icon-white
+                %li
+                  %a{:href => tags_path, :rel => "tooltip", :title => "Tags"}
+                    %i.icon-tags.icon-white
+                    
+                %li
+                  %a{:href => people_path, :rel => "tooltip", :title => "People"}
+                    %i.icon-user.icon-white
                     
                 %li.dropdown
                   %a{:href => "#", :class => "dropdown-toggle", :'data-toggle' => "dropdown"}
-                    %i.icon-user.icon-white
+                    %i.icon-cog.icon-white
                     %b.caret
                     
                   %ul.dropdown-menu
                     %li= link_to 'View profile', person_path(current_user)
                     %li= link_to 'Edit profile', edit_user_registration_path
-                    %li= link_to "Log Out", destroy_user_session_path, method: :delete
-                    %li= link_to "Tags", tags_path, method: :delete
+                    %li= link_to "Log Out", destroy_user_session_path, :method => :delete
                     %li= link_to 'Get bookmarklet', bookmarklet_path
                     
                     - if signed_in? && current_user.admin?
                       %li= link_to "Admin", admin_path, :style => 'color:red;'
-
-              -# .pull-right{:style => 'margin: 4px 7px 0 0;'}
-              -#   = link_to 'Add fnnny', new_item_path, :class => "btn btn-small btn-success"
+                      
+                %li
+                  = link_to '(o)', destroy_user_session_path, :method => :delete
+                  -# %a{:href => destroy_user_session_path, :rel => "tooltip", :title => "Log out"}
+                  -#                     %i.icon-off.icon-white
+                    
+                    
+              :javascript
+                $(function() {
+                  $('.top-nav').tooltip({
+                    selector: "a[rel=tooltip]", placement: 'bottom'
+                  });
+                });
+                
             - else
               
               %ul.nav.pull-right
                 %li
-                  = link_to t(:log_in).humanize, omniauth_authorize_path(User, 'facebook'), :style => 'margin-top: -5px;'
+                  = link_to t(:log_in).humanize, omniauth_authorize_path(User, 'facebook'), :style => 'margin-top: 0px;'
                 
-              .pull-right{:style => 'margin: -1px 7px 0 0;'}
+              .pull-right{:style => 'margin: -2px 5px 0 0;'}
                 = link_to t(:sign_up).humanize, omniauth_authorize_path(User, 'facebook'), :class => "btn btn-mini btn-success"
               
-              
-          -#   - if user_signed_in?
-          -#     -# %ul.nav.pull-right
-          -#     -#   %li.dropdown
-          -#     -#     %a{:href => "#", :class => "dropdown-toggle", :'data-toggle' => "dropdown"}
-          -#     -#       %i.icon-user.icon-white
-          -#     -#       %b.caret
-          -#     -#       
-          -#     -#     %ul.dropdown-menu
-          -#     -#       %li= link_to 'View profile', person_path(current_user)
-          -#     -#       %li= link_to 'Edit profile', edit_user_registration_path
-          -#     -#       %li= link_to "Log Out", destroy_user_session_path, method: :delete
-          -#     -#       %li= link_to "Tags", tags_path, method: :delete
-          -#     -#       %li= link_to 'Get bookmarklet', bookmarklet_path
-          -#     -#       
-          -#     -#       - if signed_in? && current_user.admin?
-          -#     -#         %li= link_to "Admin", admin_path, :style => 'color:red;'
-          -#             
-          -#     -# .pull-right{:style => 'margin: 4px 7px 0 0;'}
-          -#     -#   = link_to 'Add fnnny', new_item_path, :class => "btn btn-small btn-success"
-          -#       
-          -#   - else
-          -#     
-          -#     %ul.nav.pull-right
-          -#       %li= link_to "Log In", omniauth_authorize_path(User, 'facebook')
-          -#     
-          -#     .pull-right{:style => 'margin: 4px 7px 0 0;'}
-          -#       = link_to "Sign Up", omniauth_authorize_path(User, 'facebook'), :class => "btn btn-small btn-success"
-          -#       
-                
       .container
         
         = yield
@@ -178,8 +190,8 @@
         
         
         
-    - unless @mobile
-      = javascript_include_tag 'fnnny'
+    -# - unless @mobile
+    -#   = javascript_include_tag 'fnnny'
       
     = humane_flash_messages.html_safe
     

@@ -5,6 +5,33 @@ class ItemsController < ApplicationController
   
   protect_from_forgery :except => :create 
   
+  def more
+    if signed_in?
+      @items = Item.order('created_at DESC').paginate( :page => params[:page], :per_page => Item::PER_PAGE )
+      
+      if @items.present?
+        @out = ''
+        @items.each do |item|
+          @out += '<li>'
+          @out += render_to_string :partial => "items/item_mobile", :locals => {:item => item}
+          @out += '</li>'
+        end
+        
+        unless @items.size < Item::PER_PAGE
+          @out += render_to_string :partial => '/items/more', :locals => {:page => params[:page]}
+        end
+        
+      else
+        @out = ''
+      end
+    end
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
   
   def since
     if signed_in?

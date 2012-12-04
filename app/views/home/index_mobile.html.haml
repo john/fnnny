@@ -29,8 +29,10 @@
       
     %ul#items
       - @items.each do |item|
-        %li= render :partial => "items/item_mobile", :locals => {:item => item}
+        %li= render :partial => "/items/item_mobile", :locals => {:item => item}
         
+      = render :partial => '/items/more' unless @items.size < Item::PER_PAGE
+      
     -# #shareModal.modal.hide.fade{:'aria-hidden' => "true"}
     -#   .modal-body
     -#     Share crap goes here--dialog box for message, checkboxes for fb and twitter (need auth options)

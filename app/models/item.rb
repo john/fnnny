@@ -16,6 +16,8 @@ class Item < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   include PublicActivity::Model
   
+  PER_PAGE = 10
+  
   attr_accessible :description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id, :tag_list, :comments_count
   
   extend FriendlyId

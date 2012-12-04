@@ -1,5 +1,6 @@
-.hero-unit.well
-  %h1
+.hero-unit{:style => 'width: 80%; padding: 20px 25px 45px 40px; height: 500px;'}
+  -# .well
+  %h1{:style => 'margin-bottom: 20px;'}
     #{configatron.app_name.capitalize}
   %p
     -# A compendium of amusing things.
@@ -9,8 +10,8 @@
     = t(:description1)
     <br />
     = t(:description2)
-  %p
-    = link_to "#{t :sign_in_with } Facebook", omniauth_authorize_path(User, 'facebook'), :class => 'btn btn-primary btn-large'
+  %p{:style => 'margin-top: 25px;'}
+    = link_to "#{t(:sign_in_with).humanize } Facebook", omniauth_authorize_path(User, 'facebook'), :class => 'btn btn-primary btn-large'
   -#   
   -# %p
   -#   = link_to 'drop', '#', :onclick => "addToHome.show();"
