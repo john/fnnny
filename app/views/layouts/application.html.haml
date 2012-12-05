@@ -65,6 +65,8 @@
         }, 0);
       });
       
+      
+      
       // Fix for broken iPhone dropdowns: https://github.com/twitter/bootstrap/issues/4550
       !function ($) {
         $(function(){
@@ -73,6 +75,8 @@
               e.stopPropagation(); 
           });
           $(document).on('click','.dropdown-menu a',function(){
+              
+              // HOW to get this to respect data-method="delete" for logout?
               document.location = $(this).attr('href');
           });
         })
@@ -150,10 +154,10 @@
                     - if signed_in? && current_user.admin?
                       %li= link_to "Admin", admin_path, :style => 'color:red;'
                       
-                %li
-                  = link_to '(o)', destroy_user_session_path, :method => :delete
-                  -# %a{:href => destroy_user_session_path, :rel => "tooltip", :title => "Log out"}
-                  -#                     %i.icon-off.icon-white
+                -# %li
+                -#   = link_to '(o)', destroy_user_session_path, :method => :delete
+                -#   -# %a{:href => destroy_user_session_path, :rel => "tooltip", :title => "Log out"}
+                -#   -#                     %i.icon-off.icon-white
                     
                     
               :javascript

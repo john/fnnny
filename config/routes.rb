@@ -16,7 +16,10 @@ Fnnny::Application.routes.draw do
   
   # resources :messages
   # resources :notification
-  resources :people
+  resources :people do
+    get :friends, :on => :member
+    get :invite, :on => :member
+  end
   resources :tags, :id => /[^\/]+/
   
   match '/admin' => 'admin#index', :as => :admin, :via => :get

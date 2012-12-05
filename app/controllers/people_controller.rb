@@ -11,6 +11,20 @@ class PeopleController < ApplicationController
     @title = "#{@user.display_name} | #{configatron.app_name}"
   end
   
+  def friends
+    @user = User.find(params[:id])
+    @title = "#{@user.display_name}'s friends | #{configatron.app_name}"
+    
+    auth = @user.authentications.select{ |a| a.provider == 'facebook' }.compact.first
+    graph_api = Koala::Facebook::API.new(auth.access_token)
+    fields = 'id, name, first_name, last_name, link, picture'
+    @friends = graph_api.get_connections("me", "friends", :fields => fields, :limit => 10, :offset => 0)
+    
+    # let them select who they want to send invites to
+    # for friends who are already on fnnny (think of the future!), let them follow rather than invite
+    
+  end
+  
   def follow
     if signed_in?
       @user = User.find(params[:id])
