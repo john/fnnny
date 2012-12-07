@@ -5,8 +5,7 @@ gem 'acts-as-taggable-on'
 gem 'addressable'
 gem 'airbrake'
 gem 'backup', :require => false
-gem 'bootstrap-sass' # if it needs better modal, consider this: https://github.com/jschr/bootstrap-modal/
-# gem 'by_star'
+gem 'bootstrap-sass', :git => 'https://github.com/john/bootstrap-sass' # to address: https://github.com/twitter/bootstrap/issues/4756#issuecomment-9952781
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'configatron'
