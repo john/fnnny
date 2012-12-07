@@ -22,6 +22,26 @@ class PeopleController < ApplicationController
     
     # let them select who they want to send invites to
     # for friends who are already on fnnny (think of the future!), let them follow rather than invite
+  end
+  
+  def invite
+    @user = User.find(params[:id])
+    
+    # invite_fb_ids: "invite_fb_ids"=>["713135", "842025"]
+    logger.debug "params: #{params.inspect}"
+    
+    # record invitees in 'invites' table: user_id, invitee_fb_id
+    
+      # a given user should probably only be able to invite someone once.
+      # you can check new users against 'invites,' and auto-folloer the inviter
+      
+    # get names of invitees from fb. email addresses , if you can
+    # (or message them through fb?)
+    
+    # 
+    
+    # send invites. async eventually.
+    
     
   end
   

@@ -1,18 +1,18 @@
-%h2{:style => 'padding: 10px 10px 0 10px; margin-bottom: 0; line-height: 35px;'}
+%h2{:style => 'padding: 5px 10px 0 10px; margin-bottom: 0; line-height: 35px;'}
   Welcome!
 
-%h4{:style => 'padding: 10px 10px 0 10px; margin-bottom: 0; line-height: 25px;'}
-  #{configatron.app_name} is funnier
+%h4{:style => 'padding: 5px 10px 0 10px; margin: 0; line-height: 25px;'}
+  #{configatron.app_name} is funner
 %h5{:style => 'padding: 0 10px 0 10px; margin-top: 0;'}
   when you follow your funny friends.
   
-%p{:style => 'padding: 5px 10px 10px 10px;'}
-  Select who you want to invite. You can confirm on the next page before they're sent.
+%p{:style => 'padding: 0px 10px 10px 10px;'}
+  Select friends to invite.
   
 = form_tag( invite_person_path(@user) ) do
   %ul#items
     - @friends.each do |f|
-      %li{:style => 'padding: 10px;'}
+      %li{:style => 'padding: 5px 10px;'}
       
         -# check_box_tag 'tos', 'yes', false, :class => 'accept_tos'
         -# # => <input class="accept_tos" id="tos" name="tos" type="checkbox" value="yes" />
@@ -20,10 +20,7 @@
       
         = check_box_tag 'invite_fb_ids[]', f['id']
         
-        <image src="#{f['picture']['data']['url']}" style="width: 50px; padding: 0 10px;" />
+        <image src="#{f['picture']['data']['url']}" style="width: 30px; padding: 0 10px;" />
         #{f['first_name']} #{f['last_name']}
     %li
-      %a{:href => '#', :class => 'btn'}
-        View more
-      %a{:href => '#', :class => 'btn'}
-        Send invites
+      = submit_tag "I'm done inviting people.", :class => 'btn'

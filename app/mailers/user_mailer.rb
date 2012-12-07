@@ -8,6 +8,12 @@ class UserMailer < ActionMailer::Base
     mail(:to => email_with_name, :subject => "[#{configatron.app_name}] Welcome to Fnnny, motherfucker!")
   end
   
+  def invite_email(user, invitee)
+    @user = user
+    email_with_name = "#{@user.display_name} <#{@user.email}>"
+    mail(:to => email_with_name, :subject => "[#{configatron.app_name}] You are invited.")
+  end
+  
   def new_follow_email(user, follower)
     @user = user
     @follower = follower

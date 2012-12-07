@@ -18,7 +18,7 @@ Fnnny::Application.routes.draw do
   # resources :notification
   resources :people do
     get :friends, :on => :member
-    get :invite, :on => :member
+    post :invite, :on => :member
   end
   resources :tags, :id => /[^\/]+/
   
