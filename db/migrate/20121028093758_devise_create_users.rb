@@ -10,6 +10,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :url
       t.string :original_profile_image_url
       t.string :notifications, :default => "yes"
+      t.string :locale
       t.string :location
       t.float :latitude
       t.float :longitude
