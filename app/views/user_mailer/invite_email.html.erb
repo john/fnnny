@@ -1,3 +1,9 @@
-You are cordially invited to join us on <%= configatron.app_name %>.<br /><br />
+Dear <%= @invitee.first_name %>,
 
-Invited by: <%= @user.first_name %> <%= @user.last_name %><br /><br />
+<%= @user.first_name %> <%= @user.last_name %> has invited you to join <%= configatron.app_name %>, a site for sharing funny stuff.<br /><br />
+
+Please click here to sign up.<br /><br />
+[link to sign up]<br /><br />
+
+Cordially,<br />
+<%= configatron.app_name %>, on behalf of <%= @user.first_name %> <%= @user.last_name %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114184735) do
+ActiveRecord::Schema.define(:version => 20121209075739) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20121114184735) do
     t.string   "url"
     t.string   "original_profile_image_url"
     t.string   "notifications",              :default => "yes"
+    t.string   "locale"
     t.string   "location"
     t.float    "latitude"
     t.float    "longitude"

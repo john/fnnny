@@ -11,7 +11,7 @@
     <br />
     = t(:description2)
   %p{:style => 'margin-top: 25px;'}
-    = link_to "#{t(:sign_in_with).humanize } Facebook", omniauth_authorize_path(User, 'facebook'), :class => 'btn btn-primary btn-large'
+    = link_to "#{t(:sign_in_with).humanize } Facebook", @auth_url, :class => 'btn btn-primary btn-large'
   -#   
   -# %p
   -#   = link_to 'drop', '#', :onclick => "addToHome.show();"

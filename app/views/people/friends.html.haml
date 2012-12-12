@@ -1,26 +1,40 @@
-%h2{:style => 'padding: 5px 10px 0 10px; margin-bottom: 0; line-height: 35px;'}
-  Welcome!
+%h2{:style => 'padding: 10px; margin-bottom: 0; line-height: 35px;'}
+  #{t(:welcome).humanize}!
 
 %h4{:style => 'padding: 5px 10px 0 10px; margin: 0; line-height: 25px;'}
-  #{configatron.app_name} is funner
-%h5{:style => 'padding: 0 10px 0 10px; margin-top: 0;'}
-  when you follow your funny friends.
+  #{configatron.app_name} #{t(:is_funnier)}
+%h5{:style => 'padding: 2px 10px 10px 10px; margin-top: 0;'}
+  #{t(:when_you_follow)}.
   
-%p{:style => 'padding: 0px 10px 10px 10px;'}
-  Select friends to invite.
+%p{:style => 'padding: 10px;'}
+  = link_to t(:select_friends).humanize, "#", :id => "invite_fb_friends", :class => 'btn btn-large btn-primary'
   
-= form_tag( invite_person_path(@user) ) do
-  %ul#items
-    - @friends.each do |f|
-      %li{:style => 'padding: 5px 10px;'}
+  :javascript
+    $(function(){
+      $("a#invite_fb_friends").click(function() {
+        FB.ui({ method: 'apprequests',
+          message: '#{current_user.first_name} #{current_user.last_name} would like you to try Fnnny.'
+        });
+      });
       
-        -# check_box_tag 'tos', 'yes', false, :class => 'accept_tos'
-        -# # => <input class="accept_tos" id="tos" name="tos" type="checkbox" value="yes" />
-        -#       
+    });
+    
+- @friends.each do |f|
+  <image src="#{f['picture']['data']['url']}" style="width: 50px; padding: 0; margin: 0; float: left;" />
+
+-# FB.init({ 
+-#    appId:'295556897221526',
+-#    cookie:false, 
+-#    status:true
+-# });
       
-        = check_box_tag 'invite_fb_ids[]', f['id']
-        
-        <image src="#{f['picture']['data']['url']}" style="width: 30px; padding: 0 10px;" />
-        #{f['first_name']} #{f['last_name']}
-    %li
-      = submit_tag "I'm done inviting people.", :class => 'btn'
+-# = form_tag( invite_person_path(@user) ) do
+-#   %ul#items
+-#     - @friends.each do |f|
+-#       %li{:style => 'padding: 5px 10px;'}
+-#         = check_box_tag 'invitees[]', "#{f['id']},#{f['first_name']},#{f['last_name']},#{f['link']}"
+-#         
+-#         <image src="#{f['picture']['data']['url']}" style="width: 30px; padding: 0 10px;" />
+-#         #{f['first_name']} #{f['last_name']}
+-#     %li
+-#       = submit_tag t(:done_inviting).humanize, :class => 'btn'

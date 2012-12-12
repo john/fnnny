@@ -8,47 +8,55 @@ gem 'backup', :require => false
 gem 'bootstrap-sass', :git => 'https://github.com/john/bootstrap-sass' # to address: https://github.com/twitter/bootstrap/issues/4756#issuecomment-9952781
 gem 'carrierwave'
 gem 'cloudinary'
-gem 'configatron'
+gem 'configatron', :git => 'https://github.com/mikepb/configatron'
 gem 'devise'
 gem 'friendly_id'
-# gem 'geocoder'
 gem 'haml'
 gem 'haml-rails'
 gem 'humane-rails'
+gem 'i18n'
 gem 'jquery-rails'
 gem 'koala'
-# gem 'lograge'
-# gem 'lumberjack'
 gem 'mailboxer'
-# gem 'messaging', git: 'https://github.com/frodefi/rails-messaging'
-gem 'mysql2'
 gem 'omniauth-facebook'
-# gem 'omniauth-twitter'
 gem 'public_activity'
 gem 'rails', '3.2.9'
 gem 'strong_parameters'
-gem 'thumbs_up'
+gem 'thumbs_up', git: 'https://github.com/john/thumbs_up'
 gem 'useragent'
-# gem 'valid_email' #http://my.rails-royce.org/2010/07/21/email-validation-in-ruby-on-rails-without-regexp/
-# gem 'whenever', :require => false
 gem 'will_paginate'
+
+platforms :ruby do
+  gem 'mysql2'
+end
+
+platforms :jruby do
+  gem 'activerecord-jdbcmysql-adapter'
+  gem 'jdbc-mysql'
+  # gem 'jruby-openssl'
+  gem 'warbler'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
+  gem 'uglifier', '>= 1.0.3'
   # gem 'coffee-rails', '~> 3.2.1'
-
+  
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
+  # gem 'therubyrhino', :platforms => :jruby
 end
 
 group :development do
   gem 'capistrano'
+  gem 'jruby-lint'
   gem 'seed_dump'
-  gem 'thin'
+  
+  gem 'trinidad', :require => nil, :platforms => :jruby
+  gem 'thin', :require => nil, :platforms => :ruby
+  
   # gem 'capistrano_colors'
   # gem 'colored'
   # gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
@@ -61,9 +69,9 @@ group :test do
   gem 'factory_girl_rails' #, :require => false
   gem 'database_cleaner'
   gem 'rspec-rails'
-  # https://github.com/jimweirich/rake/issues/51 (read bottom)
-  gem 'shoulda-matchers'
-  gem 'turn', :require => false # Pretty printed test output
+  gem 'shoulda-matchers' # https://github.com/jimweirich/rake/issues/51 (read bottom)
+  
+  # gem 'turn', :require => false # Pretty printed test output
 end
 
 # To use ActiveModel has_secure_password

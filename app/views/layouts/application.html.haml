@@ -126,10 +126,10 @@
                     %b.caret
                     
                   %ul.dropdown-menu
-                    %li= link_to 'View profile', person_path(current_user)
-                    %li= link_to 'Edit profile', edit_user_registration_path
-                    %li= link_to "Log Out", destroy_user_session_path, :method => :delete
-                    %li= link_to 'Get bookmarklet', bookmarklet_path
+                    %li= link_to t(:profile_view).humanize, person_path(current_user)
+                    %li= link_to t(:profile_edit).humanize, edit_user_registration_path
+                    %li= link_to t(:log_out).humanize, destroy_user_session_path, :method => :delete
+                    %li= link_to t(:get_bookmarklet).humanize, bookmarklet_path
                     
                     - if signed_in? && current_user.admin?
                       %li= link_to "Admin", admin_path, :style => 'color:red;'
@@ -151,7 +151,7 @@
               
               %ul.nav.pull-right
                 %li
-                  = link_to t(:log_in).humanize, omniauth_authorize_path(User, 'facebook'), :style => 'margin-top: 0px;'
+                  = link_to t(:log_in).humanize, omniauth_authorize_path(User, 'facebook'), :style => 'margin-top: 0px; color: white; text-shadow: none;'
                 
               .pull-right{:style => 'margin: -2px 5px 0 0;'}
                 = link_to t(:sign_up).humanize, omniauth_authorize_path(User, 'facebook'), :class => "btn btn-mini btn-success"

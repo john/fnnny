@@ -4,13 +4,13 @@
   .btn
     - encoded_id = Base64.urlsafe_encode64(item.id.to_s)
     
-    %a{:href => url_for(like_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+    %a{:href => url_for(like_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html', :title => 'This is truly awesome.'}
       %i.icon-thumbs-up.dim
       %small
         = item.votes_for
         
   .btn
-    %a{:href => url_for(unlike_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html'}
+    %a{:href => url_for(unlike_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html', :title => 'Are you kidding? This fucking sucks.'}
       %i.icon-thumbs-down.dim
       %small
         = item.votes_against

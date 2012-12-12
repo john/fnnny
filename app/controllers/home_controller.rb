@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     # @title = "#{configatron.app_name}. Quora for Idiots"
     # @title = "#{configatron.app_name}. The perfect humor solution for your next corporate event"
     # @title = "#{configatron.app_name}. Mo fnnny mo better"
-    @title = "#{configatron.app_name}. The best site on the Internet... for donkies."
+    @title = "#{configatron.app_name}. #{t(:title_home).humanize}."
     # @title = "#{configatron.app_name}. Kinda like America's Home Videos, but dumber."
     # @title = "#{configatron.app_name}. Enterprise Humor Portal."
     # @title = "#{configatron.app_name}. So three guy walk into a bar..."
@@ -66,6 +66,12 @@ class HomeController < ApplicationController
         
       end
       
+    else
+      if params[:request_ids]
+        @auth_url = omniauth_authorize_path(User, 'facebook', :request_ids => params[:request_ids])
+      else
+        @auth_url = omniauth_authorize_path(User, 'facebook')
+      end
     end
     
     if @mobile

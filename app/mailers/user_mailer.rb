@@ -10,7 +10,9 @@ class UserMailer < ActionMailer::Base
   
   def invite_email(user, invitee)
     @user = user
-    email_with_name = "#{@user.display_name} <#{@user.email}>"
+    @invitee = invitee
+    # email_with_name = "#{@invitee.first_name} #{@invitee.last_name} <#{@invitee.email}>"
+    email_with_name = "#{@invitee.first_name} #{@invitee.last_name} <john@entelo.com>"
     mail(:to => email_with_name, :subject => "[#{configatron.app_name}] You are invited.")
   end
   

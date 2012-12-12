@@ -1,8 +1,8 @@
-Hey <%= @user.first_name %>,
+Hey <%= @user.first_name %>,<br /><br />
 
-<a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank"><%= @follower.display_name %></a> loves you, or at least thinks you're funny. They're now following you on <%= configatron.app_name %>.
+<a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank"><%= @follower.display_name %></a> loves you, or at least thinks you're funny. They're now following you on <%= configatron.app_name %>.<br /><br />
 
-You can <a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank">view their profile</a> or <a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank">follow them back</a>.
+You can <a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank">view their profile</a> or <a href="<%= person_url(@follower, :host => 'fnnny.com') %>" target="_blank">follow them back</a>.<br /><br />
 
-Sincerely,
-<%= configatron.app_name %>
+Sincerely,<br />
+<%= configatron.app_name %><br />

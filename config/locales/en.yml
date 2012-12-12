@@ -2,20 +2,30 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  ago: 'ago'
+  description1: "Fnnny is the place to discover and share the things you find amusing"
+  description2: "It's like facebook, but with no redeeming social value"
+  done_inviting: "I'm done inviting people"
+  get_bookmarklet: 'get bookmarklet'
+  is_funnier: 'is funnier'
+  log_in: 'log in'
+  log_out: 'log out'
+  more_coming: 'more coming'
+  more_please: 'more, please'
+  no_account: 'no account'
+  or: 'or'
+  profile_view: 'View profile'
+  profile_edit: 'Edit profile'
+  select_friends: 'select friends to invite'
+  share_on: 'share on'
   sign_in_with: 'sign in with'
   sign_up: 'sign up'
-  log_in: 'log in'
-  ago: 'ago'
-  share_on: 'share on'
-  or: 'or'
-  more_please: 'more, please.'
-  more_coming: 'more coming...'
+  welcome: 'welcome'
+  when_you_follow: 'when you follow your funny friends'
   
-  description1: "Fnnny is the place to discover and share the things you find amusing."
-  description2: "It's like facebook, but with no redeeming social value."
-  
-  hello: "Hello world"
-
+  title_home: 'the best site on the Internet... for donkies'
+  title_friends: "%{username}'s friends"
+    
   activity:
     item:
       create: 'New item'
