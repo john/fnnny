@@ -109,15 +109,15 @@
               
               %ul.nav.pull-right.top-nav
                 %li
-                  %a{:href => new_item_path, :rel => "tooltip", :title => "Add item"}
+                  %a{:href => new_item_path, :rel => "tooltip", :title => t(:nav_add).humanize}
                     %i.icon-plus.icon-white
                     
                 %li
-                  %a{:href => tags_path, :rel => "tooltip", :title => "Tags"}
+                  %a{:href => tags_path, :rel => "tooltip", :title => t(:nav_tags).humanize}
                     %i.icon-tags.icon-white
                     
                 %li
-                  %a{:href => people_path, :rel => "tooltip", :title => "People"}
+                  %a{:href => people_path, :rel => "tooltip", :title => t(:nav_people).humanize}
                     %i.icon-user.icon-white
                     
                 %li.dropdown
@@ -134,12 +134,7 @@
                     - if signed_in? && current_user.admin?
                       %li= link_to "Admin", admin_path, :style => 'color:red;'
                       
-                -# %li
-                -#   = link_to '(o)', destroy_user_session_path, :method => :delete
-                -#   -# %a{:href => destroy_user_session_path, :rel => "tooltip", :title => "Log out"}
-                -#   -#                     %i.icon-off.icon-white
-                    
-                    
+                      
               :javascript
                 $(function() {
                   $('.top-nav').tooltip({
@@ -171,7 +166,6 @@
         -#       alert('phu');
         -#       // post back to app to mark message as read.
         -#     })
-        
         
         
     -# - unless @mobile

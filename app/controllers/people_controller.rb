@@ -17,64 +17,8 @@ class PeopleController < ApplicationController
     
     auth = @user.authentications.select{ |a| a.provider == 'facebook' }.compact.first
     graph = Koala::Facebook::API.new(auth.access_token)
-    fields = 'picture'
-    @friends = graph.get_connections("me", "friends", :fields => fields, :limit => 30, :offset => 0)
-    
-    # let them select who they want to send invites to
-    # for friends who are already on fnnny (think of the future!), let them follow rather than invite
+    @friends = graph.get_connections("me", "friends", :fields => 'picture', :limit => 50, :offset => 0)
   end
-  
-  
-  # I THINK this is superceded by the fact that we're using FB's request widget directly now.
-  # def invite
-  #   @user = User.find(params[:id])
-  #   auth = @user.authentications.select{ |a| a.provider == 'facebook' }.compact.first
-  #   graph = Koala::Facebook::API.new(auth.access_token)
-  #   
-  #   # invite_fb_ids: "invite_fb_ids"=>["713135", "842025"]
-  #   logger.debug "params: #{params.inspect}"
-  #   
-  #   params[:invitees].each do |invitee_raw|
-  #     invitee = invitee_raw.split(',')
-  #     invitee_hash = {:user_id => current_user.id, :fb_id => invitee[0], :first_name => invitee[1], :last_name => invitee[2], :link => invitee[3]}
-  #     invitee = Invitation.where(invitee_hash)
-  #     if invitee.blank?
-  #       invitee = Invitation.create!(invitee_hash)
-  #       
-  #       # UserMailer.invite_email(current_user, invitee).deliver
-  #       
-  #       # # http://rubydoc.info/github/arsduo/koala/master/Koala/Facebook/GraphAPIMethods#put_wall_post-instance_method
-  #       # graph.put_wall_post("Fnnny is all up in yr wall", {
-  #       #                           :name => "Fnnny invite",
-  #       #                           :link => 'http://www.fnnny.com/phu',
-  #       #                           :caption => 'you are invited, caption',
-  #       #                           :description => 'A somewhat longer explanation',
-  #       #                           :picture => 'http://www.abevigoda.com/images/abe.jpg'
-  #       #                         })
-  #       #                         
-  #       #                         # for prod/later testing:
-  #       #                         # :tartet_id => invitee.fb_id
-  #       
-  #     else
-  #       # This user has already sent this invitation. Ignore it? Let them know?
-  #     end
-  #   end
-  #   
-  #   fields = 'id, name, first_name, last_name, link, picture, email'
-  #   @friends = graph.get_connections("me", "friends", :fields => fields, :limit => 10, :offset => 0)
-  #   
-  #   # record invitees in 'invites' table: user_id, invitee_fb_id
-  #     # rails g model user_id: integer, fb_id:integer, accepted_at:datetime
-  #   
-  #     # a given user should probably only be able to invite someone once.
-  #     # you can check new users against 'invites,' and auto-folloer the inviter
-  #     
-  #   # get names of invitees from fb. email addresses , if you can
-  #   # (or message them through fb?)
-  #   
-  #   # send invites. async eventually.
-  # end
-  
   
   def follow
     if signed_in?

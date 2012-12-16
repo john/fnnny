@@ -3,15 +3,20 @@
 
 es:
   ago: 'atrás'
-  description1: "Fnnny es el lugar para descubrir y compartir las cosas que encuentras divertido"
-  description2: "Es como facebook, pero sin valor social"
+  description:
+    html: "Fnnny es el lugar para descubrir y compartir las cosas que encuentras divertido. Es como facebook, pero sin valor social."
   done_inviting: "Ya he terminado invitando"
   get_bookmarklet: 'obtener el bookmarklet'
+  invitations_sent:
+    html: "<h3>invitaciones enviadas a los amigos seleccionados.</h3><br /><br />También puede enviar un correo electrónico, darles una llamada o pasar por su casa en el camino a casa para asegurarse de que se inscriban."
   is_funnier: 'es más divertido'
   log_in: 'iniciar la sesión'
   log_out: 'finalizar la sesión'
   more_coming: 'más próximo'
   more_please: 'más, por favor'
+  nav_add: 'añadir entrada'
+  nav_people: 'personas'
+  nav_tags: 'etiquetas'
   no_account: 'no tienes cuenta'
   or: 'o'
   profile_view: 'ver el perfil'
@@ -20,6 +25,7 @@ es:
   share_on: 'compartir en'
   sign_in_with: 'conéctate con'
   sign_up: 'inscribirse'
+  skip_step: 'saltarse este paso'
   welcome: 'bienvenido'
   when_you_follow: 'cuando sigues tus amigos divertidos'
   

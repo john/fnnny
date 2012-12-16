@@ -4,7 +4,6 @@ class OmniauthCallbacksController < ApplicationController
     auth = request.env["omniauth.auth"]
     omni_params = request.env['omniauth.params']
     
-    logger.debug "-------------------> omni_params: #{omni_params.inspect}"
     # Try to find authentication first
     authentication = Authentication.find_by_provider_and_uid(auth['provider'], auth['uid'])
     
@@ -31,44 +30,27 @@ class OmniauthCallbacksController < ApplicationController
           omni_params['request_ids'].split(',').each do |request_id|
             request = @graph.get_object( request_id )
             logger.debug "-----------------> request: #{request.inspect}"
-            # per fb docs, response should look something like this:
-            # {
-            #   "id": "REQUEST_OBJECT_ID", 
-            #   "application": {
-            #     "name": "APP_DISPLAY_NAME", 
-            #     "canvas_name": "APP_NAME",  // This is identical to the app namespace
-            #     "namespace": "APP_NAMESPACE", 
-            #     "id": "APP_ID"
-            #   },
-            #   "to": {
-            #     "name": "RECIPIENT_USER_NAME", 
-            #     "id": "RECIPIENT_USER_ID"
-            #   }, 
-            #   "from": {
-            #     "name": "SENDER_USER_NAME", 
-            #     "id": "SEND_USER_ID"
-            #   }, 
-            #   "message": "Check out this Awesome Request!", 
-            #   "created_time": "2012-01-24T00:43:22+0000", 
-            #   "type": "apprequest"
-            # }
-
-            # get SEND_USER_ID
             
             logger.debug "---------request['to']['id']: #{request['from']['id']}"
             
-            inviter_auth = Authentication.find_by_uid( request['from']['id'] )
-            inviter = inviter_auth.user
-            user.follow( inviter )
-            inviter.follow( user )
-          
-            # TODO: async this
-            # new_follow_email(user, follower)
-            UserMailer.new_follow_email(inviter, user).deliver
+            if inviter_auth = Authentication.find_by_uid( request['from']['id'] )
+              inviter = inviter_auth.user
+              user.follow( inviter )
+              inviter.follow( user )
+              
+              # TEST that this block is only hit if it finds an auth. \
+              
+              # TODO: async this: new_follow_email(user, follower)
+              UserMailer.new_follow_email(inviter, user).deliver
+
+              @graph.delete_object( request_id )
+            end
+            
           end
         
         end
         
+        # THIS notice doesn't seem to be getting displayed.
         
         # auth = Authentication.find_or_create_from_omniauth(user, omni_auth)
         sign_in_and_redirect user, :notice => "Account created and signed in successfully."

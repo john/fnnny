@@ -1,15 +1,19 @@
 .hero-unit{:style => 'width: 80%; padding: 20px 25px 45px 40px; height: 500px;'}
-  -# .well
   %h1{:style => 'margin-bottom: 20px;'}
     #{configatron.app_name.capitalize}
+    
+  - if (params[:ref] && params[:ref] == 'notif') || (params[:notif_t] && params[:notif_t] == 'app_request')
+    .alert{:style => 'margin-top: 20px;'}
+      .button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert'}
+        &times;
+      One of your facebook friends has invited you to try #{configatron.app_name.capitalize}. Sign up for a free account below.
+      
   %p
     -# A compendium of amusing things.
     -# A compendium of funny things.
     -# A compendium of delight and amusement.
     -# Discover and share delightful and amusing things.
-    = t(:description1)
-    <br />
-    = t(:description2)
+    #{t('description.html')}
   %p{:style => 'margin-top: 25px;'}
     = link_to "#{t(:sign_in_with).humanize } Facebook", @auth_url, :class => 'btn btn-primary btn-large'
   -#   
