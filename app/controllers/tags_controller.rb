@@ -3,7 +3,8 @@ class TagsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @tags = ActsAsTaggableOn::Tag.all
+    @title = "#{t(:nav_tags).humanize} | #{configatron.app_name}"
+    @tags = ActsAsTaggableOn::Tag.paginate(:page => params[:page])
   end
   
   def show
