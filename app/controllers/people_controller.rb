@@ -4,6 +4,7 @@ class PeopleController < ApplicationController
   
   def index
     @title = "People | #{configatron.app_name}"
+    @people = User.paginate(:page => params[:page])
   end
   
   def show
