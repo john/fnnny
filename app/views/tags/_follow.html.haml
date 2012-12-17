@@ -1,0 +1,27 @@
+- size = 'btn-small' if local_assigns[:size].nil?
+- styl = 'bt'
+- tag = @tag if local_assigns[:tag].nil?
+
+%span{:id => "follow_#{tag.id}"}
+  -# - if current_user.id == user.id
+  -#   %a.btn.btn-success.btn-follow{:class => size}
+  -#     - if size == 'btn-small'
+  -#       %i.icon-user.icon-white
+  -#     this is you
+  -#   
+  -# - else
+  - if current_user.following?(tag)
+    %a.btn.btn.btn-follow{:href => "#{url_for( unfollow_path(tag) )}", :'data-remote' => true, :'data-type' => 'html', :class => size}
+      - if size == 'btn-small'
+        %i.icon-user.icon-white
+      following
+    
+  - else
+    %a.btn.btn.btn-follow{:href => "#{url_for( follow_path(tag) )}", :'data-remote' => true, :'data-type' => 'html', :class => size}
+      - if size == 'btn-small'
+        %i.icon-user.icon-white
+      follow
+      -# or use the eye? .icon-eye-open
+        
+:javascript
+  $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) { $('#follow_#{tag.id}').html(xhr.responseText); });

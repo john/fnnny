@@ -1,6 +1,8 @@
 %h1
-  Tags
+  Categories
   
-%ul
-  - @tags.each do |t|
-    %li= link_to t.name, tag_path(t)
+%div{:style => 'margin: 20px 0 10px 0;'}
+  - @tags.each do |tag|
+    %div
+      = render :partial => '/tags/tag', :locals => {:tag => tag}
+      -# = link_to "#{tag.name} (#{pluralize(tag.taggings.count, 'post')})", tag_path(tag), :class => 'btn', :style => 'margin-top: 10px; font-size: 1.1em; width: 150px;'

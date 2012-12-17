@@ -1,1 +1,6 @@
-Fnnny People
+%h1
+  People
+  
+%div{:style => 'margin-top: 30px;'}
+  - @people.each do |person|
+    = render :partial => '/people/person', :locals => {:person => person}

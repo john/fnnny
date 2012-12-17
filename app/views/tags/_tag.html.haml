@@ -1,0 +1,7 @@
+%div{:style => 'padding: 20px 0; border-bottom: 1px solid #ddd;'}
+  = render :partial => "tags/follow", :locals => {:tag => tag, :size => 'btn-mini', :styl => 'btn-standard'}
+  &nbsp;
+  = link_to tag.name, tag_path(tag), :style => 'font-size: 18px; font-weight: bold;'
+  <br />
+  phu
+  -# has added #{pluralize(person.items.count, 'post')}, #{pluralize(person.comments.count, 'comment')}
