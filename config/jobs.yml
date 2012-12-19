@@ -1,0 +1,8 @@
+# check slide 39 here:
+# http://techylib.com/en/view/arya/beyond_rails_with_torquebox
+
+github.commit_poller:
+  description: Poll Github
+  job: Github::CommitPoller
+  cron: 12 */10 * * * ?
+  

@@ -9,6 +9,7 @@ es:
   get_bookmarklet: 'obtener el bookmarklet'
   invitations_sent:
     html: "<h3>invitaciones enviadas a los amigos seleccionados.</h3><br /><br />También puede enviar un correo electrónico, darles una llamada o pasar por su casa en el camino a casa para asegurarse de que se inscriban."
+  invite_friends: "invitar a amigos"
   is_funnier: 'es más divertido'
   log_in: 'iniciar la sesión'
   log_out: 'finalizar la sesión'

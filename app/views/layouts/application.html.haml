@@ -14,7 +14,7 @@
     
     %meta{ :name => "description", :content => (@title) ? @title : configatron.app_name }
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
-    -# %meta{ :name => "apple-mobile-web-app-capable", :content => "yes" }
+    %meta{ :name => "apple-mobile-web-app-capable", :content => "yes" }
 
     %meta{ :property => "fb:app_id", :content => "295556897221526" }
     %meta{ :property => "og:site_name", :content => "Fnnny.com" }
@@ -23,47 +23,46 @@
     - if @item
       %meta{ :property => "og:type", :content => "article"}
       %meta{ :property => "og:image", :content => "http://res.cloudinary.com/fnnny/image/upload/c_thumb,g_face,h_75,w_75/#{@item.id}.png" }
-    
+      
     - if @description
       %meta{ :property => "og:description", :content => @description }
       
     - if @title
       %meta{ :property => "og:title", :content => @title }
-
+      
     -# RSS
     -# ==========================================================================
     -# %link{:rel => "alternate", :type => "application/rss+xml", :title => "RSS", :href => "http://feeds.feedburner.com/FEEDNAME"}
-    
     
     %link{:rel => "icon", :type => "image/png", :href => "/assets/fnnny_16.png"}
     %link{:rel => "apple-touch-icon-precomposed", :sizes => "114x114", :href => "/assets/fnnny_114.png"}
           
     <link href='http://fonts.googleapis.com/css?family=Maiden+Orange&text=fnnny&effect=neon' rel='stylesheet' type='text/css'>
     
-    -# <link rel="stylesheet" href="/jquery.scrollz.css">
     = stylesheet_link_tag "application", :media => "all"
     
     %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"}
     
-    -# - if @mobile
-    :javascript
-      var addToHomeConfig = {
-        returningVisitor: true,
-        animationIn: 'bubble',
-        animationOut: 'drop',
-        expire: 0
-      };
+    - if @mobile
+      :javascript
+        var addToHomeConfig = {
+          returningVisitor: true,
+          animationIn: 'bubble',
+          animationOut: 'drop',
+          expire: 0
+        };
       
-      // When ready...
-      window.addEventListener("load",function() {
-        // Set a timeout...
-        setTimeout(function(){
-          // Hide the address bar!
-          window.scrollTo(0, 1);
-        }, 0);
-      });
+        // When ready...
+        window.addEventListener("load",function() {
+          // Set a timeout...
+          setTimeout(function(){
+            // Hide the address bar!
+            window.scrollTo(0, 1);
+          
+          }, 0);
+        });
       
-    = javascript_include_tag 'a2h'
+      = javascript_include_tag 'a2h'
     = csrf_meta_tags
     
   %body
@@ -71,40 +70,24 @@
     #fb-root
     <script src="http://connect.facebook.net/en_US/all.js"></script>
     
-    -# - if @mobile
-    - top_nav_class = 'navbar-static-top'
     = javascript_include_tag 'fnnny_mobile'
-    -# - else
-    -#   - top_nav_class = 'navbar-fixed-top'
-      
+    
     -# from: http://www.w3resource.com/twitter-bootstrap/navbar-tutorial.php
     #wrap
-      -# .navbar-fixed-top  <---- for top, stays put while content scrolls behind
-      -# .navbar-static-top <----for top, but scrolls away
-      .navbar.navbar-inverse{:class => top_nav_class}
+      .navbar.navbar-inverse.navbar-static-top
         
-        :css
-          .navbar-text { margin-bottom: 0; line-height: 30px; }
-          .navbar .divider-vertical { height: 30px; margin: 0 9px; }
-          .navbar .nav > li > a {
-            float: none;
-            padding: 5px 15px 5px;
-            color: #777777;
-            text-decoration: none;
-            text-shadow: 0 1px 0 #ffffff;
-          }
-          .navbar .nav .dropdown-toggle .caret { margin-top: 8px; }
-          
         .navbar-inner{:style => 'height: 30px; min-height: 30px;'}
           .container
             
             -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
-            %a{:href => root_path}
-              -# %img{:src => "/assets/fnnny_16.png", :style => 'margin: 10px 0 0 8px;'}
-              -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
-              -# %i.icon-home.icon-white{:style => 'margin: 8px 0 0 8px;'}
-              %i.icon-fire.icon-white{:style => 'margin: 8px 0 0 8px;'}
-            
+            %ul.nav.pull-left.top-nav
+              %li
+                %a{:href => root_path, :rel => "tooltip", :title => configatron.app_name}
+                  -# %img{:src => "/assets/fnnny_16.png", :style => 'margin: 10px 0 0 8px;'}
+                  -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
+                  -# %i.icon-home.icon-white{:style => 'margin: 8px 0 0 8px;'}
+                  %i.icon-fire.icon-white
+                  
             - if user_signed_in?
               
               %ul.nav.pull-right.top-nav
@@ -126,7 +109,12 @@
                     %b.caret
                     
                   %ul.dropdown-menu
-                    %li= link_to t(:profile_view).humanize, person_path(current_user)
+                    %li{:style => 'padding-left: 20px;'}
+                      Signed in as
+                    %li
+                      = link_to current_user.display_name, person_path(current_user), :style => 'font-weight: bold; color: #444'
+                    %li.divider
+                    %li= link_to t(:invite_friends).humanize, friends_person_path(current_user)
                     %li= link_to t(:profile_edit).humanize, edit_user_registration_path
                     %li= link_to t(:log_out).humanize, destroy_user_session_path, :method => :delete
                     %li= link_to t(:get_bookmarklet).humanize, bookmarklet_path
@@ -166,7 +154,6 @@
         -#       alert('phu');
         -#       // post back to app to mark message as read.
         -#     })
-        
         
     -# - unless @mobile
     -#   = javascript_include_tag 'fnnny'

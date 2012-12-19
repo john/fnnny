@@ -27,7 +27,15 @@ class PeopleController < ApplicationController
       current_user.follow(@user)
       
       # TODO: async this
-      UserMailer.new_follow_email(current_user, @user).deliver
+      # follow_mail = UserMailer.new_follow_email(current_user, @user) #.deliver
+      
+      # queue = fetch('/queues/mailer')
+      # queue.publish {:email => 'new_follow', :current_user => current_user, :new_follower => @user}
+      EmailQueue.enqueue(:send_email, {
+        :type => :new_follow,
+        :current_user => current_user,
+        :new_follower => @user
+      })
       
       render :partial => "people/follow"
     end

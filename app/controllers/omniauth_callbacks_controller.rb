@@ -38,10 +38,13 @@ class OmniauthCallbacksController < ApplicationController
               user.follow( inviter )
               inviter.follow( user )
               
-              # TEST that this block is only hit if it finds an auth. \
+              # TEST that this block is only hit if it finds an auth.
               
               # TODO: async this: new_follow_email(user, follower)
-              UserMailer.new_follow_email(inviter, user).deliver
+              # UserMailer.new_follow_email(inviter, user).deliver
+              
+              queue = fetch('/queues/mailer')
+              queue.publish {:email => 'new_user', :new_user => user, :inviter => inviter}
 
               @graph.delete_object( request_id )
             end

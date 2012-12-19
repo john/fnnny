@@ -24,6 +24,11 @@ gem 'rack-canonical-host'
 gem 'rails', '3.2.9'
 gem 'strong_parameters'
 gem 'thumbs_up', git: 'https://github.com/john/thumbs_up'
+
+gem 'torquebox', "2.2.0"
+gem 'torquebox-messaging'
+gem 'torquebox-server', '2.2.0'
+
 gem 'useragent'
 gem 'will_paginate'
 

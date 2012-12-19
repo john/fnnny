@@ -3,12 +3,16 @@
 
 en:
   ago: 'ago'
-  description:
-    html: "Discover and share the things you find amusing with Fnnny.<br />It's like facebook, but with no redeeming social value."
+  # description:
+    # html: "Discover and share the things you find amusing with Fnnny.<br />It's like facebook, but with no redeeming social value."
+  
+  description: "Discover and share funny stuff"
   done_inviting: "I'm done inviting people"
   get_bookmarklet: 'get bookmarklet'
+  invite: 
   invitations_sent:
     html: "<h3>Invitations sent to the friends you selected.</h3><p>You might also want to send an email, give them a call, or drop by their house on the way home to make sure they sign up.</p>"
+  invite_friends: "invite friends"
   is_funnier: 'is funnier'
   log_in: 'log in'
   log_out: 'log out'
