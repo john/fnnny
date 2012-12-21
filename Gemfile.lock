@@ -167,8 +167,8 @@ GEM
     net-ssh (2.6.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    nokogiri (1.5.6.rc3)
-    nokogiri (1.5.6.rc3-java)
+    nokogiri (1.5.6)
+    nokogiri (1.5.6-java)
     oauth2 (0.8.0)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -291,8 +291,6 @@ GEM
       rake (>= 0.8.7)
     torquebox-security (2.2.0-java)
       torquebox-core (= 2.2.0)
-    torquebox-server (2.2.0-java)
-      torquebox (= 2.2.0)
     torquebox-stomp (2.2.0)
       torquebox-core (= 2.2.0)
       torquebox-messaging (= 2.2.0)
@@ -363,8 +361,6 @@ DEPENDENCIES
   thin
   thumbs_up!
   torquebox (= 2.2.0)
-  torquebox-messaging
-  torquebox-server (= 2.2.0)
   trinidad
   uglifier (>= 1.0.3)
   useragent

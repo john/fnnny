@@ -15,6 +15,7 @@ development: &default
   host: 127.0.0.1
   socket: /usr/local/var/mysql/mysql.sock
   port: 3306
+  xa: false # https://issues.jboss.org/browse/TORQUE-556
 
 test: &test
   <<: *default
