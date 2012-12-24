@@ -9,7 +9,7 @@ development: &default
   encoding: utf8
   reconnect: true
   database: fnnny_development
-  pool: 2
+  pool: 5
   username: root
   password: 
   host: 127.0.0.1

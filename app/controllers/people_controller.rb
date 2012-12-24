@@ -23,21 +23,14 @@ class PeopleController < ApplicationController
   
   def follow
     if signed_in?
-      @user = User.find(params[:id])
-      current_user.follow(@user)
+      @followed = User.find(params[:id])
+      @follower = current_user
+      @follower.follow(@followed)
       
-      # TODO: async this
-      # follow_mail = UserMailer.new_follow_email(current_user, @user) #.deliver
+      # Should send an email to @followed, that @follower is now following them
+      @followed.send_follow_email(@follower)
       
-      # queue = fetch('/queues/mailer')
-      # queue.publish {:email => 'new_follow', :current_user => current_user, :new_follower => @user}
-      EmailQueue.enqueue(:send_email, {
-        :type => :new_follow,
-        :current_user => current_user,
-        :new_follower => @user
-      })
-      
-      render :partial => "people/follow"
+      render :partial => "people/follow", :locals => {:user => @followed}
     end
   end
   

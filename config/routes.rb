@@ -13,12 +13,13 @@ Fnnny::Application.routes.draw do
     get :unlike, :on => :member
   end
   match '/items/page/:page' => 'items#more', :as => :more_items, :via => :get
+  match '/items/:id/:slug' => 'items#show', :as => :slugged_item, :via => :get
   
   # resources :messages
   # resources :notification
   resources :people do
     get :friends, :on => :member
-    post :invite, :on => :member
+    # post :invite, :on => :member
   end
   
   resources :tags, :id => /[^\/]+/

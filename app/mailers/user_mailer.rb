@@ -1,26 +1,41 @@
 class UserMailer < ActionMailer::Base
   
-  default from: "john@fnnny.com"
+  default from: "Fnnny <john@fnnny.com>"
   
-  def welcome_email(user)
+  def welcome(user)
     @user = user
     email_with_name = "#{@user.display_name} <#{@user.email}>"
+    puts "------------> sending welcome email to: #{email_with_name}"
     mail(:to => email_with_name, :subject => "[#{configatron.app_name}] Welcome to Fnnny, motherfucker!")
   end
   
-  def invite_email(user, invitee)
-    @user = user
-    @invitee = invitee
-    # email_with_name = "#{@invitee.first_name} #{@invitee.last_name} <#{@invitee.email}>"
-    email_with_name = "#{@invitee.first_name} #{@invitee.last_name} <john@entelo.com>"
-    mail(:to => email_with_name, :subject => "[#{configatron.app_name}] You are invited.")
-  end
-  
-  def new_follow_email(user, follower)
-    @user = user
+  def follow(followed, follower)
+    @followed = followed
     @follower = follower
-    email_with_name = "#{@user.display_name} <#{@user.email}>"
+    @user = followed
+    
+    email_with_name = "#{@followed.display_name} <#{@followed.email}>"
+    puts "------------> sending follow email to: #{email_with_name}"
     mail(:to => email_with_name, :subject => "[#{configatron.app_name}] #{@follower.display_name} is following you!")
   end
-    
+  
+  def comment(user, comment)
+    puts "---> inside usermailer.comment"
+    @user = user
+    puts "---> @user is: #{@user.inspect}"
+    @commenter = comment.user
+    email_with_name = "#{@user.display_name} <#{@user.email}>"
+    puts "------------> sending comment email to: #{email_with_name}"
+    puts "comment is:"
+    puts comment.inspect
+    puts 'sending mail...'
+    mail(:to => email_with_name, :subject => "[#{configatron.app_name}] #{@commenter.display_name} commented on your post")
+  end
+  
+  def post(user, item)
+  end
+  
+  def miss_you(user)
+  end
+  
 end

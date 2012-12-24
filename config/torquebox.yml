@@ -18,6 +18,3 @@ application:
 web:
   context: /
   host: local.fnnny.com
-
-queues:
-  /queues/mailer:

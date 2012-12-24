@@ -1,54 +1,56 @@
-- if user_signed_in?
-  #wrapper
-  
-    - if params[:from] && params[:from] == 'friends'
-      .alert{:style => 'margin-top: 20px;'}
-        .button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert'}
-          &times;
-        = t('invitations_sent.html')
-        
-    -# %div{:style => 'margin: 7px 0 7px 4px;'}
-    -#   Items from
-    -#   
-    -#   - if @show_all
-    -#     <b>everyone</b>
-    -#   - else
-    -#     = link_to 'everyone', root_path(:show => 'all')
-    -#     
-    -#   |
-    -#   - if @show_followers
-    -#     <b>People you follow</b>
-    -#   - else
-    -#     - if @followers
-    -#       = link_to 'people you follow', root_path(:show => 'followers')
-    -#     - else
-    -#       %a{:href => '#', :id => "peeps"}
-    -#         people you follow
-    -#         
-    -#       :javascript
-    -#         document.getElementById('peeps').onclick = function(ev) {
-    -#         ev.preventDefault();
-    -#         alert("You're not following anyone! Invite some friends, or find some funny people here and follow them.");
-    -#         };
-    -#   
-      
-    %ul#items
-      - @items.each do |item|
-        %li= render :partial => "/items/item_mobile", :locals => {:item => item}
-        
-      = render :partial => '/items/more' unless @items.size < Item::PER_PAGE
-      
-    -# #shareModal.modal.hide.fade{:'aria-hidden' => "true"}
-    -#   .modal-body
-    -#     Share crap goes here--dialog box for message, checkboxes for fb and twitter (need auth options)
-    -#   .modal-footer
-    -#     %button.btn{ :'data-dismiss' => "modal", :'aria-hidden' => "true"} Close
-    -#     
-    
-- else
-  = render :partial => '/home/sign_in'
+DEPRECATED 12/24/12 -jm
 
-
-- if @items.present?
-  :javascript
-    last_item_id = #{@items.first.id};
+-# - if user_signed_in?
+-#   #wrapper
+-#   
+-#     - if params[:from] && params[:from] == 'friends'
+-#       .alert{:style => 'margin-top: 20px;'}
+-#         .button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert'}
+-#           &times;
+-#         = t('invitations_sent.html')
+-#         
+-#     -# %div{:style => 'margin: 7px 0 7px 4px;'}
+-#     -#   Items from
+-#     -#   
+-#     -#   - if @show_all
+-#     -#     <b>everyone</b>
+-#     -#   - else
+-#     -#     = link_to 'everyone', root_path(:show => 'all')
+-#     -#     
+-#     -#   |
+-#     -#   - if @show_followers
+-#     -#     <b>People you follow</b>
+-#     -#   - else
+-#     -#     - if @followers
+-#     -#       = link_to 'people you follow', root_path(:show => 'followers')
+-#     -#     - else
+-#     -#       %a{:href => '#', :id => "peeps"}
+-#     -#         people you follow
+-#     -#         
+-#     -#       :javascript
+-#     -#         document.getElementById('peeps').onclick = function(ev) {
+-#     -#         ev.preventDefault();
+-#     -#         alert("You're not following anyone! Invite some friends, or find some funny people here and follow them.");
+-#     -#         };
+-#     -#   
+-#       
+-#     %ul#items
+-#       - @items.each do |item|
+-#         %li= render :partial => "/items/item", :locals => {:item => item}
+-#         
+-#       = render :partial => '/items/more' unless @items.size < Item::PER_PAGE
+-#       
+-#     -# #shareModal.modal.hide.fade{:'aria-hidden' => "true"}
+-#     -#   .modal-body
+-#     -#     Share crap goes here--dialog box for message, checkboxes for fb and twitter (need auth options)
+-#     -#   .modal-footer
+-#     -#     %button.btn{ :'data-dismiss' => "modal", :'aria-hidden' => "true"} Close
+-#     -#     
+-#     
+-# - else
+-#   = render :partial => '/home/sign_in'
+-# 
+-# 
+-# - if @items.present?
+-#   :javascript
+-#     last_item_id = #{@items.first.id};

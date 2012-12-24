@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/john/bootstrap-sass
-  revision: 3725b8714241521ad298e2cc7cd4c8678d6c0585
-  specs:
-    bootstrap-sass (2.2.1.1)
-      sass (~> 3.2)
-
-GIT
   remote: https://github.com/john/thumbs_up
   revision: 8b51c0c61d6ed19a7ffb3c9ec594b4965b597256
   specs:
@@ -68,6 +61,8 @@ GEM
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
     blankslate (2.1.2.4)
+    bootstrap-sass (2.2.2.0)
+      sass (~> 3.2)
     bouncy-castle-java (1.5.0146.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
@@ -188,7 +183,7 @@ GEM
     parslet (1.4.0)
       blankslate (~> 2.0)
     polyglot (0.3.3)
-    public_activity (0.5.1.1)
+    public_activity (0.5.2)
       actionpack (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -226,7 +221,7 @@ GEM
     rspec-core (2.12.2)
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
-    rspec-mocks (2.12.0)
+    rspec-mocks (2.12.1)
     rspec-rails (2.12.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -239,7 +234,7 @@ GEM
     rubinius-core-api (0.0.1)
     rubinius-core-api (0.0.1-java)
     rubyzip (0.9.9)
-    sass (3.2.3)
+    sass (3.2.4)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -330,7 +325,7 @@ DEPENDENCIES
   addressable
   airbrake
   backup
-  bootstrap-sass!
+  bootstrap-sass
   capistrano
   carrierwave
   cloudinary

@@ -1,90 +1,54 @@
 - if user_signed_in?
+  #wrapper
   
-  - if @items.blank?
-    = render :partial => "home/getting_started"
-    
-  - else
-    
-    .row
-      .span8
+    - if params[:from] && params[:from] == 'friends'
+      .alert{:style => 'margin-top: 20px;'}
+        .button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert'}
+          &times;
+        = t('invitations_sent.html')
         
-        %div{:style => 'margin-bottom: 30px;'}
-          Items from
-          
-          - if @show_all
-            <b>everyone</b>
-          - else
-            = link_to 'everyone', root_path(:show => 'all')
-          
-          |
-          - if @show_followers
-            <b>People I follow</b>
-          - else
-            = link_to 'people I follow', root_path(:show => 'followers')
-            
-          -# |
-          -# Sort by:
-          -# = link_to 'Trending'
-          -# &#183;
-          -# = link_to 'Most recent'
-          -# &#183;
-          -# = link_to 'Most votes'
-          
-        - if @mobile
-          %table.table
-            - @items.each do |item|
-              = render :partial => "items/item_mobile", :locals => {:item => item}
-        - else
-          %table.table{:style => 'width: 93%;'}
-            - @items.each do |item|
-              = render :partial => "items/item", :locals => {:item => item}
-          
-      - if @people
-        .span4
-          %h4{:style => 'font-size: 1.2em'} Recent people
-          - @people.each do |person|
-            %div{:style => 'height: 35px;'}
-              = render :partial => "people/follow", :locals => {:user => person, :size => 'btn-mini', :styl => 'btn-standard'}
-              = link_to person.display_name, person_path(person)
-              
-      - if @activities
-        .span4
-          %h4{:style => 'font-size: 1.2em; margin-top: 25px;'} Recent activity
+    -# %div{:style => 'margin: 7px 0 7px 4px;'}
+    -#   Items from
+    -#   
+    -#   - if @show_all
+    -#     <b>everyone</b>
+    -#   - else
+    -#     = link_to 'everyone', root_path(:show => 'all')
+    -#     
+    -#   |
+    -#   - if @show_followers
+    -#     <b>People you follow</b>
+    -#   - else
+    -#     - if @followers
+    -#       = link_to 'people you follow', root_path(:show => 'followers')
+    -#     - else
+    -#       %a{:href => '#', :id => "peeps"}
+    -#         people you follow
+    -#         
+    -#       :javascript
+    -#         document.getElementById('peeps').onclick = function(ev) {
+    -#         ev.preventDefault();
+    -#         alert("You're not following anyone! Invite some friends, or find some funny people here and follow them.");
+    -#         };
+    -#   
+      
+    %ul#items
+      - @items.each do |item|
+        %li= render :partial => "/items/item", :locals => {:item => item}
         
-          %ul.recent
-            - @activities.each do |activity|
-              - unless activity.trackable.blank?
-                %li
-                  %small.muted
-                    #{time_ago_in_words(activity.created_at)} ago
-                    
-                  - if activity.trackable_type == 'Comment'
-                    %div
-                      <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> commented on
-                      
-                  - if activity.trackable_type == 'Item'
-                    %div
-                      <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> added
-                    %div= link_to activity.trackable.name, item_path(activity.trackable)
-                    
-                  - if activity.trackable_type == 'User'
-                    %div
-                      <strong>#{link_to activity.trackable.display_name, person_path(activity.trackable), :class => 'gray'}</strong> signed up!
-                      = render :partial => "people/follow", :locals => {:user => activity.trackable, :size => 'btn-mini'}
-                      
-                  - if activity.trackable_type == 'Vote'
-                    %div
-                      <strong>#{link_to activity.owner.display_name, person_path(activity.owner), :class => 'gray'}</strong> voted
-                      - if activity.trackable.vote
-                        up
-                        %i.icon-arrow-up.dim
-                      - else
-                        down
-                        %i.icon-arrow-down.dim
-                      
-                      %div= link_to activity.trackable.voteable.name, item_path(activity.trackable.voteable)
-                    
-                    
+      = render :partial => '/items/more' unless @items.size < Item::PER_PAGE
+      
+    -# #shareModal.modal.hide.fade{:'aria-hidden' => "true"}
+    -#   .modal-body
+    -#     Share crap goes here--dialog box for message, checkboxes for fb and twitter (need auth options)
+    -#   .modal-footer
+    -#     %button.btn{ :'data-dismiss' => "modal", :'aria-hidden' => "true"} Close
+    -#     
+    
 - else
   = render :partial => '/home/sign_in'
-      
+
+
+- if @items.present?
+  :javascript
+    last_item_id = #{@items.first.id};

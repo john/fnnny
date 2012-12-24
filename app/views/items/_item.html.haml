@@ -1,43 +1,35 @@
 - show_description = false if local_assigns[:show_description].nil?
 - klass = 'thumb' if local_assigns[:klass].nil?
 
-%tr
-
-  -# - if current_user.id == item.user_id
-  -#   .close
-  -#     = link_to '&times;'.html_safe, item_url(item), :class => 'close', :confirm => "For real? That's permanente.", :method => :delete
-
-  - unless klass == 'standard' && (item.image.blank? && !item.youtube?)
-    %td.pic{:class => klass}
-      
-      - if item.youtube?
-        <iframe width="100%" src="#{item.embed_url}" frameborder="0" allowfullscreen></iframe>
-
-      - elsif item.image.present?
-        - if request.path.include?('/items/')
-          = link_to image_tag(item.image_url(:standard)), item.url, :target => '_blank'
-        - else
-          = link_to image_tag(item.image_url(:thumbnail), :width => 75, :height => 75), item.url, :target => '_blank'
-        
-  %td.item
-    .name.muted
-      #{link_to item.user.full_name, person_path(item.user)} added #{time_ago_in_words(item.created_at)} ago
-    
-    .title{:class => klass}
-      =link_to item.name.html_safe, item.url, :target => '_blank'
+.item
+  .name
+    =link_to item.user.full_name, person_path(item.user)
+    %span.muted{:style => 'font-size: 11.5px'}
+      #{time_ago_in_words(item.created_at).gsub('about ', '').gsub('alrededor de ', '')} #{t(:ago)}
   
-    - if item.description.present?
-      .item_description
-        - if show_description || item.description.length < 140
-          = item.description
-        - else
-          = truncate(item.description, :length => 140, :separator => ' ')
-          %small.dim
-            = link_to '(more)', item_path(item)
-    .links
-      %small.muted
-        = render :partial => "items/links", :locals => {:item => item}
+  .title{:class => klass}
+    =link_to item.name.html_safe, item.url, :target => '_blank'
+
+  .pic.mobile
+    - if item.youtube?
+      <iframe width="100%" src="#{item.embed_url}" frameborder="0" allowfullscreen></iframe>
+
+    - elsif item.image.present?
+      = link_to image_tag(item.image_url(:standard)), item.url, :target => '_blank'
       
-    %ul.tags
-      - item.tags.each do |t|
-        %li= link_to t.name, tag_path(t)
+  - if item.description.present?
+    .item_description
+      - if show_description || item.description.length < 140
+        = item.description.html_safe
+      - else
+        = truncate(item.description, :length => 140, :separator => ' ')
+        %small.dim
+          = link_to '(more)', slugged_item(item)
+  
+  .links
+    -# %small.muted
+    = render :partial => "items/links", :locals => {:item => item}
+    
+  = item.tags.map {|t| link_to t.name, tag_path(t)}.join(', ').html_safe
+  
+  .clearfix

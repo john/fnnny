@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
         @out = ''
         @items.each do |item|
           @out += '<li>'
-          @out += render_to_string :partial => "items/item_mobile", :locals => {:item => item}
+          @out += render_to_string :partial => "items/item", :locals => {:item => item}
           @out += '</li>'
         end
         
@@ -55,7 +55,7 @@ class ItemsController < ApplicationController
         
         @items.each do |item|
           @out += '<li>'
-          @out += render_to_string :partial => "items/item_mobile", :locals => {:item => item}
+          @out += render_to_string :partial => "items/item", :locals => {:item => item}
           @out += '</li>'
         end
       end
@@ -115,7 +115,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @title = @item.name
     user_agent = UserAgent.parse( request.env["HTTP_USER_AGENT"] )
-    @mobile = true #if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
+    # @mobile = true #if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
     
     respond_to do |format|
       format.html # show.html.erb

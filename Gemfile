@@ -5,12 +5,17 @@ gem 'acts-as-taggable-on'
 gem 'addressable'
 gem 'airbrake'
 gem 'backup', :require => false
-gem 'bootstrap-sass', :git => 'https://github.com/john/bootstrap-sass' # to address: https://github.com/twitter/bootstrap/issues/4756#issuecomment-9952781
+gem 'bootstrap-sass' #, :git => 'https://github.com/john/bootstrap-sass' # to address: https://github.com/twitter/bootstrap/issues/4756#issuecomment-9952781
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'configatron', :git => 'https://github.com/mikepb/configatron'
 gem 'devise'
+
+# screws up torquebox messaging with this exception:
+# 10:11:46,719 ERROR [org.torquebox.messaging] (Thread-1 (HornetQ-client-global-threads-592053317)) Unexpected error in /queues/torquebox/fnnny/tasks/torquebox_backgroundable.TorqueBox::Messaging::BackgroundableProcessor: org.jruby.exceptions.RaiseException: (ArgumentError) undefined class/module Item::FriendlyIdActiveRecordRelation
+# at org.jruby.RubyMarshal.load(org/jruby/RubyMarshal.java:148) [jruby.jar:]
 gem 'friendly_id'
+
 gem 'haml'
 gem 'haml-rails'
 gem 'humane-rails'

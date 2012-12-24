@@ -18,20 +18,14 @@ class OmniauthCallbacksController < ApplicationController
       user.save
       
       if user.persisted?
-        
-        # TODO: async this soon.
-        UserMailer.welcome_email(user).deliver
+        user.send_welcome_email
         
         if omni_params['request_ids']
-          # hit fb api for SEND_USER_ID
           
           @graph = Koala::Facebook::API.new( auth['credentials']['token'] )
           
           omni_params['request_ids'].split(',').each do |request_id|
             request = @graph.get_object( request_id )
-            logger.debug "-----------------> request: #{request.inspect}"
-            
-            logger.debug "---------request['to']['id']: #{request['from']['id']}"
             
             if inviter_auth = Authentication.find_by_uid( request['from']['id'] )
               inviter = inviter_auth.user
@@ -43,8 +37,8 @@ class OmniauthCallbacksController < ApplicationController
               # TODO: async this: new_follow_email(user, follower)
               # UserMailer.new_follow_email(inviter, user).deliver
               
-              queue = fetch('/queues/mailer')
-              queue.publish {:email => 'new_user', :new_user => user, :inviter => inviter}
+              # queue = fetch('/queues/mailer')
+              # queue.publish {:email => 'follow', :new_user => user, :inviter => inviter}
 
               @graph.delete_object( request_id )
             end

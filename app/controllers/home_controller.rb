@@ -14,6 +14,7 @@ class HomeController < ApplicationController
     
     # El quatro oh quatro:
     
+    # keep this because, even though using same views, only want to show 'add2home' on iphones
     user_agent = UserAgent.parse( request.env["HTTP_USER_AGENT"] )
     @mobile = true #if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
     
@@ -46,13 +47,6 @@ class HomeController < ApplicationController
         @show_all = true
       end
       
-      unless @mobile
-        @people = User.order("created_at DESC").limit(5)
-        
-        # only get activities for you and your followers
-        @activities = PublicActivity::Activity.order("created_at DESC").limit(10)
-      end
-      
       if @show_followers
         # get all items created by the people you're following
         # adapted from: http://stackoverflow.com/questions/7920082/get-posts-of-followed-users-with-acts-as-follower
@@ -72,10 +66,6 @@ class HomeController < ApplicationController
       else
         @auth_url = omniauth_authorize_path(User, 'facebook')
       end
-    end
-    
-    if @mobile
-      render :template => '/home/index_mobile'
     end
     
   end

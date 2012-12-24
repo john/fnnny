@@ -24,4 +24,6 @@
         -# or use the eye? .icon-eye-open
         
 :javascript
-  $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) { $('#follow_#{user.id}').html(xhr.responseText); });
+  $(".btn-follow").on('ajax:success', function(evt, data, status, xhr) {
+    $('#follow_#{user.id}').html(xhr.responseText);
+  });

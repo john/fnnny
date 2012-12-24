@@ -6,5 +6,6 @@ class Comment < ActiveRecord::Base
   tracked :only => [:create], :owner => proc { |controller, model| controller.current_user if controller.present? }
   
   belongs_to :commentable, :polymorphic => true, :counter_cache => true
+  belongs_to :user
   
 end

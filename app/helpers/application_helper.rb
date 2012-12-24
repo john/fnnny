@@ -9,4 +9,8 @@ module ApplicationHelper
   #   end
   # end
   
+  def slugged_item(item)
+    slugged_item_url(item, item.name.parameterize)
+  end
+  
 end

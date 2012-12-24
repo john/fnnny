@@ -1,11 +1,15 @@
 class User < ActiveRecord::Base
   include PublicActivity::Model
+  include TorqueBox::Messaging::Backgroundable
+  
+  always_background :send_welcome_email, :send_follow_email, :send_comment_email
   
   # include ActiveModel::ForbiddenAttributesProtection
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
          
@@ -64,6 +68,23 @@ class User < ActiveRecord::Base
                             :uid => auth['uid'],
                             :access_token => auth['credentials']['token'],
                             :access_token_secret => auth['credentials']['secret'])
+  end
+  
+  def send_welcome_email
+    UserMailer.welcome(self).deliver
+  end
+  
+  # Should send an email to @followed, that @follower is now following them
+  # @followed.send_follow_email(@follower)
+  def send_follow_email(follower)
+    
+    # UserMailer.follow(followed, follower)
+    UserMailer.follow(self, follower).deliver
+  end
+  
+  def send_comment_email(comment)
+    puts "about to fire usermailer"
+    UserMailer.comment(self, comment).deliver
   end
   
   def password_required?

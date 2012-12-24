@@ -1,17 +1,23 @@
 %ul#items
-  %li= render :partial => "items/item_mobile", :locals => {:item => @item}
+  %li= render :partial => "items/item", :locals => {:item => @item}
   
 -# TODO: set data-width dynamically, based on window width. Can you use bootstrap?
 -# how to style: http://stackoverflow.com/questions/6416569/customize-css-for-facebook-social-plugins
 -# http://www.daddydesign.com/wordpress/how-to-customize-the-facebook-comments-social-plugin-on-a-static-fbml-tab/
-<div class="fb-comments" data-href="#{item_url(@item)}" data-num-posts="3" data-width="320"></div>
+<div class="fb-comments" data-href="#{slugged_item(@item)}" data-num-posts="10"></div>
 
--# finally found something: // http://stackoverflow.com/questions/7181315/id-value-in-facebook-comments-create-callback
+-# finally found something: http://stackoverflow.com/questions/7181315/id-value-in-facebook-comments-create-callback
 :javascript
   FB.Event.subscribe('comment.create',
     function(response) {
+      console.log('Comment create callback hit');
+      console.log('response.href:' + response.href);
+      
       var commentQuery = FB.Data.query("SELECT text, fromid, object_id, post_id, time, user_likes, likes FROM comment WHERE post_fbid='" + response.commentID + "' AND object_id IN (SELECT comments_fbid FROM link_stat WHERE url='"+response.href+"')");
+      console.log('got comment query'); 
+      
       var userQuery = FB.Data.query("SELECT name, uid FROM user WHERE uid in (select fromid from {0})", commentQuery);
+      console.log('got user query'); 
       
       FB.Data.waitOn([commentQuery, userQuery], function() {
           $.post('#{comments_path}', { message: commentQuery.value[0].text, fb_id: response.commentID, from_id: commentQuery.value[0].fromid, object_id: commentQuery.value[0].object_id, post_id: commentQuery.value[0].post_id, commentable_id: "#{@item.id}", commentable_type: "#{@item.class.to_s}", fb_create_time: commentQuery.value[0].time, user_likes: commentQuery.value[0].user_likes, like_count: commentQuery.value[0].likes }, function(data) {

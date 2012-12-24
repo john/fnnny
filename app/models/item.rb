@@ -16,12 +16,12 @@ class Item < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   include PublicActivity::Model
   
+  # extend FriendlyId
+  # friendly_id :name, use: :slugged
+  
   PER_PAGE = 5
   
   attr_accessible :description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id, :tag_list, :comments_count
-  
-  extend FriendlyId
-  friendly_id :name, use: :slugged
   
   tracked :only => [:create], :owner => proc { |controller, model| controller.current_user if controller.present? }
   acts_as_taggable
