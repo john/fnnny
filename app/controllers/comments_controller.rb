@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
       puts "about to send email"
       puts "comment is:"
       puts comment.inspect
-      owner.send_comment_email(comment)
+      # owner.send_comment_email(comment)
       
       render :nothing => true
     end

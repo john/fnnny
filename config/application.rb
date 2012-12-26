@@ -11,11 +11,14 @@ end
 
 module Fnnny
   class Application < Rails::Application
-      # Use TorqueBox::Infinispan::Cache for the Rails cache store
-  if defined? TorqueBox::Infinispan::Cache
-    config.cache_store = :torque_box_store
-  end
-
+    
+    # Enable threaded mode
+    config.threadsafe!
+    
+    # Use TorqueBox::Infinispan::Cache for the Rails cache store
+    if defined? TorqueBox::Infinispan::Cache
+      config.cache_store = :torque_box_store
+    end
     
     configatron.app_name = 'Fnnny'
     configatron.contact_email = 'john@fnnny.com'
