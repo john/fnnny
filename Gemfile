@@ -39,7 +39,7 @@ end
 
 platforms :jruby do
   gem 'activerecord-jdbcmysql-adapter'
-  gem 'jdbc-mysql'
+  gem 'jdbc-mysql', '= 5.1.13' # 5.1.22 seems to fail with jruby 1.7.1
   # gem 'jruby-openssl'
   # gem 'warbler'
 end
@@ -47,8 +47,8 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails' #,   '~> 3.2.3'
-  gem 'uglifier' #, '>= 1.0.3'
+  gem 'sass-rails'
+  gem 'uglifier'
   # gem 'coffee-rails', '~> 3.2.1'
   
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -57,12 +57,13 @@ group :assets do
 end
 
 group :development do
-  gem 'capistrano'
-  gem 'jruby-lint'
+  gem 'capistrano', :require => false
+  gem 'fog', :require => false
+  gem 'jruby-lint', :require => false
   gem 'seed_dump'
   
-  gem 'trinidad', :require => nil, :platforms => :jruby
-  gem 'thin', :require => nil, :platforms => :ruby
+  gem 'trinidad', :require => false, :platforms => :jruby
+  gem 'thin', :require => false, :platforms => :ruby
   
   # gem 'capistrano_colors'
   # gem 'colored'
