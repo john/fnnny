@@ -13,11 +13,9 @@
 require "addressable/uri"
 
 class Item < ActiveRecord::Base
+  
   include ActiveModel::ForbiddenAttributesProtection
   include PublicActivity::Model
-  
-  # extend FriendlyId
-  # friendly_id :name, use: :slugged
   
   PER_PAGE = 5
   
