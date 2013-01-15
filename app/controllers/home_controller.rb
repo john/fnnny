@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
   def index
+    # @title = "#{configatron.app_name}: Our goal is to exceed your expectations"
     # @title = "#{configatron.app_name}: To delight and amuse"
     # @title = "#{configatron.app_name}. You will laugh now"
     # @title = "#{configatron.app_name}. Quora for Idiots"

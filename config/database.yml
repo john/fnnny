@@ -4,8 +4,8 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 development: &default
-  adapter: mysql2
-  # adapter: jdbcmysql
+  # adapter: mysql2
+  adapter: jdbcmysql
   encoding: utf8
   reconnect: true
   database: fnnny_development
@@ -15,12 +15,10 @@ development: &default
   host: 127.0.0.1
   socket: /usr/local/var/mysql/mysql.sock
   port: 3306
-  xa: false # https://issues.jboss.org/browse/TORQUE-556
+  # xa: false # https://issues.jboss.org/browse/TORQUE-556
 
 test: &test
   <<: *default
-  adapter: mysql2
-  encoding: utf8
   database: fnnny_test
 
 production:
