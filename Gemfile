@@ -5,7 +5,6 @@ gem 'acts-as-taggable-on'
 gem 'addressable'
 gem 'airbrake'
 gem 'backup', :require => false
-gem 'bootstrap-sass' #, :git => 'https://github.com/john/bootstrap-sass' # to address: https://github.com/twitter/bootstrap/issues/4756#issuecomment-9952781
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'configatron', :git => 'https://github.com/mikepb/configatron'
@@ -15,7 +14,7 @@ gem 'devise'
 # 10:11:46,719 ERROR [org.torquebox.messaging] (Thread-1 (HornetQ-client-global-threads-592053317)) Unexpected error in /queues/torquebox/fnnny/tasks/torquebox_backgroundable.TorqueBox::Messaging::BackgroundableProcessor: org.jruby.exceptions.RaiseException: (ArgumentError) undefined class/module Item::FriendlyIdActiveRecordRelation
 # at org.jruby.RubyMarshal.load(org/jruby/RubyMarshal.java:148) [jruby.jar:]
 gem 'friendly_id'
-
+gem 'get_back'
 gem 'haml'
 gem 'haml-rails'
 gem 'humane-rails'
@@ -26,10 +25,9 @@ gem 'mailboxer'
 gem 'omniauth-facebook'
 gem 'public_activity'
 gem 'rack-canonical-host'
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.11'
 gem 'strong_parameters'
 gem 'thumbs_up', git: 'https://github.com/john/thumbs_up'
-gem 'torquebox', "2.2.0"
 gem 'useragent'
 gem 'will_paginate'
 
@@ -38,10 +36,10 @@ platforms :ruby do
 end
 
 platforms :jruby do
+  gem 'jdbc-mysql'
+  gem 'activerecord-jdbc-adapter'
   gem 'activerecord-jdbcmysql-adapter'
-  gem 'jdbc-mysql', '= 5.1.13' # 5.1.22 seems to fail with jruby 1.7.1
-  # gem 'jruby-openssl'
-  # gem 'warbler'
+  gem 'trinidad', :require => false
 end
 
 # Gems used only for assets and not required
@@ -56,21 +54,18 @@ group :assets do
   # gem 'therubyrhino', :platforms => :jruby
 end
 
+group :deploy do
+  gem "net-ssh", :require => "net/ssh"
+  gem "net-scp", :require => "net/scp"
+  gem 'warbler'
+end
+
 group :development do
   gem 'capistrano', :require => false
   gem 'fog', :require => false
   gem 'jruby-lint', :require => false
-  gem 'seed_dump'
-  
-  gem 'trinidad', :require => false, :platforms => :jruby
+  gem 'seed_dump', :require => false
   gem 'thin', :require => false, :platforms => :ruby
-  
-  # gem 'capistrano_colors'
-  # gem 'colored'
-  # gem 'mail_view', :git => 'https://github.com/37signals/mail_view.git'
-  # gem 'spork'
-  # gem 'sprite-factory'
-  # gem 'chunky_png'
 end
 
 group :test do
@@ -78,8 +73,6 @@ group :test do
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'shoulda-matchers' # https://github.com/jimweirich/rake/issues/51 (read bottom)
-  
-  # gem 'turn', :require => false # Pretty printed test output
 end
 
 # To use ActiveModel has_secure_password
