@@ -1,8 +1,12 @@
+require 'get_back'
+
 class User < ActiveRecord::Base
+  extend GetBack::JoJo
   include PublicActivity::Model
-  include TorqueBox::Messaging::Backgroundable
   
-  always_background :send_welcome_email, :send_follow_email, :send_comment_email
+  # TODO: 'Deploying with JRuby' has a gem-base, cross-container way of doing this
+  # include TorqueBox::Messaging::Backgroundable
+  # always_background :send_welcome_email, :send_follow_email, :send_comment_email
   
   # include ActiveModel::ForbiddenAttributesProtection
   
@@ -73,6 +77,7 @@ class User < ActiveRecord::Base
   def send_welcome_email
     UserMailer.welcome(self).deliver
   end
+  get_back :send_welcome_email, :pool => 3
   
   # Should send an email to @followed, that @follower is now following them
   # @followed.send_follow_email(@follower)
@@ -81,11 +86,13 @@ class User < ActiveRecord::Base
     # UserMailer.follow(followed, follower)
     UserMailer.follow(self, follower).deliver
   end
+  get_back :send_follow_email, :pool => 3
   
   def send_comment_email(comment)
     puts "about to fire usermailer"
     UserMailer.comment(self, comment).deliver
   end
+  get_back :send_comment_email, :pool => 3
   
   def password_required?
     logger.debug "authentications: #{authentications.inspect}"
