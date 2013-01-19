@@ -13,7 +13,7 @@ module Fnnny
   class Application < Rails::Application
     
     # Enable threaded mode
-    config.threadsafe!
+    # config.threadsafe!
     
     # Use TorqueBox::Infinispan::Cache for the Rails cache store
     if defined? TorqueBox::Infinispan::Cache
@@ -22,7 +22,6 @@ module Fnnny
     
     configatron.app_name = 'Fnnny'
     configatron.contact_email = 'john@fnnny.com'
-    
     
     config.action_mailer.delivery_method = :smtp
     
@@ -71,7 +70,8 @@ module Fnnny
 
     # Enable the asset pipeline
     config.assets.enabled = true
-
+    config.assets.initialize_on_precompile = false # prevents Rails from initializing during the compilation process.
+    
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
   end

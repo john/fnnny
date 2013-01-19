@@ -5,6 +5,11 @@ gem 'acts-as-taggable-on'
 gem 'addressable'
 gem 'airbrake'
 gem 'backup', :require => false
+
+# ffi-ncurses is a pure-ruby ncurses, required for capistrano on jruby
+gem 'capistrano'
+gem 'ffi-ncurses'
+
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'configatron', :git => 'https://github.com/mikepb/configatron'
@@ -39,7 +44,12 @@ platforms :jruby do
   gem 'jdbc-mysql'
   gem 'activerecord-jdbc-adapter'
   gem 'activerecord-jdbcmysql-adapter'
-  gem 'trinidad', :require => false
+  gem 'trinidad'
+  gem 'trinidad_diagnostics_extension'
+  
+  # quartz. not actually using this; comment out before deploying to prod
+  # See JRuby deployment book for info
+  # gem 'trinidad_scheduler_extension'
 end
 
 # Gems used only for assets and not required

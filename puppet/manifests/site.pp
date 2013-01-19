@@ -6,6 +6,7 @@ exec { "apt-update":
   command => "/usr/bin/apt-get update",
   require => Group[puppet]
 }
+
 Exec["apt-update"] -> Package <| |>
 
 package { "openjdk-7-jdk":
@@ -14,3 +15,4 @@ package { "openjdk-7-jdk":
 
 include jruby
 include nginx
+include trinidad

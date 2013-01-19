@@ -1,6 +1,8 @@
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+PATH="/opt/jruby/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
 # jm, 1/14/13
 CANONICAL_HOST=www.fnnny.com
-JRUBY_HOME=/opt/jruby
 RAILS_ENV=production
+
+JRUBY_HOME=/opt/jruby
+TRINIDAD_HOME=/opt/trinidad

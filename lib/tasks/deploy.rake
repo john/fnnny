@@ -1,7 +1,8 @@
 require 'bundler'
 Bundler.require(:deploy)
 
-SSH_KEY = "~/.vagrant.d/insecure_private_key"
+# ?
+# rvm use ruby-1.9.3-p194
 
 # def with_ssh
 #   Net::SSH.start("localhost", "vagrant", {:port => 2222, :keys => [SSH_KEY]}) do |ssh|
@@ -28,11 +29,17 @@ namespace :deploy do
   desc "Package and deploy app"
   task :war do
     
-    # SUB this shit out for EC2...
-    host = "localhost"
-    user = "vagrant"
-    port = 2222
-    keys = [SSH_KEY]
+    # FOR local vagrant VM
+    # host = "localhost"
+    # user = "vagrant"
+    # port = 2222
+    # keys = ["~/.vagrant.d/insecure_private_key"]
+    
+    # FOR EC2
+    host = "ec2-23-20-128-160.compute-1.amazonaws.com"
+    user = "ubuntu"
+    port = 22
+    keys = ["~/.ssh/id_rsa"]
     
     puts "about to create new warble task"
     Warbler::Task.new(:warble)
@@ -40,6 +47,7 @@ namespace :deploy do
     puts "about to invoke warble"
     Rake::Task['warble'].invoke
     
+    puts "about to start first ssh..."
     Net::SSH.start(host, user, {:port => port, :keys => keys}) do |ssh|
       puts "about to mkdir -p deploy/"
       ssh.exec! "mkdir -p deploy/"
@@ -76,13 +84,16 @@ namespace :deploy do
       # SH
       # end
       
-      ssh.exec! "cd deploy"
-      ssh.exec! "export PATH=$PATH:/opt/jruby/bin"
-      ssh.exec! "export RAILS_ENV=production"
-      out = ssh.exec! "sudo jgem install warbler-exec"
-      puts "output from 'sudo jgem install warbler-exec': #{out}"
+      ssh.exec! "sudo export PATH=$PATH:/opt/jruby/bin"
+      ssh.exec! "sudo export RAILS_ENV=production"
+      out = ssh.exec! "sudo env PATH=$PATH jruby -v; echo $PATH; cd /opt/jruby-1.7.2/bin; pwd; sudo env PATH=$PATH jruby -S gem install warbler-exec"
+      puts "gem install output: #{out}"
       
-      ssh.exec! "jruby -S warbler-exec twitalytics.war bin/rake db:migrate"
+      out = ssh.exec! "cd ~/deploy; sudo env PATH=$PATH jruby -S warbler-exec fnnny.war bin/rake db:migrate"
+      puts "gem install output: #{out}"
+      
+      out = ssh.exec! "cd; sudo mv deploy/funny.war /var/lib/tomcat7/webapps/"
+      puts 'Deployment complete!'
       
       puts "warbler-exec db:migrate: DONE!"
     end
