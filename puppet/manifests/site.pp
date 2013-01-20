@@ -13,6 +13,7 @@ package { "openjdk-7-jdk":
   ensure => present
 }
 
+include git
 include jruby
 include nginx
 include trinidad

@@ -99,15 +99,20 @@ puts "setup.rb rubygems: DONE!"
 puts '--'
 server.wait_for { ready? }
 
-# Ditch this when puppet 3.1 is release, fixing this: http://projects.puppetlabs.com/issues/9862
+# Ditch this when puppet 3.1 is released, fixing this: http://projects.puppetlabs.com/issues/9862
 out = server.ssh('sudo groupadd puppet')
 puts "added puppet group: DONE!"
 puts '--'
 server.wait_for { ready? }
 
+###### Install Bundler
+# -v 1.2.3
+out = server.ssh('sudo gem install bundler --no-ri --no-rdoc')
+puts "gem install bundler: DONE! "
+puts '--'
 
 ###### Install Puppet
-
+# -v 3.0.2
 out = server.ssh('sudo gem install puppet --no-ri --no-rdoc')
 puts "gem install puppet: DONE! "
 puts '--'
@@ -125,7 +130,7 @@ puts "puppet out: #{out}"
 puts '--'
 
 
-
+# TODO: CAN this script add the public url (or ip) of the just-created server to deploy.rb, and run deploy:setup?
 
 
 
