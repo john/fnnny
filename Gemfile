@@ -37,11 +37,11 @@ gem 'thumbs_up', git: 'https://github.com/john/thumbs_up'
 gem 'useragent'
 gem 'will_paginate'
 
-platforms :ruby do
-  gem 'mysql2'
-end
+# platforms :ruby do
+#   gem 'mysql2'
+# end
 
-platforms :jruby do
+# platforms :jruby do
   gem 'jdbc-mysql'
   gem 'activerecord-jdbc-adapter'
   gem 'activerecord-jdbcmysql-adapter'
@@ -51,7 +51,7 @@ platforms :jruby do
   # quartz. not actually using this; comment out before deploying to prod
   # See JRuby deployment book for info
   # gem 'trinidad_scheduler_extension'
-end
+# end
 
 # Gems used only for assets and not required
 # in production environments by default.
