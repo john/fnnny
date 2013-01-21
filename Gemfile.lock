@@ -147,8 +147,10 @@ GEM
     jruby-openssl (0.8.2)
       bouncy-castle-java (>= 1.5.0146.1)
     jruby-rack (1.1.13.1)
-    json (1.7.6)
-    json (1.7.6-java)
+    json (1.5.0)
+    json (1.5.0-java)
+    json-jruby (1.5.0-java)
+      json (= 1.5.0)
     jwt (0.1.5)
       multi_json (>= 1.0)
     koala (1.6.0)
@@ -328,6 +330,7 @@ DEPENDENCIES
   jdbc-mysql
   jquery-rails
   jruby-lint
+  json-jruby
   koala
   mailboxer
   mysql2
