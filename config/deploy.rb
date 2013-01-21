@@ -26,7 +26,7 @@ require 'bundler/capistrano'
 #   end
 # end
 
-server "ec2-23-23-46-250.compute-1.amazonaws.com", :app, :primary => true
+server "ec2-23-22-105-209.compute-1.amazonaws.com", :app, :primary => true
 
 ssh_options[:port] = 22
 ssh_options[:keys] = "~/.ssh/id_rsa"
@@ -44,16 +44,16 @@ set :copy_exclude, [".git","log","tmp","*.box","*.war",".idea",".DS_Store"]
 
 set :default_environment, 'PATH' => "/opt/jruby/bin:$PATH", 'JSVC_ARGS_EXTRA' => "-user ubuntu"
 set :bundle_dir, ""
-set :bundle_flags, "--system --quiet"
+set :bundle_flags, "--system"
 
 
-before "deploy:setup", "deploy:install_bundler"
+# before "deploy:setup", "deploy:install_bundler"
 
 namespace :deploy do
   
-  task :install_bundler, :roles => :app do
-    run "sudo gem install bundler"
-  end
+  # task :install_bundler, :roles => :app do
+  #   run "sudo gem install bundler"
+  # end
   
   task :start, :roles => :app do
     run "/etc/init.d/trinidad start"

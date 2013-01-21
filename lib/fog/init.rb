@@ -75,7 +75,7 @@ server.wait_for { ready? }
 
 ###### Ruby (MRI)
 puts "apt-getting ruby..."
-out = server.ssh('sudo apt-get -y install ruby1.9.1')
+out = server.ssh('sudo apt-get -y install ruby1.9.1-dev')
 # puts "apt-get ruby output: #{out}"
 puts "apt-get ruby: DONE!"
 puts '--'

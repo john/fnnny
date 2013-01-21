@@ -14,6 +14,7 @@ package { "openjdk-7-jdk":
 }
 
 include git
+include gcc
 include jruby
 include nginx
 include trinidad
