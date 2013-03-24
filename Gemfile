@@ -5,11 +5,9 @@ gem 'acts-as-taggable-on'
 gem 'addressable'
 gem 'airbrake'
 gem 'backup', :require => false
-
-# ffi-ncurses is a pure-ruby ncurses, required for capistrano on jruby
 gem 'capistrano'
-gem 'ffi-ncurses'
-
+gem 'capistrano-maintenance'
+gem 'ffi-ncurses' # ffi-ncurses is a pure-ruby ncurses, required for capistrano on jruby
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'configatron', :git => 'https://github.com/mikepb/configatron'
@@ -31,7 +29,7 @@ gem 'mailboxer'
 gem 'omniauth-facebook'
 gem 'public_activity', git: 'https://github.com/pokonski/public_activity'
 gem 'rack-canonical-host'
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 gem 'strong_parameters'
 gem 'thumbs_up', git: 'https://github.com/john/thumbs_up'
 gem 'useragent'
@@ -76,7 +74,7 @@ group :development do
   gem 'fog', :require => false
   gem 'jruby-lint', :require => false
   gem 'seed_dump', :require => false
-  gem 'thin', :require => false, :platforms => :ruby
+  # gem 'thin', :require => false, :platforms => :ruby
 end
 
 group :test do
