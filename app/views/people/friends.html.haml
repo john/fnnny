@@ -5,12 +5,12 @@
   #{t(:when_you_follow)}.
   
 %p{:style => 'padding: 10px; vertical-align: bottom;'}
-  = link_to t(:select_friends).humanize, "#", :id => "invite_fb_friends", :class => 'btn btn-large btn-primary', :style => 'vertical-align: bottom;  margin-right: 25px;'
+  = link_to t(:select_friends).humanize, "#", :class => 'invite-friends btn btn-large btn-primary', :style => 'vertical-align: bottom;  margin-right: 25px;'
   = link_to t(:skip_step).gsub(' ', '&nbsp;').humanize.html_safe, root_path, :style => 'vertical-align: bottom;'
   
   :javascript
     $(function(){
-      $("a#invite_fb_friends").click(function() {
+      $("a.invite-friends").click(function() {
         FB.ui({method: 'apprequests',
           message: '#{current_user.first_name} #{current_user.last_name} has invited you to try Fnnny.'
         },
@@ -22,9 +22,10 @@
       });
     });
     
-%div{:style => 'max-width: 500px;'}
-  - @friends.each do |f|
-    <image src="#{f['picture']['data']['url']}" style="width: 50px; padding: 0; margin: 0; float: left; opacity:0.6; filter:alpha(opacity=60);" />
+%a.invite-friends{:style => 'cursor: pointer;'}
+  %div{:style => 'max-width: 500px;'}
+    - @friends.each do |f|
+      <image src="#{f['picture']['data']['url']}" style="width: 50px; padding: 0; margin: 0; float: left; opacity:0.6; filter:alpha(opacity=60);" />
 
 -# FB.init({ 
 -#    appId:'295556897221526',

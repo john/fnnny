@@ -13,7 +13,7 @@ class trinidad {
     require => File[$jruby_home]
   }
   
-  exec {  install_trinidad_init_services :
+  exec { install_trinidad_init_services :
     command => "jruby -S gem install trinidad_init_services -v 1.2.2",
     path    => "${jruby_home}/bin:${path}",
     creates => "${jruby_home}/bin/trinidad_init_service",

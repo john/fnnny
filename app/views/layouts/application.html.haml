@@ -37,10 +37,8 @@
     %link{:rel => "icon", :type => "image/png", :href => "/assets/fnnny_16.png"}
     %link{:rel => "apple-touch-icon-precomposed", :sizes => "114x114", :href => "/assets/fnnny_114.png"}
     
+    %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"}
     
-    -# %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"}
-    %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/bootswatch/2.1.1/united/bootstrap.min.css"}
-    -# more style options: http://www.bootstrapcdn.com/index.html?v=01042013155511#tab_bootswatch
     = stylesheet_link_tag "application", :media => "all"
     
     - if @mobile
@@ -70,97 +68,81 @@
     
     #fb-root
     %script{:src => "http://connect.facebook.net/en_US/all.js"}
-    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"}
-    %script{:src => "//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"}
+    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"}
+    %script{:src => "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"}
     = javascript_include_tag 'fnnny'
     
-    -# from: http://www.w3resource.com/twitter-bootstrap/navbar-tutorial.php
-    #wrap
-      -# .navbar-inverse
-      .navbar.navbar-static-top
-        
-        .navbar-inner{:style => 'height: 30px; min-height: 30px;'}
-          .container
-            = link_to configatron.app_name.downcase, root_path, :class => 'logo'
+    .navbar.navbar-inverse.navbar-static-top
+      .navbar-inner
+        .container
+          = link_to configatron.app_name.downcase, root_path, :class => 'logo'
+          
+          - if user_signed_in?
             
-            -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
-            
-            -# -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
-            -# %ul.nav.pull-left.top-nav
-            -#   %li
-            -#     -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
-            -#     -# %a{:href => root_path, :rel => "tooltip", :title => configatron.app_name}
-            -#     -#   -# %img{:src => "/assets/fnnny_16.png", :style => 'margin: 10px 0 0 8px;'}
-            -#     -#   -# = link_to configatron.app_name.downcase, root_path, :class => 'font-effect-neon', :style => 'margin-left: 7px;'
-            -#     -#   -# %i.icon-home.icon-white{:style => 'margin: 8px 0 0 8px;'}
-            -#     -#   %i.icon-fire.icon-white
+            %ul.nav.pull-right.top-nav
+              %li
+                %a{:href => new_item_path, :rel => "tooltip", :title => t(:nav_add).humanize}
+                  %i.icon-plus.icon-white
                   
-            - if user_signed_in?
-              
-              %ul.nav.pull-right.top-nav
-                %li
-                  %a{:href => new_item_path, :rel => "tooltip", :title => t(:nav_add).humanize}
-                    %i.icon-plus.icon-white
+              %li
+                %a{:href => tags_path, :rel => "tooltip", :title => t(:nav_tags).humanize}
+                  %i.icon-tags.icon-white
+                  
+              %li
+                %a{:href => people_path, :rel => "tooltip", :title => t(:nav_people).humanize}
+                  %i.icon-user.icon-white
+                  
+              %li.dropdown
+                %a{:href => "#", :class => "dropdown-toggle", :'data-toggle' => "dropdown"}
+                  %i.icon-cog.icon-white
+                  %b.caret
+                  
+                %ul.dropdown-menu
+                  %li{:style => 'padding-left: 20px;'}
+                    Signed in as
+                  %li
+                    = link_to current_user.display_name, person_path(current_user), :style => 'font-weight: bold; color: #444'
+                  %li.divider
+                  %li= link_to t(:invite_friends).humanize, friends_person_path(current_user)
+                  %li= link_to t(:profile_edit).humanize, edit_user_registration_path
+                  %li= link_to t(:log_out).humanize, destroy_user_session_path, :method => :delete
+                  %li= link_to t(:get_bookmarklet).humanize, bookmarklet_path
+                  
+                  - if signed_in? && current_user.admin?
+                    %li= link_to "Admin", admin_path, :style => 'color:red;'
                     
-                %li
-                  %a{:href => tags_path, :rel => "tooltip", :title => t(:nav_tags).humanize}
-                    %i.icon-tags.icon-white
                     
-                %li
-                  %a{:href => people_path, :rel => "tooltip", :title => t(:nav_people).humanize}
-                    %i.icon-user.icon-white
-                    
-                %li.dropdown
-                  %a{:href => "#", :class => "dropdown-toggle", :'data-toggle' => "dropdown"}
-                    %i.icon-cog.icon-white
-                    %b.caret
-                    
-                  %ul.dropdown-menu
-                    %li{:style => 'padding-left: 20px;'}
-                      Signed in as
-                    %li
-                      = link_to current_user.display_name, person_path(current_user), :style => 'font-weight: bold; color: #444'
-                    %li.divider
-                    %li= link_to t(:invite_friends).humanize, friends_person_path(current_user)
-                    %li= link_to t(:profile_edit).humanize, edit_user_registration_path
-                    %li= link_to t(:log_out).humanize, destroy_user_session_path, :method => :delete
-                    %li= link_to t(:get_bookmarklet).humanize, bookmarklet_path
-                    
-                    - if signed_in? && current_user.admin?
-                      %li= link_to "Admin", admin_path, :style => 'color:red;'
-                      
-                      
-              :javascript
-                $(function() {
-                  $('.top-nav').tooltip({
-                    selector: "a[rel=tooltip]", placement: 'bottom'
-                  });
+            :javascript
+              $(function() {
+                $('.top-nav').tooltip({
+                  selector: "a[rel=tooltip]", placement: 'bottom'
                 });
-                
-            - else
+              });
               
-              %ul.nav.pull-right
-                %li
-                  = link_to t(:log_in).humanize, omniauth_authorize_path(User, 'facebook'), :style => 'margin-top: 0px; color: white; text-shadow: none;'
-                
-              .pull-right{:style => 'margin: -2px 5px 0 0;'}
-                = link_to t(:sign_up).humanize, omniauth_authorize_path(User, 'facebook'), :class => "btn btn-mini btn-success"
+          - else
+            
+            %ul.nav.pull-right
+              %li
+                = link_to t(:log_in).humanize, omniauth_authorize_path(User, 'facebook'), :style => 'margin-top: 0px; color: white; text-shadow: none;'
               
-      .container
-        
-        = yield
-        
-        -# -# eventually this should probably be in the header. and it should definitely be fixed.
-        -# - if has_messages = false
-        -#   .alert.fade.in
-        -#     %a.close{:"data-dismiss" => "alert"} &times;
-        -#     <strong>Warning!</strong> Best check yo self, you're not looking too good.
-        -#   
-        -#   :javascript
-        -#     $('.alert').bind('closed', function () {
-        -#       alert('phu');
-        -#       // post back to app to mark message as read.
-        -#     })
+            .pull-right{:style => 'margin: 4px 4px 0 0;'}
+              = link_to t(:sign_up).humanize, omniauth_authorize_path(User, 'facebook'), :class => "btn btn-mini btn-success"
+            
+    .container
+      
+      = yield
+      
+      -# -# eventually this should probably be in the header. and it should definitely be fixed.
+      -# - if has_messages = false
+      -#   .alert.fade.in
+      -#     %a.close{:"data-dismiss" => "alert"} &times;
+      -#     <strong>Warning!</strong> Best check yo self, you're not looking too good.
+      -#   
+      -#   :javascript
+      -#     $('.alert').bind('closed', function () {
+      -#       alert('phu');
+      -#       // post back to app to mark message as read.
+      -#     })
         
     = humane_flash_messages.html_safe
     
