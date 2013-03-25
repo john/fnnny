@@ -27,5 +27,4 @@ production:
   username: fnnnydbuser
   password: latte4me
   host: fnnnydbinstance.ckvlbwcadzik.us-east-1.rds.amazonaws.com
-  pool: 10
   socket: 
