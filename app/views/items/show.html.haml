@@ -17,18 +17,18 @@
       
       console.log( 'commentsfbidQuery: ' + commentsfbidQuery.value[0].comments_fbid );
       
-      // var commentQuery = FB.Data.query("SELECT text, fromid, object_id, post_id, time, user_likes, likes FROM comment WHERE post_fbid='" + response.commentID + "' AND object_id IN (SELECT comments_fbid FROM link_stat WHERE normalized_url='"+response.href+"')");
-      // 
-      // console.log('got comment query');
-      // 
-      // console.log('commentQuery.value[0].text: ' + commentQuery.value[0].text);
+      var commentQuery = FB.Data.query("SELECT text, fromid, object_id, post_id, time, user_likes, likes FROM comment WHERE post_fbid='" + response.commentID + "' AND object_id IN (SELECT comments_fbid FROM link_stat WHERE normalized_url='"+response.href+"')");
       
-      // // once you have results of above, use jquery to post the values back to fnnny
-      // FB.Data.waitOn([commentQuery], function() {
-      //     $.post('#{comments_path}', { message: commentQuery.value[0].text, fb_id: response.commentID, from_id: commentQuery.value[0].fromid, object_id: commentQuery.value[0].object_id, post_id: commentQuery.value[0].post_id, commentable_id: "#{@item.id}", commentable_type: "#{@item.class.to_s}", fb_create_time: commentQuery.value[0].time, user_likes: commentQuery.value[0].user_likes, like_count: commentQuery.value[0].likes }, function(data) {
-      //       console.log('Comment saved'); 
-      //     });
-      // });
+      console.log('got comment query');
+      
+      console.log('commentQuery.value[0].text: ' + commentQuery.value[0].text);
+      
+      // once you have results of above, use jquery to post the values back to fnnny
+      FB.Data.waitOn([commentQuery], function() {
+          $.post('#{comments_path}', { message: commentQuery.value[0].text, fb_id: response.commentID, from_id: commentQuery.value[0].fromid, object_id: commentQuery.value[0].object_id, post_id: commentQuery.value[0].post_id, commentable_id: "#{@item.id}", commentable_type: "#{@item.class.to_s}", fb_create_time: commentQuery.value[0].time, user_likes: commentQuery.value[0].user_likes, like_count: commentQuery.value[0].likes }, function(data) {
+            console.log('Comment saved'); 
+          });
+      });
       
     }
   );
