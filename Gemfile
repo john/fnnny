@@ -5,9 +5,9 @@ gem 'acts-as-taggable-on'
 gem 'addressable'
 gem 'airbrake'
 gem 'backup', :require => false
-gem 'capistrano'
-gem 'capistrano-maintenance'
-gem 'ffi-ncurses' # ffi-ncurses is a pure-ruby ncurses, required for capistrano on jruby
+# gem 'capistrano', '2.11.2' # 2.14.2 seems to fail, see: http://forums.pragprog.com/forums/234/topics/10930
+# gem 'capistrano-maintenance'
+# gem 'ffi-ncurses' # ffi-ncurses is a pure-ruby ncurses, required for capistrano on jruby
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'configatron', :git => 'https://github.com/mikepb/configatron'
@@ -70,7 +70,11 @@ group :deploy do
 end
 
 group :development do
-  gem 'capistrano', :require => false
+  # gem 'capistrano', :require => false
+  gem 'capistrano', '2.11.2' # 2.14.2 seems to fail, see: http://forums.pragprog.com/forums/234/topics/10930
+  gem 'capistrano-maintenance'
+  gem 'ffi-ncurses' # ffi-ncurses is a pure-ruby ncurses, required for capistrano on jruby
+  
   gem 'fog', :require => false
   gem 'jruby-lint', :require => false
   gem 'seed_dump', :require => false

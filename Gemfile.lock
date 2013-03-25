@@ -75,7 +75,7 @@ GEM
     bourne (1.4.0)
       mocha (~> 0.13.2)
     builder (3.0.4)
-    capistrano (2.14.2)
+    capistrano (2.11.2)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -305,7 +305,7 @@ DEPENDENCIES
   addressable
   airbrake
   backup
-  capistrano
+  capistrano (= 2.11.2)
   capistrano-maintenance
   carrierwave
   cloudinary
