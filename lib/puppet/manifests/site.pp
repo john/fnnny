@@ -73,6 +73,8 @@ ssh_authorized_key { "ubuntu-rsa-key":
    require => File["/home/deploybot/.ssh/authorized_keys"],
 }
 include build_essential
+include fail2ban
+include figlet
 include git
 include gcc
 include jruby
@@ -81,4 +83,6 @@ include libxml2_dev
 include libxslt1_dev
 include nginx
 include openjdk_7_jdk
+include tzdata
 include trinidad
+include unattended_upgrades
