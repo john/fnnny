@@ -3,6 +3,9 @@
 # prod:
 # ruby lib/fog/init.rb -i t1.micro -r us-east-1 -p site.pp
 
+# ruby lib/fog/init.rb -i c1.medium -r us-east-1 -p site.pp
+
+
 # micro:
 # t1.micro: 613MB, 1-2cu, ebs, 32/64bit, lowio
 

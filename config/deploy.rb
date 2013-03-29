@@ -26,7 +26,9 @@ require 'bundler/capistrano'
 #   end
 # end
 
-server "ec2-50-19-149-93.compute-1.amazonaws.com", :app, :db, :primary => true
+# server "ec2-54-224-47-81.compute-1.amazonaws.com", :app, :db, :primary => true
+
+server "ec2-54-224-47-81.compute-1.amazonaws.com", :app
 
 ssh_options[:port] = 22
 ssh_options[:keys] = "~/.ssh/id_rsa"

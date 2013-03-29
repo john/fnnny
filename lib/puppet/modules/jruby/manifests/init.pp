@@ -1,4 +1,5 @@
 class jruby {
+
   $jruby_home = "/opt/jruby"
   
   exec { "download_jruby":
@@ -20,4 +21,14 @@ class jruby {
     target => "${jruby_home}-1.7.2",
     require => Exec["unpack_jruby"]
   }
+  
+  file { "/etc/profile.d/jruby.sh":
+    ensure => present,
+    content => template("jruby/jruby.sh.erb"),
+    owner => "root",
+    group => "root",
+    mode => 644,
+    require => File[$jruby_home]
+  }
+  
 }
