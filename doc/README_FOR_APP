@@ -1,3 +1,24 @@
+
+ubuntu@ip-10-245-183-215:/opt/trinidad/current$ jruby -S bundle exec rails s trinidad -e production
+Gem::LoadError: Could not find bundler (>= 0) amongst [jruby-rack-1.1.13.1, rake-10.0.2, trinidad-1.4.4, trinidad_init_services-1.2.2, trinidad_jars-1.2.2]
+  to_specs at /opt/jruby-1.7.2/lib/ruby/shared/rubygems/dependency.rb:247
+   to_spec at /opt/jruby-1.7.2/lib/ruby/shared/rubygems/dependency.rb:256
+       gem at /opt/jruby-1.7.2/lib/ruby/shared/rubygems.rb:1231
+    (root) at /usr/local/bin/bundle:22
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
 

@@ -2,15 +2,11 @@ class trinidad {
   $jruby_home = "/opt/jruby"
   $trinidad_home = "/opt/trinidad"
   
-  package { jsvc :
-    ensure => present
-  }
-  
   exec {  install_trinidad :
     command => "jruby -S gem install trinidad -v 1.4.4",
     path    => "${jruby_home}/bin:${path}",
     creates => "${jruby_home}/bin/trinidad",
-    require => File[$jruby_home]
+    require => [File[$jruby_home], Package["openjdk-7-jdk"]]
   }
   
   exec { install_trinidad_init_services :

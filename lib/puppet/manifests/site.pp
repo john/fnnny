@@ -81,7 +81,7 @@ include jruby
 include libcurl4_openssl_dev
 include libxml2_dev
 include libxslt1_dev
-include nginx
+# include nginx
 include openjdk_7_jdk
 include tzdata
 include trinidad

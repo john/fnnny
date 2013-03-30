@@ -43,8 +43,8 @@ gem 'will_paginate'
   gem 'jdbc-mysql'
   gem 'activerecord-jdbc-adapter'
   gem 'activerecord-jdbcmysql-adapter'
-  gem 'trinidad'
-  gem 'trinidad_diagnostics_extension'
+  # gem 'trinidad'
+  # gem 'trinidad_diagnostics_extension'
   
   # quartz. not actually using this; comment out before deploying to prod
   # See JRuby deployment book for info
@@ -53,15 +53,22 @@ gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
+
+
+# compiling on the production server, so this needs to be in the general group
+# group :assets do
   gem 'sass-rails'
   gem 'uglifier'
   # gem 'coffee-rails', '~> 3.2.1'
   
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-  # gem 'therubyrhino', :platforms => :jruby
-end
+  gem 'therubyrhino', :platforms => :jruby
+# end
+
+
+
+
 
 group :deploy do
   gem "net-ssh", :require => "net/ssh"
