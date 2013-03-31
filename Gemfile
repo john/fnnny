@@ -86,6 +86,7 @@ group :development do
   gem 'jruby-lint', :require => false
   gem 'seed_dump', :require => false
   # gem 'thin', :require => false, :platforms => :ruby
+  gem 'trinidad'
 end
 
 group :test do

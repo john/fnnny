@@ -27,7 +27,7 @@
 #   end
 # end
 
-server "ec2-54-242-101-34.compute-1.amazonaws.com", :app
+server "ec2-54-242-131-105.compute-1.amazonaws.com", :app
 
 ssh_options[:port] = 22
 ssh_options[:keys] = "~/.ssh/id_rsa"

@@ -22,8 +22,11 @@ Fnnny::Application.routes.draw do
     # post :invite, :on => :member
   end
   
-  resources :tags, :id => /[^\/]+/
+  
+  
   match '/categories' => 'tags#index', :as => :categories, :via => :get
+  match '/categories/:id' => 'tags#show', :as => :category, :via => :get
+  resources :tags, :id => /[^\/]+/
   
   match '/admin' => 'admin#index', :as => :admin, :via => :get
   match '/bookmarklet' => 'home#bookmarklet', :as => :bookmarklet, :via => :get

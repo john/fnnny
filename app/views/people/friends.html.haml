@@ -1,8 +1,8 @@
-%h2{:style => 'padding: 15px 0 0 10px; margin-bottom: 0; line-height: 35px;'}
-  #{configatron.app_name} #{t(:is_funnier)}
-
-%h5{:style => 'padding: 2px 10px 10px 10px; margin-top: 0;'}
-  #{t(:when_you_follow)}.
+.page-header
+  %h1
+    #{configatron.app_name} #{t(:is_funnier)}<br />
+    %small
+      #{t(:when_you_follow)}
   
 %p{:style => 'padding: 10px; vertical-align: bottom;'}
   = link_to t(:select_friends).humanize, "#", :class => 'invite-friends btn btn-large btn-primary', :style => 'vertical-align: bottom;  margin-right: 25px;'
