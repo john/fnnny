@@ -1,4 +1,5 @@
-require 'bundler/capistrano'
+# commented out because it runs mri bundle, not jruby.
+# require 'bundler/capistrano'
 
 # set :application, "Fnnny"
 # set :repository,  "set your repository location here"
@@ -33,25 +34,29 @@ ssh_options[:keys] = "~/.ssh/id_rsa"
 
 set :user, "ubuntu"
 set :use_sudo, true
-
 set :deploy_to, "/opt/trinidad"
 set :application, "fnnny"
 set :repository, "."
 set :scm, :none
 set :deploy_via, :copy
 set :copy_exclude, [".git","log","tmp","*.box","*.war",".idea",".DS_Store"]
-
 set :default_environment,
   'PATH' => "/opt/jruby/bin:$PATH",
   'JSVC_ARGS_EXTRA' => "-user ubuntu"
-set :bundle_dir, ""
-set :bundle_flags, "--system"
+# set :bundle_dir, ""
+# set :bundle_flags, "--system"
 
 namespace :deploy do
   
   task :install_bundler, :roles => :app do
-    run "sudo gem install bundler"
+    run "sudo jruby -S gem install bundler"
   end
+  
+  task :bundle_install, :roles => :app do
+    run "sudo jruby -S bundle install"
+  end
+  
+  # then is there a task i can override to force bundle to use jruby -S bundle?
   
   task :start, :roles => :app do
     run "sudo /etc/init.d/trinidad start"
