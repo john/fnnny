@@ -18,7 +18,11 @@ class OmniauthCallbacksController < ApplicationController
       user.save
       
       if user.persisted?
+        
+        # check invites
+        # do mutual follow (user -> inviter, inviter -> user)
         user.send_welcome_email
+        # invite.send_follow_email
         
         if omni_params['request_ids']
           

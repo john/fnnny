@@ -5,11 +5,10 @@ class HomeController < ApplicationController
     # @title = "#{configatron.app_name}: To delight and amuse"
     # @title = "#{configatron.app_name}. You will laugh now"
     # @title = "#{configatron.app_name}. Quora for Idiots"
-    # @title = "#{configatron.app_name}. The perfect humor solution for your next corporate event"
+    # @title = "#{configatron.app_name}. Enterprise Humor Mangement System"
     # @title = "#{configatron.app_name}. Mo fnnny mo better"
     @title = "#{configatron.app_name}. #{t(:title_home).humanize}."
-    # @title = "#{configatron.app_name}. Kinda like America's Home Videos, but dumber."
-    # @title = "#{configatron.app_name}. Enterprise Humor Portal."
+    # @title = "#{configatron.app_name}. Like America's Home Videos, but dumber."
     # @title = "#{configatron.app_name}. So three guy walk into a bar..."
     # @title = "Smells #{configatron.app_name} in here"
     
@@ -26,22 +25,32 @@ class HomeController < ApplicationController
       if following_count > 0
         @followers = true
         if params[:show]
+          
           # if there's a show param, respect it, if you can
           if params[:show] == 'followers'
             @show_followers = true
           elsif params[:show] == 'all'
             @show_all = true
           else
-            @show_followers = true
+            
+            if following_count > 4
+              # if not, default to followers if you're following 5 or more people
+              @show_followers = true
+            else
+              @show_all = true
+            end
+            
           end
+          
         else
-          if following_count > 1
-            # if not, default to followers if you're following 3 or more people
+          
+          if following_count > 4
+            # if not, default to followers if you're following 5 or more people
             @show_followers = true
           else
-            # otherwise to all
             @show_all = true
           end
+          
         end
       else
         # if no followers, have to show all

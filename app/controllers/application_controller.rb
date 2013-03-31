@@ -7,5 +7,11 @@ class ApplicationController < ActionController::Base
     # request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     friends_person_path(resource)
   end
-    
+  
+  def require_admin
+    unless current_user.admin?
+      redirect_to root_path, :alert => 'noooooo no no no no. no.'
+    end
+  end
+  
 end

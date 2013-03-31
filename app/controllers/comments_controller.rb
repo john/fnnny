@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   
-  before_filter :authenticate_user!
+  # still unsure if i want to let un-logged-in users comment.
+  # before_filter :authenticate_user!
   
   def create
     
@@ -20,6 +21,18 @@ class CommentsController < ApplicationController
       owner.send_comment_email(comment)
       
       render :nothing => true
+    end
+    
+    # DELETE /invites/1
+    # DELETE /invites/1.json
+    def destroy
+      @comment = Comment.find(params[:id])
+      @comment.destroy
+
+      respond_to do |format|
+        format.html { render :nothing => true }
+        format.json { head :no_content }
+      end
     end
     
     # if params[:message]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201173932) do
+ActiveRecord::Schema.define(:version => 20130331213358) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -75,6 +75,15 @@ ActiveRecord::Schema.define(:version => 20130201173932) do
 
   add_index "follows", ["followable_id", "followable_type"], :name => "fk_followables"
   add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
+
+  create_table "invites", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "request_id"
+    t.string   "to_id"
+    t.string   "state"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "items", :force => true do |t|
     t.integer  "user_id",            :default => 0, :null => false

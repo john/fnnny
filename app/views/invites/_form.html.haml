@@ -1,0 +1,22 @@
+= form_for @invite do |f|
+  - if @invite.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@invite.errors.count, "error")} prohibited this invite from being saved:"
+      %ul
+        - @invite.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :user_id
+    = f.number_field :user_id
+  .field
+    = f.label :request_id
+    = f.text_field :request_id
+  .field
+    = f.label :to_id
+    = f.text_field :to_id
+  .field
+    = f.label :state
+    = f.text_field :state
+  .actions
+    = f.submit 'Save'

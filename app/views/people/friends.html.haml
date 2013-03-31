@@ -14,8 +14,17 @@
         FB.ui({method: 'apprequests',
           message: '#{current_user.first_name} #{current_user.last_name} has invited you to try Fnnny.'
         },
+        
         function(response) {
           if (response) {
+            var i;
+            var invitees = response.to
+            for (i = 0; i < invitees.length; ++i) {
+              var post_data = { user_id: "#{current_user.id}", request_id: response.request, to_id: invitees[i] };
+              $.post('#{invites_path}', post_data, function(data) {
+                });
+            }
+            
             location.href  = '/?from=friends'
           }
         });
