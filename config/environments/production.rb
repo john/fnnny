@@ -1,7 +1,7 @@
 Fnnny::Application.configure do
   
   # app_name and contact_email are configured in application.rb
-  configatron.app_url = 'fnnny.com'
+  configatron.app_url = 'www.fnnny.com'
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true

@@ -1,5 +1,14 @@
 - if user_signed_in?
   
+  %div{:style => 'font-size: 11px; background-color: #ddd; padding: 4px;'}
+    - if @followers
+      = link_to 'all'
+      | 
+      = link_to 'people you follow'
+    
+    - else
+      All recent posts. #{link_to 'Follow people', people_path} to see only theirs.
+  
   - if params[:from] && params[:from] == 'friends'
     .alert{:style => 'margin-top: 20px;'}
       .button{:type => 'button', :class => 'close', :'data-dismiss' => 'alert'}

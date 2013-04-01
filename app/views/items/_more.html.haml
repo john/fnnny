@@ -1,6 +1,6 @@
 %li.more
   .please
     - page = (page) ? page.to_i + 1 : 2
-    = link_to "#{t(:more_please).humanize}.", more_items_path(page), :remote => true, :format => :js, :onclick => "$('.please').toggle();", :class => 'btn btn-primary'
+    = link_to "#{t(:more_please).humanize}", more_items_path(page), :remote => true, :format => :js, :onclick => "$('.please').toggle();", :class => 'btn btn-primary'
   .please{:style => 'display: none;'}
     #{t(:more_coming).humanize}...
