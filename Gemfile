@@ -66,10 +66,6 @@ gem 'will_paginate'
   gem 'therubyrhino', :platforms => :jruby
 # end
 
-
-
-
-
 group :deploy do
   gem "net-ssh", :require => "net/ssh"
   gem "net-scp", :require => "net/scp"

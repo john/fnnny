@@ -19,54 +19,32 @@ class HomeController < ApplicationController
     @mobile = true #if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
     
     if signed_in?
+      @following_count = current_user.following_by_type_count('User')
       
-      following_count = current_user.following_by_type_count('User')
-      
-      if following_count > 0
-        @followers = true
+      if @following_count > 0
         if params[:show]
-          
-          # if there's a show param, respect it, if you can
-          if params[:show] == 'followers'
-            @show_followers = true
-          elsif params[:show] == 'all'
+          if params[:show] == 'everyone'
             @show_all = true
+          elsif params[:show] == 'follows'
+            @show_all = false
           else
-            
-            if following_count > 4
-              # if not, default to followers if you're following 5 or more people
-              @show_followers = true
-            else
-              @show_all = true
-            end
-            
+            @show_all = true if @following_count < 5
           end
           
         else
-          
-          if following_count > 4
-            # if not, default to followers if you're following 5 or more people
-            @show_followers = true
-          else
-            @show_all = true
-          end
+          @show_all = true if @following_count < 5
           
         end
-      else
-        # if no followers, have to show all
-        @show_all = true
       end
       
-      if @show_followers
+      if @show_all
+        @items = Item.order('created_at DESC').paginate( :page => params[:page], :per_page => Item::PER_PAGE ) # where("user_id != ?", current_user.id).
+        
+      else
         # get all items created by the people you're following
         # adapted from: http://stackoverflow.com/questions/7920082/get-posts-of-followed-users-with-acts-as-follower
         # @items = current_user.following_users.includes(:items).collect{|u| u.items}.flatten
-        
         @items = Item.find_by_sql("SELECT i.* FROM items i WHERE i.user_id IN (SELECT followable_id FROM follows WHERE followable_type = 'User' AND follower_type = 'User' AND follower_id = #{current_user.id}) ORDER BY created_at DESC LIMIT 25")
-        
-      else
-        # add a dismissible banner pushing users to follow people to see scoped results.
-        @items = Item.order('created_at DESC').paginate( :page => params[:page], :per_page => Item::PER_PAGE ) # where("user_id != ?", current_user.id).
         
       end
       

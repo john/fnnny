@@ -127,6 +127,7 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
+    @item.post_to_fb = true
     
     if params[:u] && params[:t]
       @item.url = params[:u] if params[:u]
@@ -177,6 +178,19 @@ class ItemsController < ApplicationController
     
     respond_to do |format|
       if @item.save
+        
+        @graph = Koala::Facebook::API.new( current_user.authentications.first.access_token )
+        @graph.get_object("me")
+        @graph.put_wall_post( @item.name )
+        
+        # http://rubydoc.info/github/arsduo/koala/master/Koala/Facebook/GraphAPIMethods#put_wall_post-instance_method
+        # @api.put_wall_post("Hello there!", {
+        #   "name" => "Link name"
+        #   "link" => "http://www.example.com/",
+        #   "caption" => "{*actor*} posted a new review",
+        #   "description" => "This is a longer description of the attachment",
+        #   "picture" => "http://www.example.com/thumbnail.jpg"
+        # })
         
         format.html do
           if params[:bookmarklet] == 'true'

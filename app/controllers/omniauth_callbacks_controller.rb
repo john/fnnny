@@ -9,7 +9,9 @@ class OmniauthCallbacksController < ApplicationController
     
     if authentication
       # Authentication found, sign the user in.
-      sign_in_and_redirect authentication.user, :notice => "Signed in successfully."
+      # sign_in_and_redirect authentication.user, :notice => "Signed in successfully."
+      sign_in authentication.user
+      redirect_to root_path, :notice => "Signed in successfully."
       
     else
       # Authentication not found, thus a new user.
@@ -18,12 +20,20 @@ class OmniauthCallbacksController < ApplicationController
       user.save
       
       if user.persisted?
-        
-        # check invites
-        # do mutual follow (user -> inviter, inviter -> user)
         user.send_welcome_email
-        # invite.send_follow_email
         
+        # THIS was already implemented below. Do we want to change invite state
+        # if invites = Invite.where(:to_id => auth['uid'])
+        #   invites.each do |i|
+        #     inviter = i.user
+        #     inviter.follow(user)
+        #     user.follow(inviter)
+        #     inviter.send_follow_email(user)
+        #     user.send_follow_email(inviter)
+        #   end
+        # end
+        
+        # inviter and invitee should follow each other
         if omni_params['request_ids']
           
           @graph = Koala::Facebook::API.new( auth['credentials']['token'] )
@@ -38,12 +48,9 @@ class OmniauthCallbacksController < ApplicationController
               
               # TEST that this block is only hit if it finds an auth.
               
-              # TODO: async this: new_follow_email(user, follower)
-              # UserMailer.new_follow_email(inviter, user).deliver
+              inviter.send_follow_email(user)
+              user.send_follow_email(inviter)
               
-              # queue = fetch('/queues/mailer')
-              # queue.publish {:email => 'follow', :new_user => user, :inviter => inviter}
-
               @graph.delete_object( request_id )
             end
             

@@ -1,13 +1,19 @@
 - if user_signed_in?
   
-  %div{:style => 'font-size: 11px; background-color: #ddd; padding: 4px;'}
-    - if @followers
-      = link_to 'all'
-      | 
-      = link_to 'people you follow'
-    
+  %div{:style => 'font-size: 11px; background-color: #ddd; padding: 6px 10px 4px 10px;'}
+    Posts from&nbsp;
+    - if @following_count > 0
+      [
+      - if @show_all
+        <b>everyone</b> | #{link_to 'people you follow', root_path(:show => 'follows')}
+      - else
+        #{link_to 'everyone', root_path(:show => 'everyone')} | <b>people you follow</b>
+      ]
+      -# - if @following_count < 5
+      -#   %div{:style => 'color: #555;'}
+      -#     follow 5 or more people to default to people you follow
     - else
-      All recent posts. #{link_to 'Follow people', people_path} to see only theirs.
+      everyone. #{link_to 'Follow people', people_path} to only see posts from people you follow.
   
   - if params[:from] && params[:from] == 'friends'
     .alert{:style => 'margin-top: 20px;'}

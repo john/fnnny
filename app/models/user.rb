@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :delete_all
   has_many :items, :dependent => :delete_all, :order => 'created_at DESC'
   has_many :comments, :dependent => :delete_all
+  has_many :invites, :dependent => :delete_all
   
   extend FriendlyId
   friendly_id :full_name, use: :slugged

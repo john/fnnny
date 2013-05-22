@@ -6,6 +6,10 @@
         - @item.errors.full_messages.each do |msg|
           %li= msg
           
+  .field{:style => "margin-bottom: 10px; "}
+    = f.label :post_to_fb, "Also post to facebook?", :style => "display: inline;"
+    = f.check_box :post_to_fb, :style => "margin-bottom: 5px;"
+    
   .field
     = f.label :name
     = f.text_field :name
@@ -20,7 +24,12 @@
     .field
       = f.label :url
       = f.text_field :url
-      
+  
+  .field
+    = f.label :image
+    = f.hidden_field :image_cache
+    = f.file_field :image #, :accept => "/image/*", :capture => 'camera'
+    
   .field
     = f.label :description
     = f.text_area :description, :style => @style
@@ -28,11 +37,6 @@
   = f.label :tag_list, "Tags (comma separated)"
   = text_field_tag :tag_list
   
-  .field
-    = f.label :image
-    = f.hidden_field :image_cache
-    = f.file_field :image #, :accept => "/image/*", :capture => 'camera'
-    
   <br />
     
   -# .field

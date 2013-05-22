@@ -4,7 +4,8 @@
 <div class="fb-comments" data-href="#{slugged_item(@item)}" data-num-posts="10" data-notify="true" data-migrated="1"></div>
 
 -# finally found something: http://stackoverflow.com/questions/7181315/id-value-in-facebook-comments-create-callback
-:javascript
+-#
+  :javascript
 
   FB.Event.subscribe('comment.create',
     function(response) {

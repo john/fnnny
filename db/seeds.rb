@@ -14,15 +14,19 @@
 
 # bundle exec rake db:drop; rake db:create; rake db:migrate; rake db:seed;
 
-john = User.new( :first_name => 'John', :last_name => 'McGrath', :slug => 'john-mcgrath', :notifications => 'yes', :email => 'john@fnnny.com' )
-john.save(:validate => false)
+# john = User.new( :first_name => 'John', :last_name => 'McGrath', :slug => 'john-mcgrath', :notifications => 'yes', :email => 'john@fnnny.com' )
+# john.save(:validate => false)
 
-Authentication.create!(
-              :user_id => john.id,
-              :provider => 'facebook',
-              :uid => '675003241',
-              :access_token => 'AAAEMzrPeq5YBAEeh2k0UaIGgDs6VVxqFxqnVU844z6WsyCiMFxwnNIEb6jJrc6iy0M7aPv5YUk91wBnF3Dq7sf6BO29Rr8R3yeGUigZDZD' )
-              
+# Authentication.create!(
+#               :user_id => john.id,
+#               :provider => 'facebook',
+#               :uid => '675003241',
+#               :access_token => 'AAAEMzrPeq5YBAEeh2k0UaIGgDs6VVxqFxqnVU844z6WsyCiMFxwnNIEb6jJrc6iy0M7aPv5YUk91wBnF3Dq7sf6BO29Rr8R3yeGUigZDZD' )
+#               
+
+
+john = User.first
+
 items_and_tags = [
   [
     { :name => "Neuticles",

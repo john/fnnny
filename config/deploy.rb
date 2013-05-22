@@ -36,6 +36,9 @@ set :user, "ubuntu"
 set :use_sudo, true
 set :deploy_to, "/opt/trinidad"
 set :application, "fnnny"
+
+set :with_precompile, true
+
 set :repository, "."
 set :scm, :none
 set :deploy_via, :copy
