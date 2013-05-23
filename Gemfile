@@ -76,6 +76,7 @@ group :development do
   # gem 'capistrano', :require => false
   gem 'capistrano', '2.11.2' # 2.14.2 seems to fail, see: http://forums.pragprog.com/forums/234/topics/10930
   gem 'capistrano-maintenance'
+  gem 'capistrano_colors'
   gem 'ffi-ncurses' # ffi-ncurses is a pure-ruby ncurses, required for capistrano on jruby
   
   gem 'fog', :require => false
