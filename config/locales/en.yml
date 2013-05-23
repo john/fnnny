@@ -11,7 +11,7 @@ en:
   get_bookmarklet: 'get bookmarklet'
   invite: 
   invitations_sent:
-    html: "<h3>Invitations sent to the friends you selected.</h3><p>You might also want to send an email, give them a call, or drop by their house on the way home to make sure they sign up.</p>"
+    html: "<h3>Invitations sent to the friends you selected.</h3><p>You might also want to send an email, give them a call, or drop by their house on the way home to make sure they sign up.</p><p>You can send more invites anytime from the account link, top-right."
   invite_friends: "invite friends"
   is_funnier: 'is funnier'
   log_in: 'log in'

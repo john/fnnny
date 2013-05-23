@@ -27,6 +27,11 @@
 #   end
 # end
 
+# ssh ubuntu@ec2-54-242-131-105.compute-1.amazonaws.com
+
+# running rake tasks on the server:
+# sudo /opt/jruby/bin/jruby -S bundle exec rake foo:bar
+
 server "ec2-54-242-131-105.compute-1.amazonaws.com", :app
 
 ssh_options[:port] = 22
@@ -36,9 +41,6 @@ set :user, "ubuntu"
 set :use_sudo, true
 set :deploy_to, "/opt/trinidad"
 set :application, "fnnny"
-
-set :with_precompile, true
-
 set :repository, "."
 set :scm, :none
 set :deploy_via, :copy
