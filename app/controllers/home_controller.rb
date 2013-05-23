@@ -35,6 +35,8 @@ class HomeController < ApplicationController
           @show_all = true if @following_count < 5
           
         end
+      else
+        @show_all = true
       end
       
       if @show_all
