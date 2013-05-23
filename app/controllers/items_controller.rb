@@ -181,7 +181,9 @@ class ItemsController < ApplicationController
         
         @graph = Koala::Facebook::API.new( current_user.authentications.first.access_token )
         @graph.get_object("me")
-        @graph.put_wall_post( @item.name )
+        
+        
+        @graph.put_wall_post( "Posted \"#{link_to @item.name, slugged_item(@item), :target => '_blank'}\" to fnnny.com" )
         
         # http://rubydoc.info/github/arsduo/koala/master/Koala/Facebook/GraphAPIMethods#put_wall_post-instance_method
         # @api.put_wall_post("Hello there!", {
