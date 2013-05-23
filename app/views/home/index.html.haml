@@ -5,15 +5,15 @@
     - if @following_count > 0
       [
       - if @show_all
-        <b>everyone</b> | #{link_to 'people you follow', root_path(:show => 'follows')}
+        <b>everyone</b> | #{link_to 'your people', root_path(:show => 'follows')}
       - else
-        #{link_to 'everyone', root_path(:show => 'everyone')} | <b>people you follow</b>
+        #{link_to 'everyone', root_path(:show => 'everyone')} | <b>your people</b>
       ]
       -# - if @following_count < 5
       -#   %div{:style => 'color: #555;'}
       -#     follow 5 or more people to default to people you follow
     - else
-      everyone. #{link_to 'Follow people', people_path} to only see posts from people you follow.
+      everyone. #{link_to 'Follow people', people_path} to only see posts from your people.
   
   - if params[:from] && params[:from] == 'friends'
     .alert{:style => 'margin-top: 20px;'}
