@@ -183,7 +183,9 @@ class ItemsController < ApplicationController
         @graph.get_object("me")
         
         
-        @graph.put_wall_post( "Posted \"#{link_to @item.name, slugged_item(@item), :target => '_blank'}\" to fnnny.com" )
+        # @graph.put_wall_post( "Posted \"#{link_to @item.name, slugged_item(@item), :target => '_blank'}\" to fnnny.com" )
+        # @graph.put_wall_post( "Posted <a href='http://www.fnnny.com/items/#{@item.to_param}' target='_blank'>#{@item.name}</a> to fnnny.com" )
+        @graph.put_wall_post( "Posted #{@item.name} to fnnny.com http://www.fnnny.com/items/#{@item.id}/#{@item.name.parameterize}" )
         
         # http://rubydoc.info/github/arsduo/koala/master/Koala/Facebook/GraphAPIMethods#put_wall_post-instance_method
         # @api.put_wall_post("Hello there!", {
