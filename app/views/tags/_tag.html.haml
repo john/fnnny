@@ -1,8 +1,9 @@
-%div{:style => 'padding: 20px 0; border-bottom: 1px solid #ddd;'}
+:css
+  h2 { font-size: 18px; font-weight: bold; padding: 0; border-bottom: 1px solid #ddd;}
+  h2 span { font-weight: normal; font-size: 13px; }
+  
+%h2
   -# = render :partial => "tags/follow", :locals => {:tag => tag, :size => 'btn-mini', :styl => 'btn-standard'}
   -# &nbsp;
-  -# = link_to tag.name, tag_path(tag), :style => 'font-size: 18px; font-weight: bold;'
   
-  = link_to tag.name, category_path(tag), :style => 'font-size: 18px; font-weight: bold;'
-  
-  -# has added #{pluralize(person.items.count, 'post')}, #{pluralize(person.comments.count, 'comment')}
+  = link_to "#{tag.name} <span>(#{tag.taggings.count})</span>".html_safe, category_path(tag)
