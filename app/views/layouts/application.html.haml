@@ -22,7 +22,7 @@
     
     - if @item
       %meta{ :property => "og:type", :content => "article"}
-      %meta{ :property => "og:image", :content => "http://res.cloudinary.com/fnnny/image/upload/c_thumb,g_face,h_75,w_75/#{@item.id}.png" }
+      %meta{ :property => "og:image", :content => "http://res.cloudinary.com/fnnny/image/upload/c_thumb,g_face,h_75,w_75/#{@item.image}" }
       
     - if @description
       %meta{ :property => "og:description", :content => @description }
