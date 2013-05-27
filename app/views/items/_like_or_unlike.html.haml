@@ -1,10 +1,32 @@
+- upvoters = item.upvoters
+
+:css
+  .popover { max-width: 200px; width: 150px; }
+
 - encoded_id = Base64.urlsafe_encode64(item.id.to_s)
 
 .btn-group{:id => "like_#{item.id}_wrap", :style => 'margin-right: 6px;'}
   .btn
     - encoded_id = Base64.urlsafe_encode64(item.id.to_s)
     
-    %a{:href => url_for(like_item_path(encoded_id)), :class => "like_#{item.id}_link", :'data-remote' => true, :'data-type' => 'html', :title => 'This is truly awesome.'}
+    
+    -# TODO: scope to your friends (all fb, or just fnnny?)
+    -# DON"T SHOW popover if nobody's upvoted
+    -# make sure popover doesn't interfere wtih button action.
+    - opts = {}
+    - opts[:href] = url_for(like_item_path(encoded_id))
+    - opts[:class] = "like_#{item.id}_link"
+    - opts[:'data-remote'] = true
+    - opts[:'data-type'] = 'html'
+    - opts[:id] = "item_#{item.id}_up"
+    - opts[:'data-trigger'] = 'manual'
+    - opts[:title] = 'Upvoted&nbsp;by'
+    
+    - if item.upvoters.present?
+      - content = "#{item.upvoters.map{|v| (link_to v.display_name, person_path(v)) }.join(', ')}"
+      - opts[:'data-content'] = content
+    
+    %a{opts}
       %i.icon-thumbs-up.dim
       %small
         = item.votes_for
@@ -20,3 +42,16 @@
     'ajax:success',
     function(evt, data, status, xhr) { $('#like_#{item.id}_wrap').html( xhr.responseText ) }
   );
+  
+- if upvoters.present?
+  :javascript
+    $("#item_#{item.id}_up").popover({html: true});
+  
+    $("#item_#{item.id}_up").mouseover( function() {
+      $("#item_#{item.id}_up").popover('show');
+    
+      // add onclick event to body that'll close this
+      $('body').click(function() {
+        $("#item_#{item.id}_up").popover('hide');
+      })
+    });

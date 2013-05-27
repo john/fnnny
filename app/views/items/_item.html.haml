@@ -9,11 +9,11 @@
   
   .title{:class => klass}
     =link_to item.name.html_safe, item.url, :target => '_blank'
-
+    
   .pic.mobile
     - if item.youtube?
       <iframe width="100%" src="#{item.embed_url}" frameborder="0" allowfullscreen></iframe>
-
+      
     - elsif item.image.present?
       = link_to image_tag(item.image_url(:standard)), item.url, :target => '_blank'
       
@@ -25,9 +25,8 @@
         = truncate(item.description, :length => 140, :separator => ' ')
         %small.dim
           = link_to '(more)', slugged_item(item)
-  
+          
   .links
-    -# %small.muted
     = render :partial => "items/links", :locals => {:item => item}
     
   = item.tags.map {|t| link_to t.name, tag_path(t)}.join(', ').html_safe

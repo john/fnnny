@@ -4,8 +4,12 @@
   .btn-group
     - unless request.path.include?('/items/')
       .btn
-      
-        %a{:href => "#{slugged_item(item)}", :rel => "tooltip", :title => 'Comments'}
+        / - if signed_in?
+        /   - link = link_to
+        /   - onclick
+        - 
+        %a{:href => "#{signed_in? ? slugged_item(item) : "javascript:alert('blarg')"}", :rel => "tooltip", :title => 'Comments'}
+          -# %i.icon-eye-open.dim
           %i.icon-comment.dim
           %small= item.comments_count
           
