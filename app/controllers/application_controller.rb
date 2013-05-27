@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
   
   helper :all
   
+  
+  before_filter :canonicalize
+  
+  def canonicalize
+    if Rails.env == 'production'
+      redirect_to 'http//www.fnnny.com' if request.host == 'fnnny.com'
+    end
+  end
+  
   def after_sign_in_path_for(resource)
     # request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     friends_person_path(resource)
