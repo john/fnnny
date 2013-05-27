@@ -16,6 +16,11 @@
     #{t('description')}.
   %p{:style => 'margin-top: 25px;'}
     = link_to "#{t(:sign_in_with).humanize } Facebook", @auth_url, :class => 'btn btn-primary btn-large'
+    
+  - if params[:src] && params[:src] == 'fb'
+    %p
+      You can #{link_to "open #{configatron.app_name.capitalize} in its own window", root_url, :target => '_blank'} if you prefer.
+    
   -#   
   -# %p
   -#   = link_to 'drop', '#', :onclick => "addToHome.show();"
