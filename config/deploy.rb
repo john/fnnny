@@ -32,6 +32,8 @@
 # running rake tasks on the server:
 # sudo /opt/jruby/bin/jruby -S bundle exec rake foo:bar
 
+# bundle exec cap deploy
+
 server "ec2-54-242-131-105.compute-1.amazonaws.com", :app
 
 ssh_options[:port] = 22
@@ -64,7 +66,7 @@ namespace :deploy do
   # then is there a task i can override to force bundle to use jruby -S bundle?
   
   task :start, :roles => :app do
-    run "sudo /etc/init.d/trinidad start"
+    run "sudo /etc/init.d/trinidad restart"
   end
   
   task :stop, :roles => :app do end
