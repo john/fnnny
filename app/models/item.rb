@@ -61,4 +61,10 @@ class Item < ActiveRecord::Base
     "http://www.youtube.com/embed/#{params_hash['v']}"
   end
   
+  def upvoters(args={})
+    args.reverse_merge! :limit => 10, :order => 'updated_at DESC'
+    
+    votes.where(:vote => 1).limit(args[:limit]).order(args[:order]).map{|vote| User.find(vote.voter_id) }
+  end
+  
 end
