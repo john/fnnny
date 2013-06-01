@@ -32,6 +32,55 @@ class Item < ActiveRecord::Base
   
   mount_uploader :image, ImageUploader
   
+  
+  def find_images
+    uri = Addressable::URI.parse(url)
+    pre = "#{uri.scheme}://#{uri.host}"
+    
+    doc = Nokogiri::HTML(open(url))
+    images = doc.search('img')
+    @out = []
+    
+    # needs to handle
+    # <img data-retina-src="http://o.onionstatic.com/images/22/22229/original/700.hq.jpg?1232" data-src="http://o.onionstatic.com/images/22/22229/original/700.jpg?1232" src="data:image/gif;base64,R0lGODlhEAAJAIAAAP///wAAACH5BAEAAAAALAAAAAAQAAkAAAIKhI+py+0Po5yUFQA7" class="has_caption lazy-load" width="700" height="396" alt="" title="" />
+    
+    images.each do |image|
+      
+      uri, src, size, width, height = nil, nil, nil, nil, nil
+      
+      if image['data-src'].present?
+        src = image['data-src']
+      else
+        src = image['src']
+      end
+      puts "---> src: #{src}"
+      
+      unless src.include?('doubleclick')
+        if (src[0] == '/') && (src[1] != '/')
+          uri = "#{pre}#{src}"
+        elsif src[0..3] == 'http'
+          uri =  src
+        end
+      end
+      puts "---> uri: #{uri}"
+      
+      if uri.present? && src.present?
+        size = FastImage.size(uri)
+        if size.kind_of?(Array)
+          width = size[0]
+          height = size[1]
+          if uri.present? && width > 64 && height > 64
+            @out << uri
+          end
+        end
+      end
+    end
+    
+    @out.uniq
+  end
+  
+  
+  
   def delete_from_cloudinary
     Cloudinary::Uploader.destroy( self.id )
   end

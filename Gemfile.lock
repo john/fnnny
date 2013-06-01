@@ -108,6 +108,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
+    fastimage (1.4.0)
     ffi (1.6.0)
     ffi (1.6.0-java)
     ffi-locale (1.0.1)
@@ -316,6 +317,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
+  fastimage
   ffi-ncurses
   fog
   friendly_id
