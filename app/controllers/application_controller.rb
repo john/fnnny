@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   
   def canonicalize
     if Rails.env == 'production'
-      redirect_to 'http//www.fnnny.com' if request.host == 'fnnny.com'
+      redirect_to 'http://www.fnnny.com' if request.host == 'fnnny.com'
     end
   end
   

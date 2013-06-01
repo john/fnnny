@@ -142,7 +142,7 @@ class ItemsController < ApplicationController
       @item.user_id = current_user.id
       @bookmarklet_view = true
     end
-
+    
     respond_to do |format|
       format.html do
         render :layout => 'popup' if @bookmarklet_view
@@ -150,7 +150,7 @@ class ItemsController < ApplicationController
       format.json { render json: @item }
     end
   end
-
+  
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])

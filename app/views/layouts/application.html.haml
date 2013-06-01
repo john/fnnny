@@ -15,14 +15,15 @@
     %meta{ :name => "description", :content => (@title) ? @title : configatron.app_name }
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
     %meta{ :name => "apple-mobile-web-app-capable", :content => "yes" }
-
+    
     %meta{ :property => "fb:app_id", :content => "295556897221526" }
     %meta{ :property => "og:site_name", :content => "Fnnny.com" }
     %meta{ :property => "og:url", :content => request.url }
     
     - if @item
       %meta{ :property => "og:type", :content => "article"}
-      %meta{ :property => "og:image", :content => "#{@item.image_url(:thumbnail)}" }
+      %meta{ :property => "og:image", :content => item.image_url(:standard) }
+      %meta{ :property => "og:description", :content => item.description }
       
     - if @description
       %meta{ :property => "og:description", :content => @description }
