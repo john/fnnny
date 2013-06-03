@@ -65,8 +65,12 @@ class ItemsController < ApplicationController
   
   # GET /items/1/edit
   def edit
-    @item = Item.find(params[:id])
-    @item.belongs_to(current_user)
+    if @item.user == current_user
+      @item = Item.find(params[:id])
+      @item.belongs_to(current_user)
+    else
+      redirect_to root_path
+    end
   end
 
   # POST /items
@@ -109,10 +113,14 @@ class ItemsController < ApplicationController
   end
   
   def add_image
-    @item = Item.find(params[:id])
-    @item.belongs_to(current_user)
+    if @item.user == current_user
+      @item = Item.find(params[:id])
+      @item.belongs_to(current_user)
     
-    @images = @item.find_images
+      @images = @item.find_images
+    else
+      redirect_to root_path
+    end
   end
 
   # PUT /items/1
