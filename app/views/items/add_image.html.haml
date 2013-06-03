@@ -1,0 +1,47 @@
+:css
+  h1 span { font-weight: normal; font-size: .5em;}
+  h4 { margin: 15px 0 10px 0; }
+  img { max-width: 200px; }
+.page-header
+  %h1
+    Add an image
+    %span
+      to<div style="">&ldquo;#{@item.name}&rdquo;</div>
+      
+      
+  = form_for @item, :html => {:multipart => true} do |f|
+    <input type="hidden" id="image_added" name="image_added" value="true" />
+    
+    - if @item.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@item.errors.count, "error")} prohibited this item from being saved:"
+        %ul
+          - @item.errors.full_messages.each do |msg|
+            %li= msg
+          
+          
+          
+    %h4
+      Upload an image
+    = f.hidden_field :image_cache
+    %div{:style => "vertical-align: bottom;"}
+      = f.file_field :image
+      
+    %p{:style => "margin: 20px 0;"}
+      = "-- or --"
+      
+    %h4
+      Pick an image
+      
+    - @images.each_with_index do |image, i|
+    
+      <input type="radio" id="item_original_image_url" name="item[original_image_url]" value="#{image}" />
+      = image_tag(image, :style => 'margin: 0 20px 30px 5px;')
+      - if (i+1) % 2 == 0
+        <br />
+        
+    .actions
+      = f.submit 'Save'
+      
+%p
+  -# Psst... the easiest way to get web pages into #{configatron.app_name} is with the #{link_to 'bookmarklet', bookmarklet_path}.

@@ -5,6 +5,177 @@ class ItemsController < ApplicationController
   
   protect_from_forgery :except => :create 
   
+  
+  # GET /items
+  # GET /items.json
+  def index
+    if current_user.admin?
+      @items = Item.all
+      
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @items }
+      end
+    else
+      redirect_to root_path, :alert => 'Not fnnny.'
+    end
+  end
+
+  # GET /items/1
+  # GET /items/1.json
+  def show
+    @item = Item.find(params[:id])
+    @title = @item.name
+    user_agent = UserAgent.parse( request.env["HTTP_USER_AGENT"] )
+    # @mobile = true #if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @item }
+    end
+  end
+
+  # GET /items/new
+  # GET /items/new.json
+  def new
+    @item = Item.new
+    @item.post_to_fb = true
+    
+    if params[:u] && params[:t]
+      @item.url = params[:u] if params[:u]
+      if params[:t]
+        if params[:t].include?('|')
+          title = params[:t].split('|')[0].strip
+        else
+          title = params[:t]
+        end
+        @item.name = title
+      end
+      @item.user_id = current_user.id
+      @bookmarklet_view = true
+    end
+    
+    respond_to do |format|
+      format.html do
+        render :layout => 'popup' if @bookmarklet_view
+      end
+      format.json { render json: @item }
+    end
+  end
+  
+  # GET /items/1/edit
+  def edit
+    @item = Item.find(params[:id])
+    @item.belongs_to(current_user)
+  end
+
+  # POST /items
+  # POST /items.json
+  def create
+    
+    # TODO:
+    # - find_or_create_by_url?
+    # - be sure to normalize URLs (including removing tracking code, if possible)
+    # - create association to found/created item
+    # - update code elsewhere to attach stuff to the join (comments, images, likes, etc.)
+    @item = Item.new(item_params)
+    @item.user_id = current_user.id
+    @item.name = @item.name.split('|')[0].strip if @item.name.include?('|')
+    @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
+    @item.url = Addressable::URI.parse( @item.url ).normalize.to_s unless @item.url.blank?
+    
+    if @item.original_image_url.present?
+      @item.remote_image_url = @item.original_image_url
+    end
+    
+    respond_to do |format|
+      if @item.save
+        
+        format.html do
+          if params[:bookmarklet] == 'true'
+            render :partial => "items/thanks_bye"
+          else
+            # redirect_to @item, notice: 'Item was successfully created.'
+            redirect_to add_image_path(@item)
+          end
+        end
+        
+        format.json { render json: @item, status: :created, location: @item }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def add_image
+    @item = Item.find(params[:id])
+    @item.belongs_to(current_user)
+    
+    @images = @item.find_images
+  end
+
+  # PUT /items/1
+  # PUT /items/1.json
+  def update
+    @item = Item.find(params[:id])
+    @item.belongs_to(current_user)
+    
+    respond_to do |format|
+      if @item.update_attributes(item_params)
+        
+        if @item.original_image_url.present?
+          @item.remote_image_url = @item.original_image_url
+        end
+        
+        # and again, for carrierwave?
+        @item.save
+        
+        # TODO: this gets moved to the next page, after they've added an image (or not)
+        if Rails.env == 'production'
+          @graph = Koala::Facebook::API.new( current_user.authentications.first.access_token )
+          @graph.get_object("me")
+          @graph.put_wall_post( "Posted #{@item.name} to fnnny.com http://www.fnnny.com/items/#{@item.id}/#{@item.name.parameterize}" )
+        end
+        
+        format.html {
+          if params[:image_added] && params[:image_added] == 'true'
+            redirect_to @item, notice: 'Item was successfully updated.'
+          else
+            redirect_to add_image_path(@item)
+          end
+        }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /items/1
+  # DELETE /items/1.json
+  def destroy
+    @item = Item.find(params[:id])
+    @item.belongs_to(current_user) unless current_user.admin?
+    
+    @item.destroy
+    
+    respond_to do |format|
+      format.html { redirect_to items_path, :notice => "Gone forever." }
+      format.json { head :no_content }
+    end
+  end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   def more
     if signed_in?
       @items = Item.order('created_at DESC').paginate( :page => params[:page], :per_page => Item::PER_PAGE )
@@ -94,152 +265,7 @@ class ItemsController < ApplicationController
   end
   
   
-  # GET /items
-  # GET /items.json
-  def index
-    if current_user.admin?
-      @items = Item.all
-
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @items }
-      end
-    else
-      redirect_to root_path, :alert => 'Not fnnny.'
-    end
-  end
-
-  # GET /items/1
-  # GET /items/1.json
-  def show
-    @item = Item.find(params[:id])
-    @title = @item.name
-    user_agent = UserAgent.parse( request.env["HTTP_USER_AGENT"] )
-    # @mobile = true #if user_agent.present? && (user_agent.platform == 'iPhone' || (user_agent.mobile? && user_agent.platform == 'Android'))
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @item }
-    end
-  end
-
-  # GET /items/new
-  # GET /items/new.json
-  def new
-    @item = Item.new
-    @item.post_to_fb = true
-    
-    if params[:u] && params[:t]
-      @item.url = params[:u] if params[:u]
-      if params[:t]
-        if params[:t].include?('|')
-          title = params[:t].split('|')[0].strip
-        else
-          title = params[:t]
-        end
-        @item.name = title
-      end
-      @item.user_id = current_user.id
-      @bookmarklet_view = true
-    end
-    
-    respond_to do |format|
-      format.html do
-        render :layout => 'popup' if @bookmarklet_view
-      end
-      format.json { render json: @item }
-    end
-  end
   
-  # GET /items/1/edit
-  def edit
-    @item = Item.find(params[:id])
-    @item.belongs_to(current_user)
-  end
-
-  # POST /items
-  # POST /items.json
-  def create
-    
-    # TODO:
-    # - find_or_create_by_url?
-    # - be sure to normalize URLs (including removing tracking code, if possible)
-    # - create association to found/created item
-    # - update code elsewhere to attach stuff to the join (comments, images, likes, etc.)
-    @item = Item.new(item_params)
-    @item.user_id = current_user.id
-    @item.name = @item.name.split('|')[0].strip if @item.name.include?('|')
-    @item.user.tag(@item, :with => params[:tag_list], :on => :tags) if params[:tag_list]
-    @item.url = Addressable::URI.parse( @item.url ).normalize.to_s unless @item.url.blank?
-    
-    if @item.original_image_url.present?
-      @item.remote_image_url = @item.original_image_url
-    end
-    
-    respond_to do |format|
-      if @item.save
-        
-        @graph = Koala::Facebook::API.new( current_user.authentications.first.access_token )
-        @graph.get_object("me")
-        
-        # @graph.put_wall_post( "Posted \"#{link_to @item.name, slugged_item(@item), :target => '_blank'}\" to fnnny.com" )
-        # @graph.put_wall_post( "Posted <a href='http://www.fnnny.com/items/#{@item.to_param}' target='_blank'>#{@item.name}</a> to fnnny.com" )
-        @graph.put_wall_post( "Posted #{@item.name} to fnnny.com http://www.fnnny.com/items/#{@item.id}/#{@item.name.parameterize}" )
-        
-        # http://rubydoc.info/github/arsduo/koala/master/Koala/Facebook/GraphAPIMethods#put_wall_post-instance_method
-        # @api.put_wall_post("Hello there!", {
-        #   "name" => "Link name"
-        #   "link" => "http://www.example.com/",
-        #   "caption" => "{*actor*} posted a new review",
-        #   "description" => "This is a longer description of the attachment",
-        #   "picture" => "http://www.example.com/thumbnail.jpg"
-        # })
-        
-        format.html do
-          if params[:bookmarklet] == 'true'
-            render :partial => "items/thanks_bye"
-          else
-            redirect_to @item, notice: 'Item was successfully created.'
-          end
-        end
-        format.json { render json: @item, status: :created, location: @item }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /items/1
-  # PUT /items/1.json
-  def update
-    @item = Item.find(params[:id])
-    @item.belongs_to(current_user)
-    
-    respond_to do |format|
-      if @item.update_attributes(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /items/1
-  # DELETE /items/1.json
-  def destroy
-    @item = Item.find(params[:id])
-    @item.belongs_to(current_user) unless current_user.admin?
-    
-    @item.destroy
-    
-    respond_to do |format|
-      format.html { redirect_to items_path, :notice => "Gone forever." }
-      format.json { head :no_content }
-    end
-  end
   
   private
 

@@ -7,7 +7,7 @@ FactoryGirl.define do
     location 'Toledo, OH'
     email "john@fnnny.com"
     password 'phubhar'
-    
+    encrypted_password '123abc'
     # after(:create) do |user|
     #   org = FactoryGirl.create(:organization)
     #   affiliation = FactoryGirl.build(:affiliation, organization: org, user: user)

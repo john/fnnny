@@ -41,9 +41,6 @@ class Item < ActiveRecord::Base
     images = doc.search('img')
     @out = []
     
-    # needs to handle
-    # <img data-retina-src="http://o.onionstatic.com/images/22/22229/original/700.hq.jpg?1232" data-src="http://o.onionstatic.com/images/22/22229/original/700.jpg?1232" src="data:image/gif;base64,R0lGODlhEAAJAIAAAP///wAAACH5BAEAAAAALAAAAAAQAAkAAAIKhI+py+0Po5yUFQA7" class="has_caption lazy-load" width="700" height="396" alt="" title="" />
-    
     images.each do |image|
       
       uri, src, size, width, height = nil, nil, nil, nil, nil

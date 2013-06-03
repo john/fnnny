@@ -2,7 +2,6 @@ FactoryGirl.define do
   
   factory :item do
     name 'Purrsonals'
-    slug 'purrsonals'
     description 'The Cat Lovers Social Network'
     url 'http://www.purrsonals.com/'
     

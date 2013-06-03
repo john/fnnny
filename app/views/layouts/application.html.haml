@@ -20,12 +20,12 @@
     %meta{ :property => "og:site_name", :content => "Fnnny.com" }
     %meta{ :property => "og:url", :content => request.url }
     
-    - if @item
+    - if @item && @item.id.present?
       %meta{ :property => "og:type", :content => "article"}
-      %meta{ :property => "og:image", :content => item.image_url(:standard) }
-      %meta{ :property => "og:description", :content => item.description }
+      %meta{ :property => "og:image", :content => @item.image_url(:standard) }
+      %meta{ :property => "og:description", :content => @item.description }
       
-    - if @description
+    - elsif @description
       %meta{ :property => "og:description", :content => @description }
       
     - if @title

@@ -11,6 +11,7 @@ class HomeController < ApplicationController
     # @title = "#{configatron.app_name}. Like America's Home Videos, but dumber."
     # @title = "#{configatron.app_name}. So three guy walk into a bar..."
     # @title = "Smells #{configatron.app_name} in here"
+    # @title = "#{configatron.app_name}: tackling the big problems"
     
     # El quatro oh quatro:
     

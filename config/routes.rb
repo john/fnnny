@@ -16,7 +16,9 @@ Fnnny::Application.routes.draw do
     get :unlike, :on => :member
   end
   match '/items/page/:page' => 'items#more', :as => :more_items, :via => :get
+  match '/items/:id/add_image' => 'items#add_image', :as => :add_image, :via => :get
   match '/items/:id/:slug' => 'items#show', :as => :slugged_item, :via => :get
+  
   
   # resources :messages
   # resources :notification
@@ -24,8 +26,6 @@ Fnnny::Application.routes.draw do
     get :friends, :on => :member
     # post :invite, :on => :member
   end
-  
-  
   
   match '/categories' => 'tags#index', :as => :categories, :via => :get
   match '/categories/:id' => 'tags#show', :as => :category, :via => :get

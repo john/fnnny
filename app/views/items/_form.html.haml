@@ -25,10 +25,10 @@
       = f.label :url
       = f.text_field :url
   
-  .field
-    = f.label :image
-    = f.hidden_field :image_cache
-    = f.file_field :image #, :accept => "/image/*", :capture => 'camera'
+  -# .field
+  -#  = f.label :image
+  -#  = f.hidden_field :image_cache
+  -#  = f.file_field :image #, :accept => "/image/*", :capture => 'camera'
     
   .field
     = f.label :description
@@ -49,4 +49,4 @@
   -#   = f.label :longitude
   -#   = f.text_field :longitude
   .actions
-    = f.submit 'Save'
+    = f.submit 'Next'

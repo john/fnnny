@@ -4,9 +4,13 @@
 .item
   .name
     =link_to item.user.full_name, person_path(item.user)
+      
     %span.muted{:style => 'font-size: 11.5px'}
       #{time_ago_in_words(item.created_at).gsub('about ', '').gsub('alrededor de ', '')} #{t(:ago)}
-  
+      
+      - if item.user.id == current_user.id
+        [#{link_to 'edit', edit_item_path(item)}]
+        
   .title{:class => klass}
     =link_to item.name.html_safe, item.url, :target => '_blank'
     
