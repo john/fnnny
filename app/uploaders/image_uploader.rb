@@ -5,8 +5,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
   
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
-  include Sprockets::Helpers::RailsHelper
-  include Sprockets::Helpers::IsolatedHelper
+  # include Sprockets::Helpers::RailsHelper
+  # include Sprockets::Helpers::IsolatedHelper
   
   process :convert => 'png'
   # process :tags => ['item_image']

@@ -7,6 +7,7 @@ en:
     # html: "Discover and share the things you find amusing with Fnnny.<br />It's like facebook, but with no redeeming social value."
   
   description: "Discover and share funny stuff"
+  #description: "Enterprise Humor Management System"
   done_inviting: "I'm done inviting people"
   get_bookmarklet: 'get bookmarklet'
   invite: 
