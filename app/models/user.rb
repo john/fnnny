@@ -17,18 +17,21 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :first_name, :last_name, :slug, :email, :password, :password_confirmation, :remember_me, :current_password, :notifications
+  attr_accessible :full_name, :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :current_password, :notifications
+  # , :slug
   
   tracked :only => [:create], :owner => proc { |controller, model| controller.current_user if controller.present? }
   
   has_many :authentications, :dependent => :delete_all
-  has_many :items, :dependent => :delete_all, :order => 'created_at DESC'
+  
+  # has_many :items, :dependent => :delete_all, :order => 'created_at DESC'
+  has_many :items, -> {order 'created_at DESC'}, :dependent => :delete_all
+  
   has_many :comments, :dependent => :delete_all
   has_many :invites, :dependent => :delete_all
   
-  extend FriendlyId
-  friendly_id :full_name, use: :slugged
+  # extend FriendlyId
+  # friendly_id :full_name, use: :slugged
   
   acts_as_tagger
   acts_as_follower
@@ -63,7 +66,23 @@ class User < ActiveRecord::Base
     self.current_sign_in_ip =  remote_ip
     self.last_sign_in_ip = remote_ip
     
+    logger.debug '--------------------------'
+    logger.debug 'auth (model):'
+    logger.debug auth.to_string
+    logger.debug '--------------------------'
+    logger.debug "auth['info']"
+    logger.debug auth['info'].to_string
+    logger.debug '--------------------------'
+    
+    # so, available:
+    # auth['info']['email']
+    # auth['info']['image']
+    # auth['info']['name']
+    # auth['info']['provider']
+    # auth['info']['uid']
+    
     if auth['info']
+      self.full_name = auth['info']['name'] if 'name'.in? auth['info']
       self.first_name = auth['info']['first_name'] if auth['info']['first_name']
       self.last_name = auth['info']['last_name'] if auth['info']['last_name']
       self.email = auth['info']['email'] if auth['info']['email'] # Google, Yahoo, GitHub
@@ -121,19 +140,23 @@ class User < ActiveRecord::Base
     #return nil
   end
   
-  def full_name
-    [first_name, last_name].join(' ')
+  def name
+    if full_name.present?
+      full_name
+    else
+      [first_name, last_name].join(' ')
+    end
   end
   
   def display_name
-    full_name.blank? ? email : full_name
+    name.blank? ? email : name
   end
-  
-  # for 
   
   def display_first_name
     if first_name.present?
       first_name
+    elsif full_name.present?
+      full_name.include?(' ') ? full_name.split(' ').first : full_name
     elsif last_name.present?
       last_name
     else

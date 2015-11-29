@@ -2,6 +2,21 @@ class OmniauthCallbacksController < ApplicationController
   
   def create
     auth = request.env["omniauth.auth"]
+    
+    logger.debug '--------------------------'
+    logger.debug 'request.env["omniauth.auth"]'
+    logger.debug request.env["omniauth.auth"]
+    logger.debug '--------------------------'
+    
+    # #<OmniAuth::AuthHash credentials=#<OmniAuth::AuthHash expires=true expires_at=1453833662 token="CAAEMzrPeq5YBAHSS5MboVZCZCHzOAyUB7y3Q5GYJeumVz1OXxFxyqxUbz05GEvpxMGfjpdZBE8sQPjcn3APqrjkSiTUTnncZCkPirEQXMbCHfEDwJwqKMiOQCWtvqG6iP1iZB3ICJRBCMjH6a9NZAudD0YKuzWhDtYIyQxdfmC5Tm92ShAV8XW94fE5BAYpEAbcyXZAZCCWntgZDZD"> extra=#<OmniAuth::AuthHash raw_info=#<OmniAuth::AuthHash email="john@entelo.com" id="675003241" name="John McGrath">> info=#<OmniAuth::AuthHash::InfoHash email="john@entelo.com" image="http://graph.facebook.com/675003241/picture" name="John McGrath"> provider="facebook" uid="675003241">
+    
+    # so, available:
+    # auth['info']['email']
+    # auth['info']['image']
+    # auth['info']['name']
+    # auth['info']['provider']
+    # auth['info']['uid']
+    
     omni_params = request.env['omniauth.params']
     
     # Try to find authentication first

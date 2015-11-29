@@ -19,4 +19,14 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
   
+  
+  private
+
+    # Use this method to whitelist the permissible parameters. Example:
+    # params.require(:person).permit(:name, :age)
+    # Also, you can specialize this method with per-user checking of permissible attributes.
+    def item_params
+      params.require(:user).permit(:first_name, :last_name, :full_name)
+    end
+  
 end

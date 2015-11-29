@@ -1,6 +1,6 @@
-%div{:style => 'padding: 20px 0; border-bottom: 1px solid #ddd;'}
-  = render :partial => "people/follow", :locals => {:user => person, :size => 'btn-mini', :styl => 'btn-standard'}
+%div{style: 'padding: 20px 0; border-bottom: 1px solid #ddd;'}
+  = render :partial => "people/follow", locals: {user: person, size: 'btn-mini', style: 'btn-standard'}
   &nbsp;
-  = link_to person.display_name, person_path(person), :style => 'font-size: 18px; font-weight: bold;'
-  <br />
+  = link_to person.display_name, person_path(person), style: 'font-size: 18px; font-weight: bold;'
+  %br
   has added #{pluralize(person.items.count, 'post')}, #{pluralize(person.comments.count, 'comment')}

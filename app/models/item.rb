@@ -19,7 +19,7 @@ class Item < ActiveRecord::Base
   
   PER_PAGE = 5
   
-  attr_accessible :description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id, :tag_list, :comments_count
+  attr_accessible :description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id, :tag_list, :comments_count, :post_to_fb
   
   tracked :only => [:create], :owner => proc { |controller, model| controller.current_user if controller.present? }
   acts_as_taggable
@@ -90,7 +90,7 @@ class Item < ActiveRecord::Base
     end
   end
   
-  def belongs_to(user)
+  def belongs_to?(user)
     if self.user_id == user.id
       true
     else

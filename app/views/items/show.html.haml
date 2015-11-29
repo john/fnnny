@@ -1,7 +1,11 @@
 %ul#items
   %li= render :partial => "items/item", :locals => {:item => @item}
   
-<div class="fb-comments" data-href="#{slugged_item(@item)}" data-num-posts="10" data-notify="true" data-migrated="1"></div>
+- if signed_in?
+  <div class="fb-comments" data-href="#{slugged_item(@item)}" data-num-posts="10" data-notify="true" data-migrated="1"></div>
+- else
+  %br
+  Want to leave a comment? #{link_to "#{t(:sign_in_with).humanize } Facebook", @auth_url, :class => 'btn btn-primary btn-small'}.
 
 -# finally found something: http://stackoverflow.com/questions/7181315/id-value-in-facebook-comments-create-callback
 -#

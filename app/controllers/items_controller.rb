@@ -99,8 +99,11 @@ class ItemsController < ApplicationController
           if params[:bookmarklet] == 'true'
             render :partial => "items/thanks_bye"
           else
-            # redirect_to @item, notice: 'Item was successfully created.'
-            redirect_to add_image_path(@item)
+            if @item.url.present?
+              redirect_to add_image_path(@item)
+            else
+              redirect_to @item, notice: 'Item was successfully created.'
+            end
           end
         end
         
@@ -113,21 +116,17 @@ class ItemsController < ApplicationController
   end
   
   def add_image
-    if @item.user == current_user
-      @item = Item.find(params[:id])
-      @item.belongs_to(current_user)
+    @item = Item.find(params[:id])
+    @item.belongs_to?(current_user)
     
-      @images = @item.find_images
-    else
-      redirect_to root_path
-    end
+    @images = @item.find_images
   end
 
   # PUT /items/1
   # PUT /items/1.json
   def update
     @item = Item.find(params[:id])
-    @item.belongs_to(current_user)
+    @item.belongs_to?(current_user)
     
     respond_to do |format|
       if @item.update_attributes(item_params)
@@ -273,14 +272,12 @@ class ItemsController < ApplicationController
   end
   
   
-  
-  
   private
 
     # Use this method to whitelist the permissible parameters. Example:
     # params.require(:person).permit(:name, :age)
     # Also, you can specialize this method with per-user checking of permissible attributes.
     def item_params
-      params.require(:item).permit(:description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id, :tag_list)
+      params.require(:item).permit(:description, :latitude, :location, :longitude, :name, :url, :image, :image_cache, :original_image_url, :user_id, :tag_list, :post_to_fb)
     end
 end

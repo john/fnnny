@@ -3,17 +3,24 @@
 
 .item
   .name
-    =link_to item.user.full_name, person_path(item.user)
+    - if signed_in? && item.user == current_user
+      =link_to 'you', person_path(item.user)
+    
+    - else
+      =link_to item.user.name, person_path(item.user)
       
     %span.muted{:style => 'font-size: 11.5px'}
       #{time_ago_in_words(item.created_at).gsub('about ', '').gsub('alrededor de ', '')} #{t(:ago)}
       
-      - if item.user.id == current_user.id
+      - if signed_in? && item.user == current_user
         [#{link_to 'edit', edit_item_path(item)}]
         
   .title{:class => klass}
-    =link_to item.name.html_safe, item.url, :target => '_blank'
-    
+    - if item.url.present?
+      =link_to item.name.html_safe, item.url, :target => '_blank'
+    - else
+      = link_to item.name, item
+      
   .pic.mobile
     - if item.youtube?
       <iframe width="100%" src="#{item.embed_url}" frameborder="0" allowfullscreen></iframe>
