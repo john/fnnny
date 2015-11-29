@@ -3,6 +3,9 @@ Fnnny::Application.configure do
   # app_name and contact_email are configured in application.rb
   configatron.app_url = 'local.fnnny.com:3000'
   
+  config.eager_load = false
+  config.active_record.raise_in_transactional_callbacks = true
+  
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
